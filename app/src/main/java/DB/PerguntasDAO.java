@@ -1,9 +1,12 @@
 package DB;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import java.util.List;
 
 @Dao
 public interface PerguntasDAO {
@@ -14,10 +17,9 @@ public interface PerguntasDAO {
     @Delete
     public void deletePergunta(Perguntas pergunta);
 
-    @Query("Select * FROM perguntas")
-    public void getPergunta(Perguntas pergunta);
-
     @Query("Select * FROM perguntas WHERE id LIKE :ID")
-    public void getPerguntabyID(String ID);
+    public LiveData<List<Perguntas>> getPergunta(String ID);
+
+
 
 }
