@@ -1,15 +1,26 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     private EditText email, password;
     private Button loginButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +30,44 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextPassword);
         loginButton = findViewById(R.id.button3);
+        mAuth = FirebaseAuth.getInstance();
 
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userMail = email.getText().toString();
+                String userPass = password.getText().toString();
+
+                if(userMail.isEmpty()) {
+                    email.setError("Insira um email");
+                    email.requestFocus();
+                }
+                else if(userPass.isEmpty()) {
+                    password.setError("Insira uma password");
+                    password.requestFocus();
+                }
+                else if(userMail.isEmpty() || userPass.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Parametros vazios", Toast.LENGTH_SHORT).show();
+                }
+                else {
+
+                    mAuth.signInWithEmailAndPassword(userMail, userPass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "Login bem sucedido", Toast.LENGTH_SHORT).show();
+
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "Login falhou", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+
+
+            }
+        });
     }
 }
