@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "947633019414",
+    "project_id": "trabalhocmu-27ed2",
+    "storage_bucket": "trabalhocmu-27ed2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947633019414:android:f43cd8e8efa5c9e0353337",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947633019414-f3prjju2cqbsi29bcbrm9l0g2ti9k3h5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHRQ4pIS0rmUjLrA4WomwPB4zsM__WqvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947633019414-f3prjju2cqbsi29bcbrm9l0g2ti9k3h5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
