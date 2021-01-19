@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText email, password;
     private Button loginButton;
-
+    private TextView tv;
 
 
     private Button proxAtivity;
@@ -35,11 +36,14 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextPassword);
         loginButton = findViewById(R.id.button3);
+<<<<<<< Updated upstream
 
         proxAtivity = findViewById(R.id.buttonClassi);
 
+=======
+        tv = findViewById(R.id.textView);
+>>>>>>> Stashed changes
         mAuth = FirebaseAuth.getInstance();
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     password.requestFocus();
                 }
                 else if(userMail.isEmpty() || userPass.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Parametros vazios", Toast.LENGTH_SHORT).show();
+                    tv.setText("Parametros vazios");
                 }
                 else {
 
@@ -64,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Login bem sucedido", Toast.LENGTH_SHORT).show();
+                              tv.setText("Login bem sucedido");
 
                             }
                             else {
-                                Toast.makeText(MainActivity.this, "Login falhou", Toast.LENGTH_SHORT).show();
+                                tv.setText("Login falhou");
                             }
                         }
                     });
@@ -85,5 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
 }
