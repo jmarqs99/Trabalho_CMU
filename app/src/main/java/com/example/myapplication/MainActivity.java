@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.editTextTextEmailAddress);
         password = findViewById(R.id.editTextTextPassword);
         loginButton = findViewById(R.id.button3);
-<<<<<<< Updated upstream
+
 
         proxAtivity = findViewById(R.id.buttonClassi);
 
-=======
+
         tv = findViewById(R.id.textView);
->>>>>>> Stashed changes
+
         mAuth = FirebaseAuth.getInstance();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
