@@ -35,17 +35,10 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.editTextTextPassword);
         loginButton = findViewById(R.id.button3);
 
-
-
         proxAtivity = findViewById(R.id.buttonClassi);
-
-
-        tv = findViewById(R.id.textView);
 
         mAuth = FirebaseAuth.getInstance();
 
-
-        tv = findViewById(R.id.textView);
         mAuth = FirebaseAuth.getInstance();
 
 

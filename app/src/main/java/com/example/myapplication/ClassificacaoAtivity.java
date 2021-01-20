@@ -42,11 +42,10 @@ public class ClassificacaoAtivity extends AppCompatActivity {
         service.getClassificacao()
                 .enqueue(new Callback<Classificacao>(){
 
-
                     @Override
                     public void onResponse(Call<Classificacao> call, Response<Classificacao> response) {
                         Classificacao classi = response.body();
-
+                        Log.d("URL:", String.valueOf(call.request().url()));
                         Log.d("MOSTRAR CLASSI" , classi.toString());
                     }
 

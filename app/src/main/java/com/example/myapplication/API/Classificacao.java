@@ -3,26 +3,13 @@ package com.example.myapplication.API;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 public class Classificacao {
 
     private query query;
     private data data;
     private standings standings;
-    private overall overall;
-    private home home;
-    private away away;
-
-    public Classificacao() {
-    }
-
-    public Classificacao(Classificacao.query query, Classificacao.data data, Classificacao.standings standings, Classificacao.overall overall, Classificacao.home home, Classificacao.away away) {
-        this.query = query;
-        this.data = data;
-        this.standings = standings;
-        this.overall = overall;
-        this.home = home;
-        this.away = away;
-    }
 
     public Classificacao.query getQuery() {
         return query;
@@ -40,37 +27,7 @@ public class Classificacao {
         this.data = data;
     }
 
-    public Classificacao.standings getStandings() {
-        return standings;
-    }
 
-    public void setStandings(Classificacao.standings standings) {
-        this.standings = standings;
-    }
-
-    public Classificacao.overall getOverall() {
-        return overall;
-    }
-
-    public void setOverall(Classificacao.overall overall) {
-        this.overall = overall;
-    }
-
-    public Classificacao.home getHome() {
-        return home;
-    }
-
-    public void setHome(Classificacao.home home) {
-        this.home = home;
-    }
-
-    public Classificacao.away getAway() {
-        return away;
-    }
-
-    public void setAway(Classificacao.away away) {
-        this.away = away;
-    }
 
     private class query {
         private String apikey;
@@ -91,13 +48,21 @@ public class Classificacao {
         public void setSeason_id(String season_id) {
             this.season_id = season_id;
         }
+
+        @Override
+        public String toString() {
+            return "query{" +
+                    "apikey='" + apikey + '\'' +
+                    ", season_id='" + season_id + '\'' +
+                    '}';
+        }
     }
 
     private class data {
         private int season_id;
         private int league_id;
         private int has_groups;
-        private standings[] standings;
+        private standings standings;
 
         public int getSeason_id() {
             return season_id;
@@ -123,17 +88,20 @@ public class Classificacao {
             this.has_groups = has_groups;
         }
 
-        public Classificacao.standings[] getStandings() {
-            return standings;
-        }
-
-        public void setStandings(Classificacao.standings[] standings) {
-            this.standings = standings;
+        @Override
+        public String toString() {
+            return "data{" +
+                    "season_id=" + season_id +
+                    ", league_id=" + league_id +
+                    ", has_groups=" + has_groups +
+                    ", standings=" + standings +
+                    '}';
         }
     }
 
     private class standings {
         private int team_id;
+        private int position;
         private int points;
         private String status;
         private String result;
@@ -195,6 +163,19 @@ public class Classificacao {
 
         public void setAway(Classificacao.away away) {
             this.away = away;
+        }
+
+        @Override
+        public String toString() {
+            return "standings{" +
+                    "team_id=" + team_id +
+                    ", points=" + points +
+                    ", status='" + status + '\'' +
+                    ", result='" + result + '\'' +
+                    ", overall=" + overall +
+                    ", home=" + home +
+                    ", away=" + away +
+                    '}';
         }
     }
 
@@ -402,9 +383,6 @@ public class Classificacao {
                 "query=" + query +
                 ", data=" + data +
                 ", standings=" + standings +
-                ", overall=" + overall +
-                ", home=" + home +
-                ", away=" + away +
                 '}';
     }
 }
