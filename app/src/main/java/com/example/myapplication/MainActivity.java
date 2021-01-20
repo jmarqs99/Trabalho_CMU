@@ -24,9 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton;
     private TextView tv;
 
-
     private Button proxAtivity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +36,18 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.button3);
 
 
+
         proxAtivity = findViewById(R.id.buttonClassi);
 
 
         tv = findViewById(R.id.textView);
 
         mAuth = FirebaseAuth.getInstance();
+
+
+        tv = findViewById(R.id.textView);
+        mAuth = FirebaseAuth.getInstance();
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,33 +67,40 @@ public class MainActivity extends AppCompatActivity {
                     tv.setText("Parametros vazios");
                 }
                 else {
-
-                    mAuth.signInWithEmailAndPassword(userMail, userPass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()) {
-                              tv.setText("Login bem sucedido");
-
-                            }
-                            else {
-                                tv.setText("Login falhou");
-                            }
-                        }
-                    });
+                   loginUser(userMail, userPass);
                 }
+
 
                 proxAtivity.setOnClickListener(new View.OnClickListener(){
 
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(MainActivity.this,ClassificacaoAtivity.class);
+                        Intent intent = new Intent(MainActivity.this, RegistarActivity.class);
                         startActivity(intent);
                     }
                 });
 
+
             }
         });
 
+    }
+
+    private void loginUser(String userMail, String userPass) {
+        mAuth.signInWithEmailAndPassword(userMail, userPass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    tv.setText("Login bem sucedido");
+                    Intent intent = new Intent(MainActivity.this,ClassificacaoAtivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    tv.setText("Login falhou");
+                }
+            }
+        });
     }
 
 }

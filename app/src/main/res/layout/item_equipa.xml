@@ -15,4 +15,10 @@
         android:id="@+id/equipa_pontos"
         android:text="texto"/>
 
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout" />
+
 </LinearLayout>

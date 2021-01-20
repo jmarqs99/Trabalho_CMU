@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.myapplication.API.Classificacao;
@@ -13,6 +17,7 @@ import com.example.myapplication.API.RetrofitClient;
 import com.example.myapplication.API.SportsDataAPI;
 import com.example.myapplication.RecyclerView.Equipa;
 import com.example.myapplication.RecyclerView.EquipaAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +30,13 @@ public class ClassificacaoAtivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private EquipaAdapter mAdapter;
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classificacao_ativity);
+
 
         final SportsDataAPI service = RetrofitClient.getRetrofitInstance().create(SportsDataAPI.class);
         service.getClassificacao()
@@ -63,5 +70,8 @@ public class ClassificacaoAtivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        logoutButton = findViewById(R.id.logoutButton);
+
     }
 }
