@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginSelected{
 
     private FirebaseAuth mAuth;
     private EditText email, password;
@@ -26,59 +29,29 @@ public class MainActivity extends AppCompatActivity {
 
     private Button proxAtivity;
 
+
+    FrameLayout frameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        email = findViewById(R.id.editTextTextEmailAddress);
-        password = findViewById(R.id.editTextTextPassword);
-        loginButton = findViewById(R.id.button3);
-
-        proxAtivity = findViewById(R.id.buttonClassi);
-
         mAuth = FirebaseAuth.getInstance();
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userMail = email.getText().toString();
-                String userPass = password.getText().toString();
+        LoginFragment loginFragment = new LoginFragment();
 
-                if(userMail.isEmpty()) {
-                    email.setError("Insira um email");
-                    email.requestFocus();
-                }
-                else if(userPass.isEmpty()) {
-                    password.setError("Insira uma password");
-                    password.requestFocus();
-                }
-                else if(userMail.isEmpty() || userPass.isEmpty()) {
-
-                }
-                else {
-                   loginUser(userMail, userPass);
-                }
-
-
-                proxAtivity.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(MainActivity.this, RegistarActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-
-            }
-        });
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.mainActivity, loginFragment, "home");
+        ft.addToBackStack("home");
+        ft.commit();
 
     }
 
-    private void loginUser(String userMail, String userPass) {
-        Log.d("Main","mail:"+userMail+",pass:"+userPass);
-        mAuth.signInWithEmailAndPassword(userMail, userPass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+    @Override
+    public void onSelected(String mail, String pass) {
+
+        mAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
@@ -93,5 +66,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }
