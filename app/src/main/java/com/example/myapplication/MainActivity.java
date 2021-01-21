@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText email, password;
     private Button loginButton;
-    private TextView tv;
 
     private Button proxAtivity;
 
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     password.requestFocus();
                 }
                 else if(userMail.isEmpty() || userPass.isEmpty()) {
-                    tv.setText("Parametros vazios");
+
                 }
                 else {
                    loginUser(userMail, userPass);
@@ -84,13 +83,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    tv.setText("Login bem sucedido");
+
                     Intent intent = new Intent(MainActivity.this,ClassificacaoAtivity.class);
                     startActivity(intent);
                     finish();
                 }
                 else {
-                    tv.setText("Login falhou");
+
                 }
             }
         });
