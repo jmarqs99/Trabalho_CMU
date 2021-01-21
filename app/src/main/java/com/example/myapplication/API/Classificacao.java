@@ -116,6 +116,14 @@ public class Classificacao {
             this.team_id = team_id;
         }
 
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
+
         public int getPoints() {
             return points;
         }
@@ -168,6 +176,7 @@ public class Classificacao {
         public String toString() {
             return "standings{" +
                     "team_id=" + team_id +
+                    ", position=" + position +
                     ", points=" + points +
                     ", status='" + status + '\'' +
                     ", result='" + result + '\'' +
@@ -242,6 +251,19 @@ public class Classificacao {
         public void setGoals_against(int goals_against) {
             this.goals_against = goals_against;
         }
+
+        @Override
+        public String toString() {
+            return "overall{" +
+                    "games_played=" + games_played +
+                    ", won=" + won +
+                    ", draw=" + draw +
+                    ", lost=" + lost +
+                    ", goal_diff=" + goal_diff +
+                    ", goals_scored=" + goals_scored +
+                    ", goals_against=" + goals_against +
+                    '}';
+        }
     }
 
     private class home {
@@ -308,6 +330,19 @@ public class Classificacao {
         public void setGoals_against(int goals_against) {
             this.goals_against = goals_against;
         }
+
+        @Override
+        public String toString() {
+            return "home{" +
+                    "games_played=" + games_played +
+                    ", won=" + won +
+                    ", draw=" + draw +
+                    ", lost=" + lost +
+                    ", goal_diff=" + goal_diff +
+                    ", goals_scored=" + goals_scored +
+                    ", goals_against=" + goals_against +
+                    '}';
+        }
     }
 
     private class away {
@@ -373,6 +408,19 @@ public class Classificacao {
 
         public void setGoals_against(int goals_against) {
             this.goals_against = goals_against;
+        }
+
+        @Override
+        public String toString() {
+            return "away{" +
+                    "games_played=" + games_played +
+                    ", won=" + won +
+                    ", draw=" + draw +
+                    ", lost=" + lost +
+                    ", goal_diff=" + goal_diff +
+                    ", goals_scored=" + goals_scored +
+                    ", goals_against=" + goals_against +
+                    '}';
         }
     }
 
