@@ -5,32 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+public class RegistarUserFragment extends Fragment {
 
-public class LoginFragment extends Fragment {
-
-    LoginSelected mContext;
-    private Context context;
-    //private FirebaseAuth mAuth;
+    RegisterSelected mContext;
     private EditText email, password;
-    private Button loginButton;
+    private Button registarUserButton, voltarButton;
+    private Context context;
 
-    private Button registarUserButton;
-    private TextView teste;
-
-    public LoginFragment() {
+    public RegistarUserFragment() {
         // Required empty public constructor
     }
 
@@ -43,22 +32,28 @@ public class LoginFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.mContext = (LoginSelected) context;
+        this.mContext = (RegisterSelected) context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_login_fragment, container, false);
-        email = v.findViewById(R.id.editTextTextEmailAddress);
-        password = v.findViewById(R.id.editTextTextPassword);
-        loginButton = v.findViewById(R.id.button3);
-        teste = v.findViewById(R.id.textViewTeste);
+        View v = inflater.inflate(R.layout.activity_registar_user_fragment, container, false);
+        email = v.findViewById(R.id.editTextTextRegisterEmailAddress);
+        password = v.findViewById(R.id.editTextTextRegisterPassword);
+        voltarButton = v.findViewById(R.id.voltarLoginPage);
 
-        registarUserButton = v.findViewById(R.id.buttonClassi);
+        registarUserButton = v.findViewById(R.id.registarUserButton);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        voltarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.OnBackToLoginPageSelected();
+            }
+        });
+
+        registarUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String userMail = email.getText().toString();
@@ -76,22 +71,12 @@ public class LoginFragment extends Fragment {
 
                 }
                 else {
-                    mContext.onSelected(userMail, userPass);
+                    mContext.OnRegisterSelected(userMail, userPass);
                 }
-            }
-        });
-
-        registarUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.onRegisterButtonSelected();
             }
         });
 
 
         return v;
     }
-
-
-
 }
