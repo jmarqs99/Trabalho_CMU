@@ -1,23 +1,23 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.Intent;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.API.Classificacao;
 import com.example.myapplication.API.RetrofitClient;
 import com.example.myapplication.API.SportsDataAPI;
 import com.example.myapplication.RecyclerView.Equipa;
 import com.example.myapplication.RecyclerView.EquipaAdapter;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,12 +65,43 @@ public class ClassificacaoAtivity extends AppCompatActivity {
 
 
         mAdapter = new EquipaAdapter(this,equipas);
-        mRecyclerView = findViewById(R.id.recycler_view);
+       /* mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
 
         logoutButton = findViewById(R.id.logoutButton);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction tr = fm.beginTransaction();
+                switch (item.getItemId()) {
+                    case R.id.action_recents:
+                        Toast.makeText(ClassificacaoAtivity.this, "Something", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_favorites:
+                        ClassificacoesFragment newFragment = new ClassificacoesFragment();
+
+                        tr.replace(R.id.fragment2,newFragment);
+                        tr.addToBackStack(null);
+                        tr.commit();
+                        Toast.makeText(ClassificacaoAtivity.this, "Classificações", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_nearby:
+                        PerfilFragment newPFragment = new PerfilFragment();
+
+                        tr.replace(R.id.fragment2,newPFragment);
+                        tr.addToBackStack(null);
+                        tr.commit();
+                        Toast.makeText(ClassificacaoAtivity.this, "Perfil", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
 
     }
 }
