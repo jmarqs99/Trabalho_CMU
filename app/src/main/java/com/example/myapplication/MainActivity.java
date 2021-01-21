@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
         proxAtivity = findViewById(R.id.buttonClassi);
 
         mAuth = FirebaseAuth.getInstance();
-
-        mAuth = FirebaseAuth.getInstance();
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginUser(String userMail, String userPass) {
+        Log.d("Main","mail:"+userMail+",pass:"+userPass);
         mAuth.signInWithEmailAndPassword(userMail, userPass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

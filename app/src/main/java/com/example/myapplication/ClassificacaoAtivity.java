@@ -37,8 +37,7 @@ public class ClassificacaoAtivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classificacao_ativity);
 
-
-        final SportsDataAPI service = RetrofitClient.getRetrofitInstance().create(SportsDataAPI.class);
+        final SportsDataAPI service = RetrofitClient.getApi();
         service.getClassificacao()
                 .enqueue(new Callback<Classificacao>(){
 
@@ -51,6 +50,7 @@ public class ClassificacaoAtivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Classificacao> call, Throwable t) {
+                        Log.d("Error",t.toString());
                         Toast.makeText(ClassificacaoAtivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });

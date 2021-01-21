@@ -20,7 +20,7 @@ public class RetrofitClient {
         return retrofit;
     }
 
-    private SportsDataAPI getApi(){
+    public static SportsDataAPI getApi(){
         return getRetrofitInstance().create(SportsDataAPI.class);
     }
 

@@ -9,7 +9,6 @@ public class Classificacao {
 
     private query query;
     private data data;
-    private standings standings;
 
     public Classificacao.query getQuery() {
         return query;
@@ -62,7 +61,7 @@ public class Classificacao {
         private int season_id;
         private int league_id;
         private int has_groups;
-        private standings standings;
+        private standings[] standings;
 
         public int getSeason_id() {
             return season_id;
@@ -94,7 +93,7 @@ public class Classificacao {
                     "season_id=" + season_id +
                     ", league_id=" + league_id +
                     ", has_groups=" + has_groups +
-                    ", standings=" + standings +
+                    ", standings=" + standings[0].toString() +
                     '}';
         }
     }
@@ -381,8 +380,7 @@ public class Classificacao {
     public String toString() {
         return "Classificacao{" +
                 "query=" + query +
-                ", data=" + data +
-                ", standings=" + standings +
+                ", data=" + data.toString() +
                 '}';
     }
 }
