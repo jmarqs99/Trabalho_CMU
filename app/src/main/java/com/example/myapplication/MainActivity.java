@@ -34,33 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
 
     FrameLayout frameLayout;
-/**
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
-        if(firebaseUser != null) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction tr = fm.beginTransaction();
-
-            QuizFragment newQFragment = new QuizFragment();
-
-            tr.replace(R.id.fragment2,newQFragment);
-            tr.addToBackStack(null);
-            tr.commit();
-        }
-        else {
-            LoginFragment loginFragment = new LoginFragment();
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.mainActivity, loginFragment, "home");
-            ft.addToBackStack("home");
-            ft.commit();
-        }
-    }
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,13 +48,22 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         mAuth = FirebaseAuth.getInstance();
 
+        /**
         LoginFragment loginFragment = new LoginFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.mainActivity, loginFragment, "home");
         ft.addToBackStack("home");
         ft.commit();
+*/
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
     }
 
     @Override
@@ -91,12 +74,15 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
                     Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
                     startActivity(intent);
                     finish();
                     errorMessages.setText("Login bem sucedido");
                 }
                 else {
+                    updateUI(null);
                     errorMessages.setText("Login falhado");
                 }
             }
@@ -122,10 +108,12 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
                     OnBackToLoginPageSelected();
                     errorMessage.setText("Conta registada com sucesso!");
                 }
                 else {
+                    updateUI(null);
                     errorMessage.setText("O registo de conta falhou!");
                 }
             }
@@ -143,5 +131,23 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.addToBackStack("voltarLoginPage");
         ft.commit();
 
+    }
+
+
+    private void updateUI(FirebaseUser user) {
+
+        if(user != null) {
+            Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            LoginFragment loginFragment = new LoginFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.mainActivity, loginFragment, "home");
+            ft.addToBackStack("home");
+            ft.commit();
+        }
     }
 }

@@ -1,13 +1,16 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class PerfilFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
+    LogoutSelected lg;
     private TextView emailUser, passUser;
     private Button loggout, editarPass;
 
@@ -27,9 +30,13 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+       // this.lg = (LogoutSelected)  context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -45,17 +52,19 @@ public class PerfilFragment extends Fragment {
         loggout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
-                /**
-                FragmentManager fm = getChildFragmentManager();
-                FragmentTransaction tr = fm.beginTransaction();
+
 
                 LoginFragment loginFragment = new LoginFragment();
+                //QuizFragment quizFragment = new QuizFragment();
 
-                tr.replace(R.id.mainActivity,loginFragment);
-                tr.addToBackStack(null);
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction tr = fm.beginTransaction();
+
+                tr.replace(R.id.fragment2,loginFragment, "voltar");
+                tr.addToBackStack("voltar");
                 tr.commit();
-                 */
+
+
             }
         });
 
