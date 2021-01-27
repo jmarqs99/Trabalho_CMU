@@ -1,6 +1,6 @@
-package com.example.myapplication.API.Models;
+package com.example.myapplication.API.Models_Equipa;
 
-public class Classificacao {
+public class Equipa {
 
     private query query;
     private data data;
@@ -19,13 +19,5 @@ public class Classificacao {
 
     public void setData(data data) {
         this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        return "Classificacao{" +
-                "query=" + query +
-                ", data=" + data.toString() +
-                '}';
     }
 }

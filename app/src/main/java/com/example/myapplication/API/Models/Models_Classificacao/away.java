@@ -1,4 +1,4 @@
-package com.example.myapplication.API.Models;
+package com.example.myapplication.API.Models.Models_Classificacao;
 
 public class away {
 

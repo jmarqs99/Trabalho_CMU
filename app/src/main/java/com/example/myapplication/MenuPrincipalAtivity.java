@@ -3,7 +3,6 @@ package com.example.myapplication;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,19 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.API.Models.Classificacao;
-import com.example.myapplication.API.RetrofitClient;
-import com.example.myapplication.API.SportsDataAPI;
-import com.example.myapplication.RecyclerView.Equipa;
 import com.example.myapplication.RecyclerView.EquipaAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MenuPrincipalAtivity extends AppCompatActivity {
 

@@ -1,6 +1,6 @@
-package com.example.myapplication.API.Models;
+package com.example.myapplication.API.Models.Models_Classificacao;
 
-public class home {
+public class overall {
 
     private int games_played;
     private int won;
@@ -68,7 +68,7 @@ public class home {
 
     @Override
     public String toString() {
-        return "home{" +
+        return "overall{" +
                 "games_played=" + games_played +
                 ", won=" + won +
                 ", draw=" + draw +
@@ -78,4 +78,5 @@ public class home {
                 ", goals_against=" + goals_against +
                 '}';
     }
+
 }

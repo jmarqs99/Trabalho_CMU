@@ -1,12 +1,12 @@
 package com.example.myapplication.RecyclerView;
 
-public class Equipa {
+public class Equipa_item {
 
     private String nome;
 
     private int pontos;
 
-    public Equipa(String nome, int pontos) {
+    public Equipa_item(String nome, int pontos) {
         this.nome = nome;
         this.pontos = pontos;
     }

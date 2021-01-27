@@ -1,4 +1,8 @@
-package com.example.myapplication.API.Models;
+package com.example.myapplication.API.Models.Models_Classificacao;
+
+import com.example.myapplication.API.Models.Models_Classificacao.away;
+import com.example.myapplication.API.Models.Models_Classificacao.home;
+import com.example.myapplication.API.Models.Models_Classificacao.overall;
 
 public class standings {
 

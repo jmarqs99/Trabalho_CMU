@@ -17,12 +17,12 @@ import java.util.List;
 public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaViewHolder> {
 
     private Context mContext;
-    private List<Equipa> mEquipa;
+    private List<Equipa_item> mEquipaItem;
 
-    public EquipaAdapter(Context mContext, List<Equipa> mEquipa) {
+    public EquipaAdapter(Context mContext, List<Equipa_item> mEquipaItem) {
         this.mContext = mContext;
-        this.mEquipa = mEquipa;
-        Log.d("TAMANHO DAS EQUIPAS" , mEquipa.size() + "");
+        this.mEquipaItem = mEquipaItem;
+        Log.d("TAMANHO DAS EQUIPAS" , mEquipaItem.size() + "");
     }
 
     @NonNull
@@ -38,19 +38,19 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
 
     @Override
     public void onBindViewHolder(@NonNull EquipaViewHolder holder, int position) {
-        Equipa equipa = mEquipa.get(position);
+        Equipa_item equipaItem = mEquipaItem.get(position);
 
         TextView textView = holder.nameTextView;
-        textView.setText(equipa.getNome());
+        textView.setText(equipaItem.getNome());
 
         TextView textView2 = holder.pontosTextView;
-        textView2.setText(equipa.getPontos() + "");
+        textView2.setText(equipaItem.getPontos() + "");
 
     }
 
     @Override
     public int getItemCount() {
-        return mEquipa.size();
+        return mEquipaItem.size();
     }
 
 
