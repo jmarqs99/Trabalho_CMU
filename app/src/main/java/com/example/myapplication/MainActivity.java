@@ -36,6 +36,32 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     FrameLayout frameLayout;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        if(firebaseUser != null) {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction tr = fm.beginTransaction();
+
+            QuizFragment newQFragment = new QuizFragment();
+
+            tr.replace(R.id.fragment2,newQFragment);
+            tr.addToBackStack(null);
+            tr.commit();
+        }
+        else {
+            LoginFragment loginFragment = new LoginFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.mainActivity, loginFragment, "home");
+            ft.addToBackStack("home");
+            ft.commit();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio_fragment);
@@ -48,13 +74,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         mAuth = FirebaseAuth.getInstance();
 
-        LoginFragment loginFragment = new LoginFragment();
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.mainActivity, loginFragment, "home");
-        ft.addToBackStack("home");
-        ft.commit();
     }
 
     @Override
@@ -79,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
     @Override
     public void onRegisterButtonSelected() {
-
         RegistarUserFragment registarUser = new RegistarUserFragment();
 
         FragmentManager fm = getSupportFragmentManager();
