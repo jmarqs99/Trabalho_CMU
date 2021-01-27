@@ -1,6 +1,6 @@
 package com.example.myapplication.API;
 
-import java.util.List;
+import com.example.myapplication.API.Models.Classificacao;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

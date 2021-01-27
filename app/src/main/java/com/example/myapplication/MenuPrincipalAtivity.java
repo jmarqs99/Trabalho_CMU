@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.API.Classificacao;
+import com.example.myapplication.API.Models.Classificacao;
 import com.example.myapplication.API.RetrofitClient;
 import com.example.myapplication.API.SportsDataAPI;
 import com.example.myapplication.RecyclerView.Equipa;
@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClassificacaoAtivity extends AppCompatActivity {
+public class MenuPrincipalAtivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private EquipaAdapter mAdapter;
@@ -51,7 +51,7 @@ public class ClassificacaoAtivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<Classificacao> call, Throwable t) {
                         Log.d("Error",t.toString());
-                        Toast.makeText(ClassificacaoAtivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MenuPrincipalAtivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -80,7 +80,7 @@ public class ClassificacaoAtivity extends AppCompatActivity {
                 FragmentTransaction tr = fm.beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.action_recents:
-                        Toast.makeText(ClassificacaoAtivity.this, "Something", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MenuPrincipalAtivity.this, "Something", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_favorites:
                         ClassificacoesFragment newFragment = new ClassificacoesFragment();
@@ -88,7 +88,7 @@ public class ClassificacaoAtivity extends AppCompatActivity {
                         tr.replace(R.id.fragment2,newFragment);
                         tr.addToBackStack(null);
                         tr.commit();
-                        Toast.makeText(ClassificacaoAtivity.this, "Classificações", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MenuPrincipalAtivity.this, "Classificações", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_nearby:
                         PerfilFragment newPFragment = new PerfilFragment();
@@ -96,7 +96,7 @@ public class ClassificacaoAtivity extends AppCompatActivity {
                         tr.replace(R.id.fragment2,newPFragment);
                         tr.addToBackStack(null);
                         tr.commit();
-                        Toast.makeText(ClassificacaoAtivity.this, "Perfil", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MenuPrincipalAtivity.this, "Perfil", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;

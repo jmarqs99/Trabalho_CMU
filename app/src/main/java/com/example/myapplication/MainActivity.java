@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
 
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
-                    Intent intent = new Intent(MainActivity.this,ClassificacaoAtivity.class);
+                    Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
                     startActivity(intent);
                     finish();
                 }
