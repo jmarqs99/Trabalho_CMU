@@ -1,7 +1,11 @@
 package com.example.myapplication;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -16,6 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
 
@@ -32,6 +39,13 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(this, NewQuestionsBroadcastReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        am.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis() + 500, AlarmManager.INTERVAL_DAY, pi);
+        Log.d("Main","Alarm setted up");
+
         mAuth = FirebaseAuth.getInstance();
 
         LoginFragment loginFragment = new LoginFragment();
@@ -41,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.replace(R.id.mainActivity, loginFragment, "home");
         ft.addToBackStack("home");
         ft.commit();
-
     }
 
     @Override
