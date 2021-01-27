@@ -13,7 +13,7 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_main_fragment_perfil, container, false);
+        View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 
         return v;
     }

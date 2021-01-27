@@ -35,7 +35,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_classificacao_ativity);
+        setContentView(R.layout.menu_principal_fragment);
 
         final SportsDataAPI service = RetrofitClient.getApi();
         service.getClassificacao()
@@ -65,10 +65,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity {
 
 
         mAdapter = new EquipaAdapter(this,equipas);
-       /* mRecyclerView = findViewById(R.id.recycler_view);
-        mRecyclerView.setAdapter(mAdapter);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
 
         logoutButton = findViewById(R.id.logoutButton);
 

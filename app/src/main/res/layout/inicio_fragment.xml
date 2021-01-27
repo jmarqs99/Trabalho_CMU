@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     tools:context=".MainActivity"
-    android:orientation="vertical">w
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/mainActivity"
@@ -15,7 +15,7 @@
 
         <fragment
             android:id="@+id/fragment"
-            android:name="com.example.myapplication.ClassificacoesFragment"
+            android:name="com.example.myapplication.LoginFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

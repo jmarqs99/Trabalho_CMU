@@ -1,11 +1,9 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginFragment extends Fragment {
 
@@ -50,7 +43,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.activity_login_fragment, container, false);
+        View v = inflater.inflate(R.layout.login_fragment, container, false);
         email = v.findViewById(R.id.editTextTextEmailAddress);
         password = v.findViewById(R.id.editTextTextPassword);
         loginButton = v.findViewById(R.id.button3);

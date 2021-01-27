@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.inicio_fragment);
 
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(this, NewQuestionsBroadcastReceiver.class);
