@@ -21,7 +21,7 @@ public class LoginFragment extends Fragment {
     private Button loginButton;
 
     private Button registarUserButton;
-    private TextView teste;
+    private TextView errorMessage;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -47,7 +47,7 @@ public class LoginFragment extends Fragment {
         email = v.findViewById(R.id.editTextTextEmailAddress);
         password = v.findViewById(R.id.editTextTextPassword);
         loginButton = v.findViewById(R.id.button3);
-        teste = v.findViewById(R.id.textViewTeste);
+        errorMessage = v.findViewById(R.id.textViewTeste);
 
         registarUserButton = v.findViewById(R.id.buttonClassi);
 
@@ -69,7 +69,7 @@ public class LoginFragment extends Fragment {
 
                 }
                 else {
-                    mContext.onSelected(userMail, userPass);
+                    mContext.onSelected(userMail, userPass, errorMessage);
                 }
             }
         });

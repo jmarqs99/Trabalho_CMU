@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/login"
+            android:text="J2M Football"
 
             android:textColor="@color/blue"
             android:textSize="25sp"
@@ -86,10 +86,15 @@
             android:text="Não tens conta? Regista-te aqui!" />
 
         <TextView
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:textAlignment="center"
             android:id="@+id/textViewTeste"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text=""
+            />
 
 
     </LinearLayout>

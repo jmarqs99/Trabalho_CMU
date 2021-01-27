@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
     @Override
-    public void onSelected(String mail, String pass) {
+    public void onSelected(String mail, String pass, final TextView errorMessages) {
 
         mAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -67,9 +68,10 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                     Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
                     startActivity(intent);
                     finish();
+                    errorMessages.setText("Login bem sucedido");
                 }
                 else {
-
+                    errorMessages.setText("Login falhado");
                 }
             }
         });
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
     @Override
     public void onRegisterButtonSelected() {
+
         RegistarUserFragment registarUser = new RegistarUserFragment();
 
         FragmentManager fm = getSupportFragmentManager();
@@ -88,13 +91,17 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
     @Override
-    public void OnRegisterSelected(String email, String password) {
+    public void OnRegisterSelected(String email, String password, final TextView errorMessage) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     OnBackToLoginPageSelected();
+                    errorMessage.setText("Conta registada com sucesso!");
+                }
+                else {
+                    errorMessage.setText("O registo de conta falhou!");
                 }
             }
         });

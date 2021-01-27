@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class RegistarUserFragment extends Fragment {
 
@@ -17,6 +18,7 @@ public class RegistarUserFragment extends Fragment {
     private EditText email, password;
     private Button registarUserButton, voltarButton;
     private Context context;
+    private TextView errorMessage;
 
     public RegistarUserFragment() {
         // Required empty public constructor
@@ -43,6 +45,7 @@ public class RegistarUserFragment extends Fragment {
         password = v.findViewById(R.id.editTextTextRegisterPassword);
         voltarButton = v.findViewById(R.id.voltarLoginPage);
 
+        errorMessage = v.findViewById(R.id.textViewErrorRegister);
         registarUserButton = v.findViewById(R.id.registarUserButton);
 
         voltarButton.setOnClickListener(new View.OnClickListener() {
@@ -66,11 +69,11 @@ public class RegistarUserFragment extends Fragment {
                     password.setError("Insira uma password");
                     password.requestFocus();
                 }
-                else if(userMail.isEmpty() || userPass.isEmpty()) {
-
+                else if(password.length() < 6) {
+                    password.setError("A password precisa de ter pelo menos 6 caracteres");
                 }
                 else {
-                    mContext.OnRegisterSelected(userMail, userPass);
+                    mContext.OnRegisterSelected(userMail, userPass, errorMessage);
                 }
             }
         });
