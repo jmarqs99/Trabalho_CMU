@@ -1,6 +1,7 @@
 package com.example.myapplication.RecyclerView;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
     public EquipaAdapter(Context mContext, List<Equipa> mEquipa) {
         this.mContext = mContext;
         this.mEquipa = mEquipa;
+        Log.d("TAMANHO DAS EQUIPAS" , mEquipa.size() + "");
     }
 
     @NonNull
@@ -43,7 +45,6 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
 
         TextView textView2 = holder.pontosTextView;
         textView2.setText(equipa.getPontos() + "");
-
 
     }
 

@@ -31,6 +31,14 @@ public class data {
         this.has_groups = has_groups;
     }
 
+    public standings[] getStandings() {
+        return standings;
+    }
+
+    public void setStandings(standings[] standings) {
+        this.standings = standings;
+    }
+
     @Override
     public String toString() {
         return "data{" +

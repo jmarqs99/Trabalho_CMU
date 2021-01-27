@@ -37,36 +37,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal_fragment);
 
-        final SportsDataAPI service = RetrofitClient.getApi();
-        service.getClassificacao()
-                .enqueue(new Callback<Classificacao>(){
 
-                    @Override
-                    public void onResponse(Call<Classificacao> call, Response<Classificacao> response) {
-                        Classificacao classi = response.body();
-                        Log.d("URL:", String.valueOf(call.request().url()));
-                        Log.d("MOSTRAR CLASSI" , classi.toString());
-                    }
-
-                    @Override
-                    public void onFailure(Call<Classificacao> call, Throwable t) {
-                        Log.d("Error",t.toString());
-                        Toast.makeText(MenuPrincipalAtivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-        List<Equipa> equipas = new ArrayList<>();
-
-        Equipa equipa1 = new Equipa("Nome",60);
-
-
-        equipas.add(0,equipa1);
-
-
-        mAdapter = new EquipaAdapter(this,equipas);
-
-        logoutButton = findViewById(R.id.logoutButton);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
