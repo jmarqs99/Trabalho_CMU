@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
 
     FrameLayout frameLayout;
-
+/**
     @Override
     protected void onStart() {
         super.onStart();
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             ft.commit();
         }
     }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +73,13 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         Log.d("Main","Alarm setted up");
 
         mAuth = FirebaseAuth.getInstance();
+
+        LoginFragment loginFragment = new LoginFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.mainActivity, loginFragment, "home");
+        ft.addToBackStack("home");
+        ft.commit();
 
     }
 
