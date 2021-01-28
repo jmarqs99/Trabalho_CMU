@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -14,8 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.RecyclerView.EquipaAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected {
+public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected{
     private FirebaseAuth mAuth;
 
     @Override
@@ -70,7 +73,40 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+
+    }
+
+    @Override
     public void OnLogoutSelect() {
         mAuth.signOut();
+        updateUI(null);
     }
+
+
+
+    private void updateUI(FirebaseUser user) {
+        if(user != null) {
+
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction tr = fm.beginTransaction();
+
+            QuizFragment newQFragment = new QuizFragment();
+
+            tr.replace(R.id.fragment2,newQFragment);
+            tr.addToBackStack(null);
+            tr.commit();
+
+        }
+        else {
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
+        }
+    }
+
 }

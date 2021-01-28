@@ -27,13 +27,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
 
     private FirebaseAuth mAuth;
-    private EditText email, password;
-    private Button loginButton;
 
-    private Button proxAtivity;
-
-
-    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class PerfilFragment extends Fragment {
 
@@ -30,6 +31,11 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -54,16 +60,6 @@ public class PerfilFragment extends Fragment {
             public void onClick(View v) {
 
                 lg.OnLogoutSelect();
-
-                /**
-                LoginFragment loginFragment = new LoginFragment();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction tr = fm.beginTransaction();
-
-                tr.replace(R.id.fragment2,loginFragment, "voltar");
-                tr.addToBackStack("voltar");
-                tr.commit();
-                 */
             }
         });
 
