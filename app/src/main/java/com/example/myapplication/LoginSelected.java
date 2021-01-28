@@ -7,4 +7,6 @@ public interface LoginSelected {
     public void onSelected(String mail, String pass, TextView errorMessage);
 
     public void onRegisterButtonSelected();
+
+    public void enviarDadosParaPerfil(String mail, String pass);
 }

@@ -23,6 +23,7 @@ public class PerfilFragment extends Fragment {
     LogoutSelected lg;
     private TextView emailUser, passUser;
     private Button loggout, editarPass;
+    private String mailText, passText;
 
     public PerfilFragment() {
 
@@ -31,6 +32,8 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //this.mailText = getArguments().getString("mail");
+        //this.passText = getArguments().getString("pass");
     }
 
     @Override
@@ -54,6 +57,11 @@ public class PerfilFragment extends Fragment {
         passUser = v.findViewById(R.id.textViewPasswordPerfil);
         loggout = v.findViewById(R.id.buttonLogout);
         editarPass = v.findViewById(R.id.buttonEditarPassword);
+
+
+       // emailUser.setText(this.mailText);
+       // passUser.setText(this.passText);
+
 
         loggout.setOnClickListener(new View.OnClickListener() {
             @Override

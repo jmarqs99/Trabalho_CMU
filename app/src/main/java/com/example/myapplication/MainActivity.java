@@ -61,13 +61,14 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
     @Override
-    public void onSelected(String mail, String pass, final TextView errorMessages) {
+    public void onSelected(final String mail, final String pass, final TextView errorMessages) {
 
         mAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
+                    enviarDadosParaPerfil(mail, pass);
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
                     Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
@@ -93,6 +94,15 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.replace(R.id.mainActivity, registarUser, "registarUtilizador");
         ft.addToBackStack("registarUtilizador");
         ft.commit();
+    }
+
+    @Override
+    public void enviarDadosParaPerfil(String mail, String pass) {
+        Bundle b = new Bundle();
+        b.putString("mail", mail);
+        b.putString("pass", pass);
+        PerfilFragment perfilFragment = new PerfilFragment();
+        perfilFragment.setArguments(b);
     }
 
     @Override
