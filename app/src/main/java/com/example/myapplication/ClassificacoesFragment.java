@@ -103,7 +103,7 @@ public class ClassificacoesFragment extends Fragment {
     private List<Equipa_item> constroiClassificacao(Classificacao classificacao,List<Equipa> equi){
         List<Equipa_item> equipas = new ArrayList<>();
         // i < 1 , para nao esgotar os pedidos da api , o correto e equi.size()
-        for (int i = 0; i < 1; i++){
+        for (int i = 0; i < equi.size(); i++){
 
             Equipa_item equipa = new Equipa_item(equi.get(i).getData().getName(),
                     classificacao.getData().getStandings()[i].getPoints(),
