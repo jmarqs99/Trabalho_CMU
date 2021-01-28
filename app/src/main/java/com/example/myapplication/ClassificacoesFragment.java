@@ -104,7 +104,13 @@ public class ClassificacoesFragment extends Fragment {
 
         for (int i = 0; i < equi.size(); i++){
 
-            Equipa_item equipa = new Equipa_item(equi.get(i).getData().getName(),classificacao.getData().getStandings()[i].getPoints());
+            Equipa_item equipa = new Equipa_item(equi.get(i).getData().getName(),
+                    classificacao.getData().getStandings()[i].getPoints(),
+                    classificacao.getData().getStandings()[i].getPosition(),
+                    equi.get(i).getData().getLogo(),
+                    classificacao.getData().getStandings()[i].getOverall().getGames_played(),
+                    classificacao.getData().getStandings()[i].getOverall().getGoals_scored(),
+                    classificacao.getData().getStandings()[i].getOverall().getGoals_against());
             equipas.add(i,equipa);
         }
 

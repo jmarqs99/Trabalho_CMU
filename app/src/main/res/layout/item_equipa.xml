@@ -6,23 +6,75 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/equipa_posicao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="texto"
             android:layout_marginLeft="10dp"
-            android:id="@+id/equipa_nome"/>
+            android:text="pos" />
+
+
+        <ImageView
+            android:id="@+id/equipa_logo2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/equipa_pontos"
+            android:id="@+id/equipa_nome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="nome" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:includeFontPadding="false"
-            android:layout_marginRight="10dp"
-            android:text="texto" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/equipa_numJogos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:text="PJ" />
+
+            <TextView
+                android:id="@+id/equipa_golosSofridos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:text="GS" />
+
+            <TextView
+                android:id="@+id/equipa_golosMarcados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:text="GM" />
+
+            <TextView
+                android:id="@+id/equipa_pontos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="end"
+                android:includeFontPadding="false"
+                android:text="Pt" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

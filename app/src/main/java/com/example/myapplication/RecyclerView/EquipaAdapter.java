@@ -1,17 +1,28 @@
 package com.example.myapplication.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaViewHolder> {
@@ -36,6 +47,8 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
         return new EquipaViewHolder(equipaView);
     }
 
+    @SuppressLint("ResourceType")
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onBindViewHolder(@NonNull EquipaViewHolder holder, int position) {
         Equipa_item equipaItem = mEquipaItem.get(position);
@@ -46,6 +59,21 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
         TextView textView2 = holder.pontosTextView;
         textView2.setText(equipaItem.getPontos() + "");
 
+        TextView textView3 = holder.posicaoTextView;
+        textView3.setText(equipaItem.getPosicao() + ".");
+
+
+        ImageView imageView = holder.logoImagem;
+        Picasso.get().load(equipaItem.getLogo()).into(imageView);
+
+        TextView textView5 = holder.numJogosTextView;
+        textView5.setText(equipaItem.getNum_jogos() + "");
+
+        TextView textView6 = holder.golosMarcadosTextView;
+        textView6.setText(equipaItem.getGolos_marcados() + "");
+
+        TextView textView7 = holder.golosSofridosTextView;
+        textView7.setText(equipaItem.getGolos_sofridos() + "");
     }
 
     @Override
@@ -57,12 +85,22 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
     public class EquipaViewHolder extends RecyclerView.ViewHolder{
         public TextView nameTextView;
         public TextView pontosTextView;
+        public TextView posicaoTextView;
+        public ImageView logoImagem;
+        public TextView numJogosTextView;
+        public TextView golosMarcadosTextView;
+        public TextView golosSofridosTextView;
 
         public EquipaViewHolder(View itemView){
             super(itemView);
 
             nameTextView = itemView.findViewById(R.id.equipa_nome);
             pontosTextView = itemView.findViewById(R.id.equipa_pontos);
+            posicaoTextView = itemView.findViewById(R.id.equipa_posicao);
+            logoImagem = itemView.findViewById(R.id.equipa_logo2);
+            numJogosTextView = itemView.findViewById(R.id.equipa_numJogos);
+            golosMarcadosTextView = itemView.findViewById(R.id.equipa_golosMarcados);
+            golosSofridosTextView = itemView.findViewById(R.id.equipa_golosSofridos);
         }
     }
 
