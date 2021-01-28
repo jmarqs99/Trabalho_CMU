@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
@@ -21,12 +22,25 @@ import com.google.firebase.auth.FirebaseUser;
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected{
     private FirebaseAuth mAuth;
 
+    private String mailUser, passUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal_fragment);
+
+        Intent intent = getIntent();
+        mailUser = intent.getStringExtra("mailUser");
+        passUser = intent.getStringExtra("passUser");
+
+  //      Log.d("mail do user", mailUser);
+    //    Log.d("pass do user " , passUser);
+
+        System.out.println("Mail do user: " + mailUser);
+        System.out.println("Pass do user: " + passUser);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
@@ -59,8 +73,14 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.commit();
                         break;
                     case R.id.action_profile:
+
+                        Bundle b = new Bundle();
+                        b.putString("maill", "mailUser");
+                        b.putString("passs", passUser);
+
                         PerfilFragment newPFragment = new PerfilFragment();
 
+                        newPFragment.setArguments(b);
                         tr.replace(R.id.fragment2,newPFragment);
                         tr.addToBackStack(null);
                         tr.commit();
@@ -90,7 +110,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
     private void updateUI(FirebaseUser user) {
         if(user != null) {
-
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction tr = fm.beginTransaction();
 

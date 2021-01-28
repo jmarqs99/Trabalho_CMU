@@ -25,6 +25,7 @@ public class PerfilFragment extends Fragment {
     private Button loggout, editarPass;
     private String mailText, passText;
 
+
     public PerfilFragment() {
 
     }
@@ -32,8 +33,17 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //this.mailText = getArguments().getString("mail");
-        //this.passText = getArguments().getString("pass");
+
+        if(this.mailText != null && this.passText != null) {
+            this.mailText = getArguments().getString("maill");
+            this.passText = getArguments().getString("passs");
+        }
+        else {
+            this.mailText = "mail null";
+            this.passText = "pass null";
+        }
+
+
     }
 
     @Override
@@ -53,14 +63,16 @@ public class PerfilFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 
+        Bundle b = getActivity().getIntent().getExtras();
+
         emailUser = v.findViewById(R.id.textViewEmailPerfil);
         passUser = v.findViewById(R.id.textViewPasswordPerfil);
         loggout = v.findViewById(R.id.buttonLogout);
         editarPass = v.findViewById(R.id.buttonEditarPassword);
 
 
-       // emailUser.setText(this.mailText);
-       // passUser.setText(this.passText);
+        emailUser.setText(this.mailText);
+        passUser.setText(this.passText);
 
 
         loggout.setOnClickListener(new View.OnClickListener() {

@@ -83,10 +83,12 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
-                    enviarDadosParaPerfil(mail, pass);
+                    //enviarDadosParaPerfil(mail, pass);
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
                     Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
+                    intent.putExtra("mailUser", mail);
+                    intent.putExtra("passUser", pass);
                     startActivity(intent);
                     finish();
                     errorMessages.setText("Login bem sucedido");
