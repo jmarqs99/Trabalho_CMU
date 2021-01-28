@@ -2,16 +2,22 @@ package com.example.myapplication;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,8 +33,9 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
 
     private FirebaseAuth mAuth;
+    private JobScheduler mScheduler;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +57,15 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.addToBackStack("home");
         ft.commit();
 */
-
+        mScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        ComponentName serviceName = new ComponentName(getPackageName(),
+                NewQuestionsService.class.getName());
+        JobInfo.Builder builder = new JobInfo.Builder(0, serviceName)
+                .setPeriodic(JobInfo.getMinPeriodMillis());
+        JobInfo myJobInfo = builder.build();
+        mScheduler.schedule(myJobInfo);
+        Toast.makeText(this, "Job scheduled", Toast.LENGTH_SHORT)
+                .show();
     }
 
     @Override
