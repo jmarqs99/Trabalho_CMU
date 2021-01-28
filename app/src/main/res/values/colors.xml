@@ -10,4 +10,10 @@
     <color name="gray">#ebebeb</color>
     <color name="darker_gray">#cacaca</color>
     <color name="black">#111111</color>
+    <color name="campeao">#a1fbcc</color>
+    <color name="ucl">#dcfbeb</color>
+    <color name="quel">#fffeb8</color>
+    <color name="uel">#fefb24</color>
+    <color name="pffdespromocao">#fbc0c0</color>
+    <color name="despromoca">#ff6f6f</color>
 </resources>
