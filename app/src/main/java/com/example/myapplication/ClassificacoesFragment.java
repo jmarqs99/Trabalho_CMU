@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.loader.content.AsyncTaskLoader;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,14 +50,15 @@ public class ClassificacoesFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Classificacao> call, Response<Classificacao> response) {
                         final Classificacao classificacao = response.body();
-                        Log.d("URL:", String.valueOf(call.request().url()));
-                        Log.d("MOSTRAR CLASSI" , classificacao.toString());
+                        //Log.d("URL:", String.valueOf(call.request().url()));
+                        //Log.d("MOSTRAR CLASSI" , classificacao.toString());
 
                         new AsyncTask<Void, Void, EquipaAdapter>() {
 
                             @Override
                             protected void onPostExecute(EquipaAdapter adapter) {
                                 mRecyclerView.setAdapter(mAdapter);
+                                mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
                             }
 
                             @Override
@@ -101,8 +103,8 @@ public class ClassificacoesFragment extends Fragment {
 
     private List<Equipa_item> constroiClassificacao(Classificacao classificacao,List<Equipa> equi){
         List<Equipa_item> equipas = new ArrayList<>();
-
-        for (int i = 0; i < equi.size(); i++){
+        // i < 1 , para nao esgotar os pedidos da api
+        for (int i = 0; i < 1; i++){
 
             Equipa_item equipa = new Equipa_item(equi.get(i).getData().getName(),
                     classificacao.getData().getStandings()[i].getPoints(),
