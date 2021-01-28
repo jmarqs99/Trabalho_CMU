@@ -13,11 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.RecyclerView.EquipaAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class MenuPrincipalAtivity extends AppCompatActivity {
+public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected {
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal_fragment);
 
@@ -63,5 +67,10 @@ public class MenuPrincipalAtivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void OnLogoutSelect() {
+        mAuth.signOut();
     }
 }

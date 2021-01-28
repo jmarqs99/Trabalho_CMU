@@ -35,7 +35,7 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-       // this.lg = (LogoutSelected)  context;
+        this.lg = (LogoutSelected)  context;
     }
 
     @Override
@@ -53,18 +53,17 @@ public class PerfilFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                lg.OnLogoutSelect();
 
+                /**
                 LoginFragment loginFragment = new LoginFragment();
-                //QuizFragment quizFragment = new QuizFragment();
-
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction tr = fm.beginTransaction();
 
                 tr.replace(R.id.fragment2,loginFragment, "voltar");
                 tr.addToBackStack("voltar");
                 tr.commit();
-
-
+                 */
             }
         });
 
