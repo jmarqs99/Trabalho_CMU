@@ -3,20 +3,24 @@ package com.example.myapplication;
 import android.app.IntentService;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.Service;
+import android.app.job.JobParameters;
+import android.app.job.JobService;
 import android.content.Intent;
 import android.os.Build;
+import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-public class NewQuestionsService extends IntentService {
+public class NewQuestionsService extends JobService {
     public NewQuestionsService() {
-        super("NewQuestionsService");
+        super();
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public boolean onStartJob(JobParameters jobParameters) {
         createNotificationChannel();
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "testeNot")
                 .setSmallIcon(R.drawable.ic_launcher_background)
@@ -25,7 +29,14 @@ public class NewQuestionsService extends IntentService {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(0, builder.build());
+        return false;
     }
+
+    @Override
+    public boolean onStopJob(JobParameters jobParameters) {
+        return false;
+    }
+
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

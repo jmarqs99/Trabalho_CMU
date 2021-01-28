@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,8 @@ public class ClassificacoesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.classificacoes_fragment, container, false);
-
+        mRecyclerView = v.findViewById(R.id.mRecyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         service.getClassificacao()
                 .enqueue(new Callback<Classificacao>(){
 
@@ -50,21 +52,23 @@ public class ClassificacoesFragment extends Fragment {
                         Log.d("URL:", String.valueOf(call.request().url()));
                         Log.d("MOSTRAR CLASSI" , classificacao.toString());
 
+                        new AsyncTask<Void, Void, EquipaAdapter>() {
 
-                        new AsyncTask<Void, Void, String>() {
                             @Override
-                            protected String doInBackground(Void... voids) {
+                            protected void onPostExecute(EquipaAdapter adapter) {
+                                mRecyclerView.setAdapter(mAdapter);
+                            }
+
+                            @Override
+                            protected EquipaAdapter doInBackground(Void... voids) {
                                 List<Equipa> equipas = getEquipas(classificacao);
+                                Log.d("Main","Done getting teams");
                                 List<Equipa_item> equipas_items = constroiClassificacao(classificacao,equipas);
                                 mAdapter = new EquipaAdapter(getActivity(),equipas_items);
+                                return mAdapter;
+                            }
 
-
-                                mRecyclerView = v.findViewById(R.id.mRecyclerView);
-                                mRecyclerView.setAdapter(mAdapter);
-
-                                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                                return null;
-                            }}.execute();
+                        }.execute();
                     }
 
                     @Override
