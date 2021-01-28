@@ -78,7 +78,72 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="580dp" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/campeao"
+            android:gravity="center_vertical"
+            android:text="Campeão + Qualificado Liga dos Campeões (Fase de grupos)"
+            android:drawablePadding="10dp"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualificado Liga dos Campeões (Fase de grupos)"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ucl"
+            android:drawablePadding="10dp"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualificado Liga Europa (Fase de grupos)"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/uel"
+            android:drawablePadding="10dp"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualificado Liga das Conferencias (Qualificação)"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/quel"
+            android:drawablePadding="10dp"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Playoff Despromoção - 2.Bundesliga"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/pffdespromocao"
+            android:drawablePadding="10dp"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Despromoção - 2.Bundesliga"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/despromacao"
+            android:drawablePadding="10dp"
+            android:textSize="13sp"
+            android:layout_marginBottom="5dp"/>
+    </LinearLayout>
+
+
 
 </LinearLayout>
 

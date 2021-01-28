@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -53,6 +55,8 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
     public void onBindViewHolder(@NonNull EquipaViewHolder holder, int position) {
         Equipa_item equipaItem = mEquipaItem.get(position);
 
+        pintaClassificao(holder,position);
+
         TextView textView = holder.nameTextView;
         textView.setText(equipaItem.getNome());
 
@@ -74,6 +78,40 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
 
         TextView textView7 = holder.golosSofridosTextView;
         textView7.setText(equipaItem.getGolos_sofridos() + "");
+    }
+
+    private void pintaClassificao(@NonNull EquipaViewHolder holder, int position){
+        switch (position){
+            case 0:
+                holder.itemView.setBackgroundColor(Color.rgb(161,251,204));
+                break;
+            case 1:
+                holder.itemView.setBackgroundColor(Color.rgb(220,251,235));
+                break;
+            case 2:
+                holder.itemView.setBackgroundColor(Color.rgb(220,251,235));
+                break;
+            case 3:
+                holder.itemView.setBackgroundColor(Color.rgb(220,251,235));
+                break;
+            case 4:
+                holder.itemView.setBackgroundColor(Color.rgb(254,251,36));
+                break;
+            case 5:
+                holder.itemView.setBackgroundColor(Color.rgb(255,254,184));
+                break;
+            case 15:
+                holder.itemView.setBackgroundColor(Color.rgb(251,192,192));
+                break;
+            case 16:
+                holder.itemView.setBackgroundColor(Color.rgb(255,111,111));
+                break;
+            case 17:
+                holder.itemView.setBackgroundColor(Color.rgb(255,111,111));
+                break;
+            default:
+                holder.itemView.setBackgroundColor(Color.rgb(255,255,255));
+        }
     }
 
     @Override
