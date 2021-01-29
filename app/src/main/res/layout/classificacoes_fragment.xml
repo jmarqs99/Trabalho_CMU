@@ -6,7 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="match_parent"
+        android:layout_weight="9.9"
         android:background="@drawable/border3"
         android:orientation="horizontal">
 
@@ -43,7 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="9dp"
                 android:gravity="center|end"
                 android:includeFontPadding="false"
                 android:text="GS"
@@ -52,7 +53,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="9dp"
                 android:gravity="center|end"
                 android:includeFontPadding="false"
                 android:text="GM"
@@ -61,8 +62,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="3dp"
                 android:gravity="center|end"
                 android:includeFontPadding="false"
                 android:text="PT"
@@ -77,69 +78,71 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="580dp" />
+        android:layout_height="match_parent"
+        android:layout_weight="3" />
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="8.5"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/campeao"
+            android:drawablePadding="10dp"
             android:gravity="center_vertical"
             android:text="Campeão + Qualificado Liga dos Campeões (Fase de grupos)"
-            android:drawablePadding="10dp"
             android:textSize="13sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Qualificado Liga dos Campeões (Fase de grupos)"
-            android:gravity="center_vertical"
             android:drawableLeft="@drawable/ucl"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="Qualificado Liga dos Campeões (Fase de grupos)"
             android:textSize="13sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Qualificado Liga Europa (Fase de grupos)"
-            android:gravity="center_vertical"
             android:drawableLeft="@drawable/uel"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="Qualificado Liga Europa (Fase de grupos)"
             android:textSize="13sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Qualificado Liga das Conferencias (Qualificação)"
-            android:gravity="center_vertical"
             android:drawableLeft="@drawable/quel"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="Qualificado Liga das Conferencias (Qualificação)"
             android:textSize="13sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Playoff Despromoção - 2.Bundesliga"
-            android:gravity="center_vertical"
             android:drawableLeft="@drawable/pffdespromocao"
             android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="Playoff Despromoção - 2.Bundesliga"
             android:textSize="13sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Despromoção - 2.Bundesliga"
-            android:gravity="center_vertical"
+            android:layout_marginBottom="5dp"
             android:drawableLeft="@drawable/despromacao"
             android:drawablePadding="10dp"
-            android:textSize="13sp"
-            android:layout_marginBottom="5dp"/>
+            android:gravity="center_vertical"
+            android:text="Despromoção - 2.Bundesliga"
+            android:textSize="13sp" />
     </LinearLayout>
 
 
