@@ -60,12 +60,21 @@ public class EditarDadosFragment extends Fragment {
 
                 String mudarPass = password.getText().toString();
 
-                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if(mudarPass.isEmpty()) {
+                    password.setError("Palavra passe é nula");
+                }
+                else if(mudarPass.length() < 6) {
+                    password.setError("A palavra passe necessita no mínimo de 6 caracteres");
+                }
+                else {
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                firebaseUser.updatePassword(mudarPass);
+                    firebaseUser.updatePassword(mudarPass);
 
-                Intent intent = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 
