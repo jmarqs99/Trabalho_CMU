@@ -24,6 +24,9 @@ public class CheckLocation extends Service {
     private LocationCallback mLocationCallback;
     private FusedLocationProviderClient mFusedLocationClient;
     private Estadio[] estadios;
+    private Long lastQuestion;
+    private final int TIME_BETWEEN_QUESTIONS = 600; //seconds
+
     private class Estadio extends Location{
 
         public Estadio(double latitude, double longitude) {
@@ -74,7 +77,8 @@ public class CheckLocation extends Service {
                 for (Location location : locationResult.getLocations()) {
                     Log.d("Geo test", location.getLongitude() + " " + location.getLatitude());
                     for(int i=0;i < estadios.length;i++){
-                        if (location.distanceTo(estadios[i]) < 200)  {
+                        if (location.distanceTo(estadios[i]) < 500 && (lastQuestion == null || System.currentTimeMillis()/1000 - lastQuestion >  TIME_BETWEEN_QUESTIONS)){
+                            lastQuestion = System.currentTimeMillis()/1000;
                             Log.d("GeoTest","Close to stadium");
                         }
                     }
