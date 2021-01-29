@@ -8,5 +8,4 @@ public interface LoginSelected {
 
     public void onRegisterButtonSelected();
 
-    public void enviarDadosParaPerfil(String mail, String pass);
 }

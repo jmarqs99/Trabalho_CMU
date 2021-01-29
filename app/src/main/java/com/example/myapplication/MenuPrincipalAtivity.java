@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected{
     private FirebaseAuth mAuth;
 
-    private String mailUser, passUser;
+    private String mailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
         Intent intent = getIntent();
         mailUser = intent.getStringExtra("mailUser");
-        passUser = intent.getStringExtra("passUser");
-
-  //      Log.d("mail do user", mailUser);
-    //    Log.d("pass do user " , passUser);
-
-        System.out.println("Mail do user: " + mailUser);
-        System.out.println("Pass do user: " + passUser);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
@@ -76,7 +69,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
                         Bundle b = new Bundle();
                         b.putString("maill", mailUser);
-                        b.putString("passs", passUser);
 
                         PerfilFragment newPFragment = new PerfilFragment();
 
@@ -97,6 +89,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
+        mailUser = currentUser.getEmail();
 
     }
 

@@ -61,14 +61,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         mAuth = FirebaseAuth.getInstance();
 
-        /**
-        LoginFragment loginFragment = new LoginFragment();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.mainActivity, loginFragment, "home");
-        ft.addToBackStack("home");
-        ft.commit();
-*/
         mScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         ComponentName serviceName = new ComponentName(getPackageName(),
                 NewQuestionsService.class.getName());
@@ -95,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
-                    //enviarDadosParaPerfil(mail, pass);
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
                     Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
@@ -123,15 +114,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.replace(R.id.mainActivity, registarUser, "registarUtilizador");
         ft.addToBackStack("registarUtilizador");
         ft.commit();
-    }
-
-    @Override
-    public void enviarDadosParaPerfil(String mail, String pass) {
-        Bundle b = new Bundle();
-        b.putString("mail", mail);
-        b.putString("pass", pass);
-        PerfilFragment perfilFragment = new PerfilFragment();
-        perfilFragment.setArguments(b);
     }
 
     @Override
