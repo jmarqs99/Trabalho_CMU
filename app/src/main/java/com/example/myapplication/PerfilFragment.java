@@ -22,10 +22,10 @@ public class PerfilFragment extends Fragment {
 
     LogoutSelected lg;
     EditarDadosSelected ed;
-    private TextView emailUser;
+    private TextView emailUser, pontos;
     private Button loggout, editarPass;
     private String mailText;
-
+    private int pontosUser;
 
     public PerfilFragment() {
 
@@ -53,6 +53,8 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mailText = getArguments().getString("maill");
+        pontosUser = getArguments().getInt("pontos");
+
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 
         Bundle b = getActivity().getIntent().getExtras();
@@ -60,6 +62,7 @@ public class PerfilFragment extends Fragment {
         emailUser = v.findViewById(R.id.textViewEmailPerfil);
         loggout = v.findViewById(R.id.buttonLogout);
         editarPass = v.findViewById(R.id.buttonEditarPassword);
+        pontos = v.findViewById(R.id.textViewPontos);
 
         editarPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +72,7 @@ public class PerfilFragment extends Fragment {
         });
 
         emailUser.setText(this.mailText);
-
+        pontos.setText("Os meus pontos: " + this.pontosUser);
 
         loggout.setOnClickListener(new View.OnClickListener() {
             @Override

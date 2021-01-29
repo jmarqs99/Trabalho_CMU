@@ -20,6 +20,13 @@ public interface PerguntasDAO {
     @Query("Select * FROM perguntas WHERE id LIKE :ID")
     public LiveData<List<Perguntas>> getPergunta(String ID);
 
+    @Query("SELECT SUM(pontos) FROM perguntas WHERE acertou=1")
+    public int getConta();
+
+
+    @Query("SELECT * FROM perguntas")
+    public List<Perguntas> getPerguntas();
+
 
 
 }

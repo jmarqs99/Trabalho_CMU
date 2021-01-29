@@ -33,7 +33,17 @@
             android:layout_height="wrap_content"
             android:text="mail" />
 
-    
+
+        <TextView
+            android:layout_marginTop="50dp"
+            android:id="@+id/textViewPontos"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="pontos" />
+
         <Button
 
             android:id="@+id/buttonEditarPassword"
