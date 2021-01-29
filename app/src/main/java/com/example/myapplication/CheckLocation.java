@@ -24,17 +24,12 @@ public class CheckLocation extends Service {
     private LocationCallback mLocationCallback;
     private FusedLocationProviderClient mFusedLocationClient;
     private Estadio[] estadios;
-    private class Estadio{
-        public double latitude;
-        public double longitude;
-        public Location loc;
+    private class Estadio extends Location{
 
         public Estadio(double latitude, double longitude) {
-            this.latitude = latitude;
-            this.longitude = longitude;
-            loc = new Location("");
-            loc.setLatitude(latitude);
-            loc.setLongitude(longitude);
+            super("");
+            setLatitude(latitude);
+            setLongitude(longitude);
         }
     }
 
@@ -79,7 +74,7 @@ public class CheckLocation extends Service {
                 for (Location location : locationResult.getLocations()) {
                     Log.d("Geo test", location.getLongitude() + " " + location.getLatitude());
                     for(int i=0;i < estadios.length;i++){
-                        if (location.distanceTo(estadios[i].loc) < 200)  {
+                        if (location.distanceTo(estadios[i]) < 200)  {
                             Log.d("GeoTest","Close to stadium");
                         }
                     }
