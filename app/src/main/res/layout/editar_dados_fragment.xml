@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PerfilFragment"
-    android:id="@+id/perfil">
+    tools:context=".EditarDadosFragment"
+    android:id="@+id/EditarPassLayout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,56 +14,63 @@
 
 
         <TextView
-            android:layout_marginTop="20dp"
-            android:id="@+id/textView"
+            android:layout_marginTop="50dp"
+            android:id="@+id/textViewEditarDados"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="O meu perfil"
+            android:text="Editar palavra passe"
             android:textColor="@color/blue"
             android:textSize="25sp"
             android:textStyle="bold"
             android:textAlignment="center"/>
 
-        <TextView
-            android:layout_marginTop="100dp"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:id="@+id/textViewEmailPerfil"
+
+        <EditText
+            android:id="@+id/editTextTextPassword2"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="mail" />
-
-    
-        <Button
-
-            android:id="@+id/buttonEditarPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Editar palavra passe"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/border2"
-            android:textColor="@color/light_gray"
-            android:textColorHint="@color/light_gray"
-            android:textSize="17sp"
-            android:textStyle="bold"/>
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/iconsenha"
+            android:background="@drawable/border"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="@string/passowrd"
+            android:padding="10dp"
+            android:textColor="@color/darker_gray"
+            android:textColorHint="@color/darker_gray"
+            android:textSize="16sp" />
 
         <Button
-            android:id="@+id/buttonLogout"
+            android:id="@+id/buttonConfirmar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
             android:background="@drawable/border2"
-            android:text="Logout"
+            android:text="Confirmar"
             android:textColor="@color/light_gray"
             android:textColorHint="@color/light_gray"
             android:textSize="17sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/buttonCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/border2"
+            android:text="Cancelar"
+            android:textColor="@color/design_default_color_error"
+            android:textColorHint="@color/light_gray"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

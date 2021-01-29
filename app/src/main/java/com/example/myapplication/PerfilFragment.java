@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class PerfilFragment extends Fragment {
 
     LogoutSelected lg;
+    EditarDadosSelected ed;
     private TextView emailUser;
     private Button loggout, editarPass;
     private String mailText;
@@ -44,6 +45,7 @@ public class PerfilFragment extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.lg = (LogoutSelected)  context;
+        this.ed = (EditarDadosSelected) context;
     }
 
     @Override
@@ -59,6 +61,12 @@ public class PerfilFragment extends Fragment {
         loggout = v.findViewById(R.id.buttonLogout);
         editarPass = v.findViewById(R.id.buttonEditarPassword);
 
+        editarPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ed.editarPass();
+            }
+        });
 
         emailUser.setText(this.mailText);
 
