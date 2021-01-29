@@ -19,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected{
+public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected, EditarDadosSelected{
     private FirebaseAuth mAuth;
 
     private String mailUser;
@@ -121,4 +121,15 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         }
     }
 
+    @Override
+    public void editarPass() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tr = fm.beginTransaction();
+
+        EditarDadosFragment editarDadosFragment = new EditarDadosFragment();
+
+        tr.replace(R.id.fragment2,editarDadosFragment);
+        tr.addToBackStack(null);
+        tr.commit();
+    }
 }
