@@ -75,7 +75,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                     case R.id.action_profile:
 
                         Bundle b = new Bundle();
-                        b.putString("maill", "mailUser");
+                        b.putString("maill", mailUser);
                         b.putString("passs", passUser);
 
                         PerfilFragment newPFragment = new PerfilFragment();

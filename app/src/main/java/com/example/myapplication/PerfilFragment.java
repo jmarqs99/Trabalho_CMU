@@ -34,6 +34,7 @@ public class PerfilFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /**
         if(this.mailText != null && this.passText != null) {
             this.mailText = getArguments().getString("maill");
             this.passText = getArguments().getString("passs");
@@ -42,7 +43,7 @@ public class PerfilFragment extends Fragment {
             this.mailText = "mail null";
             this.passText = "pass null";
         }
-
+         */
 
     }
 
@@ -61,6 +62,8 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mailText = getArguments().getString("maill");
+        passText = getArguments().getString("passs");
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 
         Bundle b = getActivity().getIntent().getExtras();
