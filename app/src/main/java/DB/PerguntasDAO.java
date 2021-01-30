@@ -23,7 +23,6 @@ public interface PerguntasDAO {
     @Query("SELECT SUM(pontos) FROM perguntas WHERE acertou=1")
     public int getConta();
 
-
     @Query("SELECT * FROM perguntas")
     public List<Perguntas> getPerguntas();
 

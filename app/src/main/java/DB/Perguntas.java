@@ -1,5 +1,6 @@
 package DB;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -12,8 +13,13 @@ public class Perguntas {
 
     public String pergunta;
 
-    public String resposta;
+    public String[] opcoes;
 
+    @ColumnInfo(defaultValue = "")
+    public String respostaUser;
+
+    public String respostaCorreta;
+    
     public Boolean acertou;
 
     public int pontos;
