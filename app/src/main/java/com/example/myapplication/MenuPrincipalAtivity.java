@@ -24,6 +24,7 @@ import com.example.myapplication.RecyclerView.Equipa_item;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ import DB.PerguntasDB;
 
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected, EditarDadosSelected {
     private FirebaseAuth mAuth;
-
+    private FirebaseFirestore db;
     private String mailUser;
     private int pontosUser;
     PerguntasDB perguntasDB;
@@ -43,7 +44,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
-
+        db = FirebaseFirestore.getInstance();
 
         final Perguntas pergunta1 = new Perguntas();
         pergunta1.pontos = 10;

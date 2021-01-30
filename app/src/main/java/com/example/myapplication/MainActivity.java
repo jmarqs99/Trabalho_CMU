@@ -26,16 +26,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private JobScheduler mScheduler;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -49,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         } else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},101);
         }
+
+        db = FirebaseFirestore.getInstance();
 
         Intent intent = new Intent(this,CheckLocation.class);
         startService(intent);
@@ -111,12 +120,30 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
     @Override
-    public void OnRegisterSelected(String email, String password, final TextView errorMessage) {
+    public void OnRegisterSelected(final String email, final String password, final TextView errorMessage) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
+
+                    /** //teste
+                    User user1 = new User(email);
+                    DocumentReference documentReference = db.collection("users").document(email);
+
+                    documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("FirestoreSuccess", "user foi adicionado");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("FirestoreFailure", "user n foi adicionado");
+                        }
+                    });
+                    */
+
                     updateUI(user);
                     OnBackToLoginPageSelected();
                     errorMessage.setText("Conta registada com sucesso!");
