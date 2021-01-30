@@ -53,12 +53,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         Intent intent = new Intent(this,CheckLocation.class);
         startService(intent);
 
-        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent i = new Intent(this, NewQuestionsBroadcastReceiver.class);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
-        am.setRepeating(AlarmManager.RTC, Calendar.getInstance().getTimeInMillis() + 500, AlarmManager.INTERVAL_DAY, pi);
-        Log.d("Main","Alarm setted up");
-
         mAuth = FirebaseAuth.getInstance();
 
         mScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
