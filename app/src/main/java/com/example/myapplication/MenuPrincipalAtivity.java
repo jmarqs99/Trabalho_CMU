@@ -3,6 +3,8 @@ package com.example.myapplication;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,11 +48,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        final Perguntas pergunta1 = new Perguntas();
-        pergunta1.pontos = 10;
-        pergunta1.acertou = true;
-        pergunta1.pergunta = "sdsd";
-        pergunta1.resposta = "sd";
+        startService(new Intent(this, NewQuestionsService.class));
 
         perguntasDB = Room.databaseBuilder(getApplicationContext(), PerguntasDB.class, "sample-db").build();
 
@@ -66,7 +64,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
             protected EquipaAdapter doInBackground(Void... voids) {
 
                 List<Perguntas> pergunta;
-                //perguntasDB.perguntasDAO().addPergunta(pergunta1);
 
                 pontosUser = perguntasDB.perguntasDAO().getConta();
 

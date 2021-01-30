@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
@@ -12,6 +14,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -19,24 +22,47 @@ public class NewQuestionsService extends JobService {
     public NewQuestionsService() {
         super();
     }
+    private boolean execute;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        Toast.makeText(this, "Here", Toast.LENGTH_SHORT)
-                .show();
         createNotificationChannel();
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "testeNot")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("TEste")
-                .setContentText("testeee")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(0, builder.build());
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        Notification notification =
+                new Notification.Builder(this, "testeNot")
+                        .setContentTitle("FutQuiz")
+                        .setContentText("Estamos á procura de um novo quiz para ti!")
+                        .setSmallIcon(R.drawable.question_mark)
+                        .setContentIntent(pendingIntent)
+                        .setTicker("Ticker")
+                        .build();
+
+        startForeground(1, notification);
+        execute = true;
+        while (execute) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "testeNot")
+                    .setSmallIcon(R.drawable.question_mark)
+                    .setContentTitle("FutQuiz")
+                    .setContentText("Novo Quiz á tua espera!")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            notificationManager.notify(0, builder.build());
+            try {
+                Thread.sleep(90 * 60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
 
     @Override
     public boolean onStopJob(JobParameters jobParameters) {
+        execute = false;
         return false;
     }
 
