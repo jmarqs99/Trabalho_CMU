@@ -63,16 +63,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         startService(intent);
 
         mAuth = FirebaseAuth.getInstance();
-
-        mScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-        ComponentName serviceName = new ComponentName(getPackageName(),
-                NewQuestionsService.class.getName());
-        JobInfo.Builder builder = new JobInfo.Builder(0, serviceName)
-                .setPeriodic(JobInfo.getMinPeriodMillis());
-        JobInfo myJobInfo = builder.build();
-        mScheduler.schedule(myJobInfo);
-        Toast.makeText(this, "Job scheduled", Toast.LENGTH_SHORT)
-                .show();
     }
 
     @Override

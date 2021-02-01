@@ -8,9 +8,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,15 +20,22 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-public class NewQuestionsService extends JobService {
+public class NewQuestionsService extends Service {
+    private boolean execute;
+
     public NewQuestionsService() {
         super();
     }
-    private boolean execute;
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public boolean onStartJob(JobParameters jobParameters) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent =
@@ -42,30 +51,42 @@ public class NewQuestionsService extends JobService {
                         .build();
 
         startForeground(1, notification);
+
+        final Context context = this;
         execute = true;
-        while (execute) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "testeNot")
-                    .setSmallIcon(R.drawable.question_mark)
-                    .setContentTitle("FutQuiz")
-                    .setContentText("Novo Quiz á tua espera!")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-            notificationManager.notify(0, builder.build());
-            try {
-                Thread.sleep(90 * 60 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        new Thread() {
+            @Override
+            public void run() {
+                while (execute) {
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "testeNot")
+                            .setSmallIcon(R.drawable.question_mark)
+                            .setContentTitle("FutQuiz")
+                            .setContentText("Novo Quiz á tua espera!")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                    notificationManager.notify(0, builder.build());
+                    try {
+                        Thread.sleep(90 * 60 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        }
-        return false;
+        }.start();
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
-    public boolean onStopJob(JobParameters jobParameters) {
+    public boolean onUnbind(Intent intent) {
         execute = false;
-        return false;
+        return super.onUnbind(intent);
     }
 
+    @Override
+    public void onDestroy() {
+        execute = false;
+        super.onDestroy();
+    }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
