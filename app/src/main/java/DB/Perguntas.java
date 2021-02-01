@@ -1,9 +1,11 @@
 package DB;
 
-import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import java.util.List;
 
 @Entity
 public class Perguntas {
@@ -13,7 +15,8 @@ public class Perguntas {
 
     public String pergunta;
 
-    public String[] opcoes;
+    @TypeConverters(Converters.class)
+    public List<String> opcoes;
 
     @ColumnInfo(defaultValue = "")
     public String respostaUser;
