@@ -23,6 +23,10 @@ import androidx.room.Room;
 import com.example.myapplication.API.Models_Equipa.Equipa;
 import com.example.myapplication.RecyclerView.EquipaAdapter;
 import com.example.myapplication.RecyclerView.Equipa_item;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,6 +40,7 @@ import DB.PerguntasDB;
 
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected, EditarDadosSelected {
     private FirebaseAuth mAuth;
+    private GoogleSignInClient signInClient;
     private FirebaseFirestore db;
     private String mailUser;
     private int pontosUser;
@@ -52,6 +57,12 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
         perguntasDB = Room.databaseBuilder(getApplicationContext(), PerguntasDB.class, "sample-db").build();
 
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        signInClient = GoogleSignIn.getClient(this, signInOptions);
 
         new AsyncTask<Void, Void, EquipaAdapter>() {
 
@@ -151,22 +162,48 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
-        mailUser = currentUser.getEmail();
+        //mailUser = currentUser.getEmail();
 
     }
 
     @Override
     public void OnLogoutSelect() {
-        mAuth.signOut();
-        updateUI(null);
+
+       mAuth.signOut();
+       signInClient.signOut();
+       updateUI(null);
     }
 
 
 
     private void updateUI(FirebaseUser user) {
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
         if(user != null) {
+
+            mailUser = user.getEmail();
+
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction tr = fm.beginTransaction();
+
+            QuizFragment newQFragment = new QuizFragment();
+
+            tr.replace(R.id.fragment2,newQFragment);
+            tr.addToBackStack(null);
+            tr.commit();
+            Log.d("userNotNull", "usernaoNull");
+
+        }
+        else if (account != null) {
+
+            mailUser = account.getEmail();
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction tr = fm.beginTransaction();
+
+            Log.d("ContauserNotNull", "ContausernaoNull");
+
+
 
             QuizFragment newQFragment = new QuizFragment();
 
