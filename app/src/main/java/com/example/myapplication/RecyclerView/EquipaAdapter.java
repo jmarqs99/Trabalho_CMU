@@ -2,11 +2,8 @@ package com.example.myapplication.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +12,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaViewHolder> {
@@ -35,7 +27,6 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
     public EquipaAdapter(Context mContext, List<Equipa_item> mEquipaItem) {
         this.mContext = mContext;
         this.mEquipaItem = mEquipaItem;
-        Log.d("TAMANHO DAS EQUIPAS" , mEquipaItem.size() + "");
     }
 
     @NonNull
