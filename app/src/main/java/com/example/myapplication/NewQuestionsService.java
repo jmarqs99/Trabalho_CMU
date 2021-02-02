@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ActivityManager;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,6 +11,7 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -22,6 +24,10 @@ import androidx.core.app.NotificationManagerCompat;
 
 public class NewQuestionsService extends Service {
     private boolean execute;
+    private Notification notification;
+    private final int TIME_BETWEEN_QUESTIONS = 60;//90 * 60; // em segundos
+    private static boolean running = false;
+    private static int notificationId = 10;
 
     public NewQuestionsService() {
         super();
@@ -35,13 +41,13 @@ public class NewQuestionsService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
-        Notification notification =
+        notification =
                 new Notification.Builder(this, "testeNot")
                         .setContentTitle("FutQuiz")
                         .setContentText("Estamos á procura de um novo quiz para ti!")
@@ -50,29 +56,45 @@ public class NewQuestionsService extends Service {
                         .setTicker("Ticker")
                         .build();
 
-        startForeground(1, notification);
+        super.onCreate();
+    }
 
-        final Context context = this;
-        execute = true;
-        new Thread() {
-            @Override
-            public void run() {
-                while (execute) {
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "testeNot")
-                            .setSmallIcon(R.drawable.question_mark)
-                            .setContentTitle("FutQuiz")
-                            .setContentText("Novo Quiz á tua espera!")
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-                    notificationManager.notify(0, builder.build());
-                    try {
-                        Thread.sleep(90 * 60 * 1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (!running) {
+            startForeground(1, notification);
+            running = true;
+            final Context context = this;
+            execute = true;
+
+            final SharedPreferences mPrefs = getSharedPreferences("lastQuestion", 0);
+            new Thread() {
+                @Override
+                public void run() {
+                    while (execute) {
+                        Long lastTimestamp = mPrefs.getLong("timestamp", 0);
+                        if (System.currentTimeMillis() / 1000 - lastTimestamp > TIME_BETWEEN_QUESTIONS) {
+                            mPrefs.edit().putLong("timestamp", System.currentTimeMillis() / 1000).commit();
+
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "testeNot")
+                                    .setSmallIcon(R.drawable.question_mark)
+                                    .setContentTitle("FutQuiz")
+                                    .setContentText("Novo Quiz á tua espera!")
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                            notificationManager.notify(notificationId, builder.build());
+                            notificationId++;
+                        }
+                        try {
+                            Thread.sleep(30000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        }.start();
+            }.start();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -89,16 +111,12 @@ public class NewQuestionsService extends Service {
     }
 
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Teste";
             String description = "tete123";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("testeNot", name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
