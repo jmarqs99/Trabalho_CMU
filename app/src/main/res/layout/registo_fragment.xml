@@ -76,7 +76,7 @@
             android:layout_marginRight="20dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="@string/passowrd"
+            android:hint="confirmar password"
             android:padding="10dp"
             android:textColor="@color/darker_gray"
             android:textColorHint="@color/darker_gray"

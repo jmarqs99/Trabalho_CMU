@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 public class RegistarUserFragment extends Fragment {
 
     RegisterSelected mContext;
-    private EditText email, password;
+    private EditText email, password, confirmarPassword;
     private Button registarUserButton, voltarButton;
     private Context context;
     private TextView errorMessage;
@@ -43,6 +44,8 @@ public class RegistarUserFragment extends Fragment {
         View v = inflater.inflate(R.layout.registo_fragment, container, false);
         email = v.findViewById(R.id.editTextTextRegisterEmailAddress);
         password = v.findViewById(R.id.editTextTextRegisterPassword);
+        confirmarPassword = v.findViewById(R.id.editTextTextRegisterPasswordConfirmar);
+
         voltarButton = v.findViewById(R.id.voltarLoginPage);
 
         errorMessage = v.findViewById(R.id.textViewErrorRegister);
@@ -60,6 +63,7 @@ public class RegistarUserFragment extends Fragment {
             public void onClick(View v) {
                 String userMail = email.getText().toString();
                 String userPass = password.getText().toString();
+                String confirmarPass = confirmarPassword.getText().toString();
 
                 if(userMail.isEmpty()) {
                     email.setError("Insira um email");
@@ -73,7 +77,15 @@ public class RegistarUserFragment extends Fragment {
                     password.setError("A password precisa de ter pelo menos 6 caracteres");
                 }
                 else {
-                    mContext.OnRegisterSelected(userMail, userPass, errorMessage);
+                    if(confirmarPass.equals(userPass)) {
+                        mContext.OnRegisterSelected(userMail, userPass, errorMessage);
+                    }
+                    else {
+
+                        password.setError("Palavras passe incorretas!");
+                        Log.d("UserPass", userPass);
+                        Log.d("UserPassConfirmar", confirmarPass);
+                    }
                 }
             }
         });
