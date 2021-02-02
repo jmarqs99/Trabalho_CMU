@@ -2,7 +2,7 @@ package com.example.myapplication.API.Models_Jogo;
 
 import com.example.myapplication.API.Models_Equipa.country;
 
-public class team {
+public class home_team {
 
     private String team_id;
 
@@ -46,11 +46,11 @@ public class team {
         this.logo = logo;
     }
 
-    public com.example.myapplication.API.Models_Equipa.country getCountry() {
+    public country getCountry() {
         return country;
     }
 
-    public void setCountry(com.example.myapplication.API.Models_Equipa.country country) {
+    public void setCountry(country country) {
         this.country = country;
     }
 }

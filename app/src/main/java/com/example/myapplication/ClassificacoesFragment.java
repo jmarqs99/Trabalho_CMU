@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,7 @@ public class ClassificacoesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.classificacoes_fragment, container, false);
         mRecyclerView = v.findViewById(R.id.mRecyclerView);
+        //mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         service.getClassificacao()
                 .enqueue(new Callback<Classificacao>(){
@@ -50,8 +52,6 @@ public class ClassificacoesFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Classificacao> call, Response<Classificacao> response) {
                         final Classificacao classificacao = response.body();
-                        //Log.d("URL:", String.valueOf(call.request().url()));
-                        //Log.d("MOSTRAR CLASSI" , classificacao.toString());
 
                         new AsyncTask<Void, Void, EquipaAdapter>() {
 
@@ -64,7 +64,6 @@ public class ClassificacoesFragment extends Fragment {
                             @Override
                             protected EquipaAdapter doInBackground(Void... voids) {
                                 List<Equipa> equipas = getEquipas(classificacao);
-                                Log.d("Main","Done getting teams");
                                 List<Equipa_item> equipas_items = constroiClassificacao(classificacao,equipas);
                                 mAdapter = new EquipaAdapter(getActivity(),equipas_items);
                                 return mAdapter;

@@ -2,13 +2,13 @@ package com.example.myapplication.API.Models_Jogo;
 
 public class query {
 
-    private String season_id;
-
-    private String dataInicio;
 
     private String apikey;
 
-    private data data;
+    private String season_id;
+
+    private String date_from;
+
 
     public String getSeason_id() {
         return season_id;
@@ -16,14 +16,6 @@ public class query {
 
     public void setSeason_id(String season_id) {
         this.season_id = season_id;
-    }
-
-    public String getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(String dataInicio) {
-        this.dataInicio = dataInicio;
     }
 
     public String getApikey() {
@@ -34,11 +26,11 @@ public class query {
         this.apikey = apikey;
     }
 
-    public com.example.myapplication.API.Models_Jogo.data getData() {
-        return data;
+    public String getDate_from() {
+        return date_from;
     }
 
-    public void setData(com.example.myapplication.API.Models_Jogo.data data) {
-        this.data = data;
+    public void setDate_from(String date_from) {
+        this.date_from = date_from;
     }
 }

@@ -2,6 +2,7 @@ package com.example.myapplication.API;
 
 import com.example.myapplication.API.Models.Models_Classificacao.Classificacao;
 import com.example.myapplication.API.Models_Equipa.Equipa;
+import com.example.myapplication.API.Models_Jogo.Partida;
 
 import java.util.Date;
 
@@ -20,6 +21,6 @@ public interface SportsDataAPI {
     @GET("teams/{team_id}?apikey=" + API_KEY)
     Call<Equipa> getEquipa(@Path(value = "team_id", encoded = true) int teamID);
 
-    @GET("matches?apikey=" + API_KEY + "&season_id=496&date_from={data}")
-    Call<Equipa> getJogo(@Path(value = "data", encoded = true) String data);
+    @GET("matches?apikey=" + API_KEY + "&season_id=496" + "&date_from")
+    Call<Partida> getJogo(@Query("date_from") String dataInicio);
 }
