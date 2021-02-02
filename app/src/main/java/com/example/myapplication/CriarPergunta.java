@@ -14,6 +14,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import DB.Perguntas;
@@ -28,13 +29,19 @@ public class CriarPergunta {
             @Override
             public void run() {
                 int size = 0;
+                String posicao = "";
                 try {
                     size = size(db);
+                    final int min = 1;
+                    final int max = size;
+                    final int random = new Random().nextInt((max - min) + 1) + min;
+                    posicao = String.valueOf(random);
+                    Log.d("POSICAO", posicao + "");
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
                 Log.d("size", size + "");
-                DocumentReference docRef = db.collection("perguntas_default").document("1");
+                DocumentReference docRef = db.collection("perguntas_default").document(posicao);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
