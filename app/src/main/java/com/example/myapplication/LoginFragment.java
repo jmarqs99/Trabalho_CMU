@@ -18,7 +18,7 @@ public class LoginFragment extends Fragment {
     private Context context;
     //private FirebaseAuth mAuth;
     private EditText email, password;
-    private Button loginButton;
+    private Button loginButton, loginWithGoogleButton;
 
     private Button registarUserButton;
     private TextView errorMessage;
@@ -48,6 +48,7 @@ public class LoginFragment extends Fragment {
         password = v.findViewById(R.id.editTextTextPassword);
         loginButton = v.findViewById(R.id.button3);
         errorMessage = v.findViewById(R.id.textViewTeste);
+        loginWithGoogleButton = v.findViewById(R.id.loginGoogleButton);
 
         registarUserButton = v.findViewById(R.id.buttonClassi);
 
@@ -71,6 +72,13 @@ public class LoginFragment extends Fragment {
                 else {
                     mContext.onSelected(userMail, userPass, errorMessage);
                 }
+            }
+        });
+
+        loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.onLoginWithGoogleSelected();
             }
         });
 

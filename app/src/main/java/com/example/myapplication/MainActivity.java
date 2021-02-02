@@ -25,6 +25,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private GoogleSignInClient signInClient;
     private JobScheduler mScheduler;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -96,6 +100,29 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             }
         });
     }
+
+    @Override
+    public void onLoginWithGoogleSelected() {
+
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        signInClient = GoogleSignIn.getClient(this, signInOptions);
+
+        /**
+        Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
+        intent.putExtra("mailUser", signInOptions.getAccount());
+        startActivity(intent);
+        finish();
+         */
+       // Intent intent = signInClient.getSignInIntent();
+       // startActivityForResult(intent);
+
+    }
+
+
 
     @Override
     public void onRegisterButtonSelected() {
