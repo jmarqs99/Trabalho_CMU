@@ -168,9 +168,10 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
     @Override
     public void OnLogoutSelect() {
-        mAuth.signOut();
-       //signInClient.signOut();
-        updateUI(null);
+
+       mAuth.signOut();
+       signInClient.signOut();
+       updateUI(null);
     }
 
 
@@ -191,6 +192,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
             tr.replace(R.id.fragment2,newQFragment);
             tr.addToBackStack(null);
             tr.commit();
+            Log.d("userNotNull", "usernaoNull");
 
         }
         else if (account != null) {
@@ -198,12 +200,17 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
             mailUser = account.getEmail();
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction tr = fm.beginTransaction();
-            
+
+            Log.d("ContauserNotNull", "ContausernaoNull");
+
+
+
             QuizFragment newQFragment = new QuizFragment();
 
             tr.replace(R.id.fragment2,newQFragment);
             tr.addToBackStack(null);
             tr.commit();
+
         }
         else {
 
