@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/border"
             android:drawableLeft="@drawable/iconemail"
@@ -86,18 +86,11 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/buttonClassi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="Não tens conta? Regista-te aqui!" />
-
-        <Button
             android:id="@+id/loginGoogleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-
+            android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
             android:background="@drawable/border2"
             android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
@@ -106,6 +99,14 @@
             android:textColorHint="@color/black"
             android:textSize="17sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/buttonClassi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:text="Não tens conta? Regista-te aqui!" />
 
         <TextView
             android:id="@+id/textViewTeste"

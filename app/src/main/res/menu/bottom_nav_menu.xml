@@ -22,7 +22,7 @@
     <item
         android:id="@+id/jogos_live"
         android:enabled="true"
-        android:icon="@drawable/perm_group_personal_info"
+        android:icon="@drawable/live2"
         android:title="AO VIVO"
         app:showAsAction="ifRoom" />
 </menu>
