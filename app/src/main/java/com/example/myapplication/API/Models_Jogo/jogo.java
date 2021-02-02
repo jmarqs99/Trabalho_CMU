@@ -10,6 +10,18 @@ public class jogo {
 
     private String match_start;
 
+    private String match_start_iso;
+
+    private int minute;
+
+    private stage stage;
+
+    private group group;
+
+    private round round;
+
+    private int referee_id;
+
     private int league_id;
 
     private int season_id;
@@ -100,5 +112,53 @@ public class jogo {
 
     public void setVenue(venue venue) {
         this.venue = venue;
+    }
+
+    public String getMatch_start_iso() {
+        return match_start_iso;
+    }
+
+    public void setMatch_start_iso(String match_start_iso) {
+        this.match_start_iso = match_start_iso;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public stage getStage() {
+        return stage;
+    }
+
+    public void setStage(stage stage) {
+        this.stage = stage;
+    }
+
+    public group getGroup() {
+        return group;
+    }
+
+    public void setGroup(group group) {
+        this.group = group;
+    }
+
+    public round getRound() {
+        return round;
+    }
+
+    public void setRound(round round) {
+        this.round = round;
+    }
+
+    public int getReferee_id() {
+        return referee_id;
+    }
+
+    public void setReferee_id(int referee_id) {
+        this.referee_id = referee_id;
     }
 }

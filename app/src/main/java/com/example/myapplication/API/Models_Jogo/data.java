@@ -4,5 +4,5 @@ import java.util.Map;
 
 public class data {
 
-    public Map<String,jogo> data;
+    public jogo[] jogos;
 }

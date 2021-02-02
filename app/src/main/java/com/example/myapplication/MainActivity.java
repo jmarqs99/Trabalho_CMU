@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         mAuth = FirebaseAuth.getInstance();
 
+        CriarPergunta pergunta = new CriarPergunta();
+        pergunta.geraPergunta(db);
+
         createRequest();
     }
 

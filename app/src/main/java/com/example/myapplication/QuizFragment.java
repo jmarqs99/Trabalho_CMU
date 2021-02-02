@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import DB.PerguntasDB;
+
 public class QuizFragment extends Fragment {
+
+    PerguntasDB dataBase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
