@@ -92,6 +92,21 @@
             android:background="@color/white"
             android:text="Não tens conta? Regista-te aqui!" />
 
+        <Button
+            android:id="@+id/loginGoogleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+
+            android:layout_marginRight="50dp"
+            android:background="@drawable/border2"
+            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
+            android:text="SignIn with Google"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/textViewTeste"
             android:layout_width="match_parent"
@@ -101,21 +116,6 @@
             android:layout_marginRight="50dp"
             android:text=""
             android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/loginGoogleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/border2"
-            android:text="SignIn with Google"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="17sp"
-            android:textStyle="bold" />
 
 
     </LinearLayout>
