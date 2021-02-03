@@ -21,6 +21,6 @@ public interface SportsDataAPI {
     @GET("teams/{team_id}?apikey=" + API_KEY)
     Call<Equipa> getEquipa(@Path(value = "team_id", encoded = true) int teamID);
 
-    @GET("matches?apikey=" + API_KEY + "&season_id=496" + "&date_from")
-    Call<Partida> getJogo(@Query("date_from") String dataInicio);
+    @GET("matches?apikey=" + API_KEY + "&season_id=496" + "&live=true")
+    Call<Partida> getJogo();
 }

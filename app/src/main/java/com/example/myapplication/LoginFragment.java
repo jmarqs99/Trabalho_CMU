@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class LoginFragment extends Fragment {
 
     LoginSelected mContext;
     private Context context;
     //private FirebaseAuth mAuth;
-    private EditText email, password;
+    private TextInputEditText email, password;
     private Button loginButton, loginWithGoogleButton;
 
     private Button registarUserButton;

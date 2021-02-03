@@ -46,7 +46,7 @@ public class JogosAoVivoFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        service.getJogo("2020-09-19")
+        service.getJogo()
                 .enqueue(new Callback<Partida>() {
                     @Override
                     public void onResponse(Call<Partida> call, Response<Partida> response) {
