@@ -1,20 +1,12 @@
 package com.example.myapplication;
 
 import android.Manifest;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,21 +23,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
 
@@ -70,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         db = FirebaseFirestore.getInstance();
 
-        Intent intent = new Intent(this,CheckLocation.class);
+        Intent intent = new Intent(this, CheckLocationService.class);
         startService(intent);
 
         mAuth = FirebaseAuth.getInstance();
@@ -256,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             startActivity(intent);
             finish();
             CriarPergunta pergunta = new CriarPergunta();
-            pergunta.getPerguntaFirestore();
+            pergunta.gerarNovaPergunta();
         }
         else if(account != null) {
             String mail = account.getEmail();
@@ -267,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             startActivity(intent);
             finish();
             CriarPergunta pergunta = new CriarPergunta();
-            pergunta.getPerguntaFirestore();
+            pergunta.gerarNovaPergunta();
         }
         else {
             LoginFragment loginFragment = new LoginFragment();

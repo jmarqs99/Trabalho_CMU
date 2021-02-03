@@ -2,15 +2,22 @@ package com.example.myapplication;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -18,7 +25,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
-public class CheckLocation extends Service {
+public class CheckLocationService extends Service {
 
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
@@ -26,6 +33,7 @@ public class CheckLocation extends Service {
     private Estadio[] estadios;
     private Long lastQuestion;
     private final int TIME_BETWEEN_QUESTIONS = 600; //seconds
+    private static int notificationId = 10;
 
     private class Estadio extends Location{
 
@@ -44,6 +52,8 @@ public class CheckLocation extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        createNotificationChannel();
+
         estadios = new Estadio[18];
         estadios[0] = new Estadio(48.21939343463849,11.624625277556701);
         estadios[1] = new Estadio(51.174758119514365,6.38552695539048);
@@ -71,6 +81,8 @@ public class CheckLocation extends Service {
         mLocationRequest.setInterval(30000);
         mLocationRequest.setFastestInterval(30000);
 
+        final Context context = this;
+
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -79,7 +91,24 @@ public class CheckLocation extends Service {
                     for(int i=0;i < estadios.length;i++){
                         if (location.distanceTo(estadios[i]) < 500 && (lastQuestion == null || System.currentTimeMillis()/1000 - lastQuestion >  TIME_BETWEEN_QUESTIONS)){
                             lastQuestion = System.currentTimeMillis()/1000;
-                            Log.d("GeoTest","Close to stadium");
+
+                            Intent notificationIntent = new Intent(context, MainActivity.class);
+                            PendingIntent pendingIntent =
+                                    PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+
+                            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "checkLockNotification")
+                                    .setSmallIcon(R.drawable.question_mark)
+                                    .setContentTitle("FutQuiz")
+                                    .setContentText("Por estares perto de um estádio aqui tens mais um Quiz!")
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                            notificationManager.notify(notificationId, builder.build());
+                            notificationId++;
+
+                            CriarPergunta.gerarNovaPergunta();
                         }
                     }
                 }
@@ -90,5 +119,17 @@ public class CheckLocation extends Service {
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Teste";
+            String description = "tete123";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("checkLockNotification", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

@@ -27,7 +27,7 @@
             android:name=".NewQuestionsService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
-            android:name=".CheckLocation"
+            android:name=".CheckLocationService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
     </application>

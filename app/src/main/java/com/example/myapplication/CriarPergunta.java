@@ -22,7 +22,7 @@ import DB.PerguntasDB;
 
 public class CriarPergunta {
 
-    public void getPerguntaFirestore() {
+    public static void gerarNovaPergunta() {
         new Thread() {
             @Override
             public void run() {
@@ -68,7 +68,7 @@ public class CriarPergunta {
         }.start();
     }
 
-    private int size(FirebaseFirestore db) throws ExecutionException, InterruptedException {
+    private static int size(FirebaseFirestore db) throws ExecutionException, InterruptedException {
         Task<QuerySnapshot> task = db.collection("perguntas_default").get();
         QuerySnapshot doc = Tasks.await(task);
         return doc.size();

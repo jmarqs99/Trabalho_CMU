@@ -1,21 +1,15 @@
 package com.example.myapplication;
 
-import android.app.ActivityManager;
-import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.job.JobParameters;
-import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -25,7 +19,7 @@ import androidx.core.app.NotificationManagerCompat;
 public class NewQuestionsService extends Service {
     private boolean execute;
     private Notification notification;
-    private final int TIME_BETWEEN_QUESTIONS = 60;//90 * 60; // em segundos
+    private final int TIME_BETWEEN_QUESTIONS = 90 * 60; // em segundos
     private static boolean running = false;
     private static int notificationId = 10;
 
@@ -77,14 +71,23 @@ public class NewQuestionsService extends Service {
                         if (System.currentTimeMillis() / 1000 - lastTimestamp > TIME_BETWEEN_QUESTIONS) {
                             mPrefs.edit().putLong("timestamp", System.currentTimeMillis() / 1000).commit();
 
+                            Intent notificationIntent = new Intent(context, MainActivity.class);
+                            PendingIntent pendingIntent =
+                                    PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+
                             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "testeNot")
                                     .setSmallIcon(R.drawable.question_mark)
                                     .setContentTitle("FutQuiz")
                                     .setContentText("Novo Quiz á tua espera!")
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true)
                                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
                             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                             notificationManager.notify(notificationId, builder.build());
                             notificationId++;
+
+                            CriarPergunta.gerarNovaPergunta();
                         }
                         try {
                             Thread.sleep(30000);
