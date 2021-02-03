@@ -46,17 +46,8 @@ public class RegistarUserFragment extends Fragment {
         password = v.findViewById(R.id.editTextTextRegisterPassword);
         confirmarPassword = v.findViewById(R.id.editTextTextRegisterPasswordConfirmar);
 
-        voltarButton = v.findViewById(R.id.voltarLoginPage);
-
         errorMessage = v.findViewById(R.id.textViewErrorRegister);
         registarUserButton = v.findViewById(R.id.registarUserButton);
-
-        voltarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.OnBackToLoginPageSelected();
-            }
-        });
 
         registarUserButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,13 +6,13 @@ public class stats {
 
     private int away_score;
 
-    private int ht_score;
+    private String ht_score;
 
-    private int ft_score;
+    private String ft_score;
 
-    private int et_score;
+    private String et_score;
 
-    private int ps_score;
+    private String ps_score;
 
     public int getHome_score() {
         return home_score;
@@ -30,35 +30,35 @@ public class stats {
         this.away_score = away_score;
     }
 
-    public int getHt_score() {
+    public String getHt_score() {
         return ht_score;
     }
 
-    public void setHt_score(int ht_score) {
+    public void setHt_score(String ht_score) {
         this.ht_score = ht_score;
     }
 
-    public int getFt_score() {
+    public String getFt_score() {
         return ft_score;
     }
 
-    public void setFt_score(int ft_score) {
+    public void setFt_score(String ft_score) {
         this.ft_score = ft_score;
     }
 
-    public int getEt_score() {
+    public String getEt_score() {
         return et_score;
     }
 
-    public void setEt_score(int et_score) {
+    public void setEt_score(String et_score) {
         this.et_score = et_score;
     }
 
-    public int getPs_score() {
+    public String getPs_score() {
         return ps_score;
     }
 
-    public void setPs_score(int ps_score) {
+    public void setPs_score(String ps_score) {
         this.ps_score = ps_score;
     }
 }

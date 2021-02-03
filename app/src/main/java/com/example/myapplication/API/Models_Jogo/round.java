@@ -6,6 +6,6 @@ public class round {
 
     private String name;
 
-    private boolean is_current;
+    private String is_current;
 
 }

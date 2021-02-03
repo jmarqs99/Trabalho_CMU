@@ -2,13 +2,11 @@ package com.example.myapplication.API.Models_Jogo;
 
 public class query {
 
-
     private String apikey;
 
     private String season_id;
 
     private String date_from;
-
 
     public String getSeason_id() {
         return season_id;
