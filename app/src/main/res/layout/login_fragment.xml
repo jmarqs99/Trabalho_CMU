@@ -87,7 +87,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="50dp"
-            android:drawableLeft="@drawable/common_google_signin_btn_icon_light_normal"
+            android:drawableLeft="@drawable/google"
             style="?attr/materialButtonOutlinedStyle"
             android:text="Conecta-te com o Google"
             android:textStyle="bold" />
