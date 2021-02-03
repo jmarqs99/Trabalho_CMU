@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface SportsDataAPI {
 
-    String API_KEY = "4ed7c980-6635-11eb-88cc-21d7a1010675";
+    String API_KEY = "5cd75cb0-6661-11eb-ac2a-65bae8cc25c4";
 
     @GET("standings?apikey=" + API_KEY + "&season_id=496")
     Call<Classificacao> getClassificacao();
@@ -21,6 +21,9 @@ public interface SportsDataAPI {
     @GET("teams/{team_id}?apikey=" + API_KEY)
     Call<Equipa> getEquipa(@Path(value = "team_id", encoded = true) int teamID);
 
+    @GET("matches?apikey=" + API_KEY + "&season_id=496" + "&date_from=2020-09-19")
+    Call<Partida> getJogos();
+
     @GET("matches?apikey=" + API_KEY + "&season_id=496" + "&live=true")
-    Call<Partida> getJogo();
+    Call<Partida> getJogosLive();
 }

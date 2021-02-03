@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,8 @@ public class ClassificacoesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.classificacoes_fragment, container, false);
+        final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
+                "A carregar dados...", true);
         mRecyclerView = v.findViewById(R.id.mRecyclerView);
         //mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -66,6 +69,7 @@ public class ClassificacoesFragment extends Fragment {
                                 List<Equipa> equipas = getEquipas(classificacao);
                                 List<Equipa_item> equipas_items = constroiClassificacao(classificacao,equipas);
                                 mAdapter = new EquipaAdapter(getActivity(),equipas_items);
+                                dialog.dismiss();
                                 return mAdapter;
                             }
 
@@ -113,7 +117,6 @@ public class ClassificacoesFragment extends Fragment {
                     classificacao.getData().getStandings()[i].getOverall().getGoals_against());
             equipas.add(i,equipa);
         }
-
         return equipas;
     }
 }

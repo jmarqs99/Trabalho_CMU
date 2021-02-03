@@ -11,7 +11,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Query;
 import androidx.room.Room;
 
 import com.example.myapplication.RecyclerView.EquipaAdapter;
@@ -27,7 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 import DB.Pergunta;
-import DB.PerguntasDAO;
 import DB.PerguntasDB;
 
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected, EditarDadosSelected {
@@ -161,7 +159,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.commit();
                         break;
                     case R.id.jogos_live:
-                        JogosAoVivoFragment jogosAoVivo = new JogosAoVivoFragment();
+                        JogosFragment jogosAoVivo = new JogosFragment();
                         tr.replace(R.id.fragment2,jogosAoVivo);
                         tr.addToBackStack(null);
                         tr.commit();

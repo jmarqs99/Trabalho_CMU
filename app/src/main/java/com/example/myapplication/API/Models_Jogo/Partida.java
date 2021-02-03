@@ -16,5 +16,11 @@ public class Partida {
         this.query = query;
     }
 
+    public List<jogo> getData() {
+        return data;
+    }
 
+    public void setData(List<jogo> data) {
+        this.data = data;
+    }
 }
