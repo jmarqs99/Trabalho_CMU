@@ -6,11 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Perguntas.class}, version = 1)
+@Database(entities = {Pergunta.class}, version = 1)
 public abstract class PerguntasDB extends RoomDatabase {
 
     public abstract PerguntasDAO perguntasDAO();

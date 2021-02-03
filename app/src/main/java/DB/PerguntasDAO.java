@@ -12,19 +12,19 @@ import java.util.List;
 public interface PerguntasDAO {
 
     @Insert
-    public void addPergunta(Perguntas pergunta);
+    public void addPergunta(Pergunta pergunta);
 
     @Delete
-    public void deletePergunta(Perguntas pergunta);
+    public void deletePergunta(Pergunta pergunta);
 
-    @Query("Select * FROM perguntas WHERE id LIKE :ID")
-    public LiveData<List<Perguntas>> getPergunta(String ID);
+    @Query("Select * FROM Pergunta WHERE id LIKE :ID")
+    public LiveData<List<Pergunta>> getPergunta(String ID);
 
-    @Query("SELECT SUM(pontos) FROM perguntas WHERE acertou=1")
+    @Query("SELECT SUM(pontos) FROM Pergunta WHERE acertou=1")
     public int getConta();
 
-    @Query("SELECT * FROM perguntas")
-    public List<Perguntas> getPerguntas();
+    @Query("SELECT * FROM Pergunta")
+    public List<Pergunta> getPerguntas();
 
 
 

@@ -5,8 +5,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
@@ -17,14 +15,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-import DB.Perguntas;
+import DB.Pergunta;
 
 public class CriarPergunta {
 
-    //FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-    public void geraPergunta(final FirebaseFirestore db) {
+    public void getPerguntaFirestore(final FirebaseFirestore db) {
         new Thread() {
             @Override
             public void run() {
@@ -49,6 +44,8 @@ public class CriarPergunta {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 Log.d("FIRESTORE", "DocumentSnapshot data: " + document.getData());
+                                Pergunta pergunta = document.toObject(Pergunta.class);
+                                Log.d("PERGUNTA", "pERGUNTA: " + pergunta.pergunta);
                             } else {
                                 Log.d("FIRESTORE", "No such document");
                             }

@@ -3,26 +3,17 @@ package com.example.myapplication;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.myapplication.API.Models_Equipa.Equipa;
 import com.example.myapplication.RecyclerView.EquipaAdapter;
-import com.example.myapplication.RecyclerView.Equipa_item;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -34,8 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-import DB.Perguntas;
-import DB.PerguntasDAO;
+import DB.Pergunta;
 import DB.PerguntasDB;
 
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected, EditarDadosSelected {
@@ -45,7 +35,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     private String mailUser;
     private int pontosUser;
     PerguntasDB perguntasDB;
-    private List<Perguntas> allPerguntas;
+    private List<Pergunta> allPerguntas;
     
 
     @Override
@@ -74,7 +64,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
             @Override
             protected EquipaAdapter doInBackground(Void... voids) {
 
-                List<Perguntas> pergunta;
+                List<Pergunta> pergunta;
 
                 pontosUser = perguntasDB.perguntasDAO().getConta();
 

@@ -74,9 +74,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         mAuth = FirebaseAuth.getInstance();
 
-        CriarPergunta pergunta = new CriarPergunta();
-        pergunta.geraPergunta(db);
-
         createRequest();
     }
 
@@ -105,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                     finish();
                      */
                     errorMessages.setText("Login bem sucedido");
+                    CriarPergunta pergunta = new CriarPergunta();
+                    pergunta.getPerguntaFirestore(db);
                 }
                 else {
                     updateUI(null);

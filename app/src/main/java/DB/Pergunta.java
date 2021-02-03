@@ -8,7 +8,7 @@ import androidx.room.TypeConverters;
 import java.util.List;
 
 @Entity
-public class Perguntas {
+public class Pergunta {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
