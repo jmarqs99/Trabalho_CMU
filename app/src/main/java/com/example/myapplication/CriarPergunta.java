@@ -22,12 +22,13 @@ import DB.PerguntasDB;
 
 public class CriarPergunta {
 
-    public void getPerguntaFirestore(final FirebaseFirestore db) {
+    public void getPerguntaFirestore() {
         new Thread() {
             @Override
             public void run() {
                 int size = 0;
                 String posicao = "";
+                final FirebaseFirestore db = FirebaseFirestore.getInstance();
                 try {
                     size = size(db);
                     final int min = 1;
