@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Query;
 import androidx.room.Room;
 
 import com.example.myapplication.RecyclerView.EquipaAdapter;
@@ -78,6 +79,24 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
                 return null;
             }
+
+
+
+            public EquipaAdapter apagarPerguntasNoLogout(Void... voids) {
+
+                List<Pergunta> pergunta;
+
+                pontosUser = perguntasDB.perguntasDAO().getConta();
+
+                allPerguntas = perguntasDB.perguntasDAO().getPerguntas();
+
+                for(int i=0; i< allPerguntas.size();  i++) {
+                    perguntasDB.perguntasDAO().deletePergunta(allPerguntas.get(i));
+                }
+
+                return null;
+            }
+
 
         }.execute();
 
@@ -164,8 +183,24 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
        mAuth.signOut();
        signInClient.signOut();
        updateUI(null);
+        apagarPerguntasNoLogout();
+
+
     }
 
+    private void apagarPerguntasNoLogout() {
+        new AsyncTask<Void,Void,Void>(){
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                PerguntasDB.getInstance().perguntasDAO().removerPerguntas();
+                Log.d("PerguntasEliminadas", PerguntasDB.getInstance().perguntasDAO().getPerguntas().toString());
+
+                return null;
+            }
+        }.execute();
+
+    }
 
 
     private void updateUI(FirebaseUser user) {

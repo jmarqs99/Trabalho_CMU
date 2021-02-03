@@ -10,13 +10,16 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:background="@color/gray">
 
         <TextView
+            android:layout_marginTop="50dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
+            android:textColor="@color/bundes_red"
             android:text="Cria aqui a tua conta"
 
 
@@ -29,19 +32,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="140dp"
             android:background="@drawable/border"
             android:drawableLeft="@drawable/iconemail"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/email"
             android:singleLine="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="-400dp"
             android:layout_marginRight="20dp"
             android:padding="10dp"
             android:shadowColor="@color/light_gray"
-            android:textColor="@color/darker_gray"
-            android:textColorHint="@color/darker_gray"
+            android:textColor="@color/bundes_red"
+            android:textColorHint="@color/bundes_red"
             android:textSize="16sp"/>
 
         <EditText
@@ -52,15 +55,15 @@
             android:inputType="textPassword"
             android:drawableLeft="@drawable/iconsenha"
             android:background="@drawable/border"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="220dp"
+            android:layout_marginLeft="-400dp"
             android:layout_marginRight="20dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/passowrd"
             android:padding="10dp"
-            android:textColor="@color/darker_gray"
-            android:textColorHint="@color/darker_gray"
+            android:textColor="@color/bundes_red"
+            android:textColorHint="@color/bundes_red"
             android:textSize="16sp"/>
 
         <EditText
@@ -71,15 +74,15 @@
             android:inputType="textPassword"
             android:drawableLeft="@drawable/iconsenha"
             android:background="@drawable/border"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="-400dp"
             android:layout_marginRight="20dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="confirmar password"
+            android:hint="Confirmar Password..."
             android:padding="10dp"
-            android:textColor="@color/darker_gray"
-            android:textColorHint="@color/darker_gray"
+            android:textColor="@color/bundes_red"
+            android:textColorHint="@color/bundes_red"
             android:textSize="16sp"/>
 
         <Button
@@ -87,9 +90,9 @@
             android:background="@drawable/border2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginTop="380dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="-400dp"
             android:textColor="@color/light_gray"
             android:textColorHint="@color/light_gray"
             android:textSize="17sp"
@@ -98,32 +101,34 @@
 
         <Button
             android:id="@+id/voltarLoginPage"
-            android:background="@drawable/border2"
+            android:background="@color/white"
+            android:drawableRight="@drawable/seta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="350dp"
+            android:layout_marginLeft="-410dp"
             android:textColor="@color/light_gray"
             android:textColorHint="@color/light_gray"
             android:textSize="17sp"
-            android:textStyle="bold"
-            android:text="Voltar" />
+            android:textStyle="bold"/>
 
 
         <TextView
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginTop="500dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="-400dp"
             android:textAlignment="center"
             android:id="@+id/textViewErrorRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            />
+            android:text="" />
 
-
-
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
 
     </LinearLayout>

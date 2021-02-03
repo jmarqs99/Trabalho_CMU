@@ -27,5 +27,9 @@ public interface PerguntasDAO {
     public List<Pergunta> getPerguntas();
 
 
+    @Query("DELETE FROM Pergunta")
+    public void removerPerguntas();
+
+
 
 }
