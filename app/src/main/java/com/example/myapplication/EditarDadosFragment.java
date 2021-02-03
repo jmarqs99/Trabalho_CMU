@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -22,8 +25,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class EditarDadosFragment extends Fragment {
 
     private FirebaseAuth mAuth;
+    private GoogleSignInClient signInClient;
     private Button cancelar, editarPass;
-    private EditText password;
+    private EditText password, confirmarPass;
 
     public EditarDadosFragment() {
 
@@ -34,6 +38,13 @@ public class EditarDadosFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        signInClient = GoogleSignIn.getClient(getContext(), signInOptions);
     }
 
     @Nullable
@@ -44,6 +55,8 @@ public class EditarDadosFragment extends Fragment {
         cancelar = v.findViewById(R.id.buttonCancelar);
         editarPass = v.findViewById(R.id.buttonConfirmar);
         password = v.findViewById(R.id.editTextTextPassword2);
+        confirmarPass = v.findViewById(R.id.editTextTextPassword3);
+        
 
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +72,7 @@ public class EditarDadosFragment extends Fragment {
             public void onClick(View v) {
 
                 String mudarPass = password.getText().toString();
+                String confirmarPassword = confirmarPass.getText().toString();
 
                 if(mudarPass.isEmpty()) {
                     password.setError("Palavra passe é nula");
@@ -69,10 +83,14 @@ public class EditarDadosFragment extends Fragment {
                 else {
                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                    firebaseUser.updatePassword(mudarPass);
-
-                    Intent intent = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
-                    startActivity(intent);
+                    if(mudarPass.equals(confirmarPassword)) {
+                        firebaseUser.updatePassword(mudarPass);
+                        Intent intent = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        password.setError("Palavra passe não compatível");
+                    }
                 }
 
             }

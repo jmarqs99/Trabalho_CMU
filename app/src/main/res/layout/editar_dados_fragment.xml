@@ -37,7 +37,27 @@
             android:layout_marginRight="20dp"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="@string/passowrd"
+            android:hint="Password..."
+            android:padding="10dp"
+            android:textColor="@color/darker_gray"
+            android:textColorHint="@color/darker_gray"
+            android:textSize="16sp" />
+
+
+        <EditText
+            android:id="@+id/editTextTextPassword3"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/iconsenha"
+            android:background="@drawable/border"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="Confirmar Password..."
             android:padding="10dp"
             android:textColor="@color/darker_gray"
             android:textColorHint="@color/darker_gray"
