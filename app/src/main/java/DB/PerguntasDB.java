@@ -36,4 +36,8 @@ public abstract class PerguntasDB extends RoomDatabase {
         }
     }
 
+    public static PerguntasDB getInstance(){
+            return INSTANCE;
+    }
+
 }

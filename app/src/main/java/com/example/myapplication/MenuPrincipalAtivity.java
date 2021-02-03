@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 import DB.Pergunta;
+import DB.PerguntasDAO;
 import DB.PerguntasDB;
 
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected, EditarDadosSelected {
@@ -40,6 +41,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PerguntasDB.getInstance(this); // Usado para instanciar o DAO pela primeira vez
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -82,8 +84,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         //perguntasDB.perguntasDAO().addPergunta(pergunta1);
        // pontosUser = perguntasDB.perguntasDAO().getConta();
 
-   //     PerguntasDB.getInstance(this).perguntasDAO().addPergunta(perguntas);
-//        pontosUser = PerguntasDB.getInstance(this).perguntasDAO().getConta();
+        //     PerguntasDB.getInstance(this).perguntasDAO().addPergunta(perguntas);
+        //        pontosUser = PerguntasDB.getInstance(this).perguntasDAO().getConta();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal_fragment);

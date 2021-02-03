@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import DB.Pergunta;
+import DB.PerguntasDB;
 
 public class CriarPergunta {
 
@@ -31,11 +34,9 @@ public class CriarPergunta {
                     final int max = size;
                     final int random = new Random().nextInt((max - min) + 1) + min;
                     posicao = String.valueOf(random);
-                    Log.d("POSICAO", posicao + "");
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-                Log.d("size", size + "");
                 DocumentReference docRef = db.collection("perguntas_default").document(posicao);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -43,9 +44,17 @@ public class CriarPergunta {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                Log.d("FIRESTORE", "DocumentSnapshot data: " + document.getData());
-                                Pergunta pergunta = document.toObject(Pergunta.class);
-                                Log.d("PERGUNTA", "pERGUNTA: " + pergunta.pergunta);
+                                final Pergunta pergunta = document.toObject(Pergunta.class);
+
+                                new AsyncTask<Void,Void,Void>(){
+
+                                    @Override
+                                    protected Void doInBackground(Void... voids) {
+                                        PerguntasDB.getInstance().perguntasDAO().addPergunta(pergunta);
+                                        return null;
+                                    }
+                                }.execute();
+
                             } else {
                                 Log.d("FIRESTORE", "No such document");
                             }

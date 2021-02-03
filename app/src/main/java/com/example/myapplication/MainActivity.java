@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                     finish();
                      */
                     errorMessages.setText("Login bem sucedido");
-                    CriarPergunta pergunta = new CriarPergunta();
-                    pergunta.getPerguntaFirestore(db);
                 }
                 else {
                     updateUI(null);
@@ -253,6 +251,8 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             intent.putExtra("mailUser", mail);
             startActivity(intent);
             finish();
+            CriarPergunta pergunta = new CriarPergunta();
+            pergunta.getPerguntaFirestore(db);
         }
         else if(account != null) {
             String mail = account.getEmail();
@@ -261,6 +261,8 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             intent.putExtra("mailUser", mail);
             startActivity(intent);
             finish();
+            CriarPergunta pergunta = new CriarPergunta();
+            pergunta.getPerguntaFirestore(db);
         }
         else {
             LoginFragment loginFragment = new LoginFragment();
