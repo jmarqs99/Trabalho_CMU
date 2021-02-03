@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
                     loginPeloGoogle = false;
@@ -87,14 +88,21 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                     startActivity(intent);
                     finish();
                      */
-                    errorMessages.setText("Login bem sucedido");
+                    //errorMessages.setText("Login bem sucedido");
                 }
                 else {
-                    updateUI(null);
-                    errorMessages.setText("Login falhado");
+                    errorMessages.setText("Login falhado! Verifique os dados inseridos!");
+                    errorMessages.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            errorMessages.setVisibility(View.INVISIBLE);
+                        }
+                    }, 2500); //desparece passados 2,5 segundos
                 }
             }
         });
+
     }
 
     private void createRequest() {
