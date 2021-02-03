@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +16,25 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class PerfilFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient signInClient;
     LogoutSelected lg;
     EditarDadosSelected ed;
     private TextView emailUser, pontos;
     private Button loggout, editarPass;
     private String mailText;
+    private Boolean loginPeloGoogle;
     private int pontosUser;
+
+
 
     public PerfilFragment() {
 
@@ -34,6 +43,13 @@ public class PerfilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        signInClient = GoogleSignIn.getClient(PerfilFragment.super.getContext(), signInOptions);
     }
 
     @Override
@@ -48,12 +64,18 @@ public class PerfilFragment extends Fragment {
         this.ed = (EditarDadosSelected) context;
     }
 
+    public Boolean getLoginPeloGoogle() {
+        return this.loginPeloGoogle;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
         mailText = getArguments().getString("maill");
         pontosUser = getArguments().getInt("pontos");
+        loginPeloGoogle = getArguments().getBoolean("googlelogin");
+        Log.d("GoogleLogin", loginPeloGoogle + " login");
 
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 
@@ -63,6 +85,10 @@ public class PerfilFragment extends Fragment {
         loggout = v.findViewById(R.id.buttonLogout);
         editarPass = v.findViewById(R.id.buttonEditarPassword);
         pontos = v.findViewById(R.id.textViewPontos);
+
+        if(getLoginPeloGoogle() == true) {
+            editarPass.setVisibility(v.GONE);
+        }
 
         editarPass.setOnClickListener(new View.OnClickListener() {
             @Override

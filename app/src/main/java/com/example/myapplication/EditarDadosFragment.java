@@ -56,7 +56,7 @@ public class EditarDadosFragment extends Fragment {
         editarPass = v.findViewById(R.id.buttonConfirmar);
         password = v.findViewById(R.id.editTextTextPassword2);
         confirmarPass = v.findViewById(R.id.editTextTextPassword3);
-        
+
 
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override

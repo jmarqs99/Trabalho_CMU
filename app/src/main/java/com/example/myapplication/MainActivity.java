@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     private GoogleSignInClient signInClient;
     private JobScheduler mScheduler;
     private final static int RC_SIGN_IN = 123;
+    private boolean loginPeloGoogle = false;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
+                    loginPeloGoogle = false;
                     /**
                     Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
                     intent.putExtra("mailUser", mail);
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         Intent intent = signInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
         Log.d("AquiTbm", "chegou aqui tbm");
+        loginPeloGoogle = true;
 
     }
 
@@ -249,20 +252,22 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             String mail = user.getEmail();
             Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
             intent.putExtra("mailUser", mail);
+            intent.putExtra("googleLogin", loginPeloGoogle);
             startActivity(intent);
             finish();
             CriarPergunta pergunta = new CriarPergunta();
-            pergunta.getPerguntaFirestore(db);
+            pergunta.getPerguntaFirestore();
         }
         else if(account != null) {
             String mail = account.getEmail();
 
             Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
             intent.putExtra("mailUser", mail);
+            intent.putExtra("googleLogin", loginPeloGoogle);
             startActivity(intent);
             finish();
             CriarPergunta pergunta = new CriarPergunta();
-            pergunta.getPerguntaFirestore(db);
+            pergunta.getPerguntaFirestore();
         }
         else {
             LoginFragment loginFragment = new LoginFragment();

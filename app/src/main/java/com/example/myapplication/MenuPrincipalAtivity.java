@@ -35,6 +35,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     private GoogleSignInClient signInClient;
     private FirebaseFirestore db;
     private String mailUser;
+    private boolean loginPeloGoogle;
     private int pontosUser;
     PerguntasDB perguntasDB;
     private List<Pergunta> allPerguntas;
@@ -56,6 +57,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                 .build();
 
         signInClient = GoogleSignIn.getClient(this, signInOptions);
+
 
         new AsyncTask<Void, Void, EquipaAdapter>() {
 
@@ -111,6 +113,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
         Intent intent = getIntent();
         mailUser = intent.getStringExtra("mailUser");
+        loginPeloGoogle = intent.getBooleanExtra("googleLogin", false);
+        Log.d("LoginPeloGO", loginPeloGoogle + "");
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
@@ -147,6 +151,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         Bundle b = new Bundle();
                         b.putString("maill", mailUser);
                         b.putInt("pontos", pontosUser);
+                        b.putBoolean("googlelogin", loginPeloGoogle);
 
                         PerfilFragment newPFragment = new PerfilFragment();
 
@@ -210,7 +215,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         if(user != null) {
 
             mailUser = user.getEmail();
-
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction tr = fm.beginTransaction();
 
@@ -223,7 +227,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
         }
         else if (account != null) {
-
             mailUser = account.getEmail();
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction tr = fm.beginTransaction();
