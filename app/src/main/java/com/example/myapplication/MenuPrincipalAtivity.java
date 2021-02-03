@@ -158,9 +158,15 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+                    case R.id.jogos:
+                        JogosFragment jogos = new JogosFragment();
+                        tr.replace(R.id.fragment2,jogos);
+                        tr.addToBackStack(null);
+                        tr.commit();
+                        break;
                     case R.id.jogos_live:
-                        JogosFragment jogosAoVivo = new JogosFragment();
-                        tr.replace(R.id.fragment2,jogosAoVivo);
+                        jogosLiveFragment jogoslive = new jogosLiveFragment();
+                        tr.replace(R.id.fragment2,jogoslive);
                         tr.addToBackStack(null);
                         tr.commit();
                         break;

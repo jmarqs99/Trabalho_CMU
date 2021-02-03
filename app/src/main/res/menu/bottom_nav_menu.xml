@@ -4,25 +4,31 @@
     <item
         android:id="@+id/action_quizz"
         android:enabled="true"
-        android:icon="@drawable/question_mark"
+        android:icon="@drawable/baseline_quiz_white_24dp"
         android:title="Perguntas"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_standings"
         android:enabled="true"
-        android:icon="@drawable/standings"
+        android:icon="@drawable/baseline_emoji_events_white_24dp"
         android:title="Classificação"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/jogos"
+        android:enabled="true"
+        android:icon="@drawable/outline_sports_soccer_white_24dp"
+        android:title="Jogos"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/jogos_live"
+        android:enabled="true"
+        android:icon="@drawable/outline_live_tv_white_24dp"
+        android:title="AO VIVO"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/perm_group_personal_info"
         android:title="Perfil"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/jogos_live"
-        android:enabled="true"
-        android:icon="@drawable/live2"
-        android:title="AO VIVO"
         app:showAsAction="ifRoom" />
 </menu>
