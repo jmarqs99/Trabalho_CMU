@@ -33,7 +33,6 @@ public class PerfilFragment extends Fragment {
     private TextView emailUser, pontos;
     private Button loggout, editarPass;
     private String mailText;
-    private Boolean loginPeloGoogle;
     private int pontosUser;
 
 
@@ -68,9 +67,6 @@ public class PerfilFragment extends Fragment {
         this.ed = (EditarDadosSelected) context;
     }
 
-    public Boolean getLoginPeloGoogle() {
-        return this.loginPeloGoogle;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -78,8 +74,6 @@ public class PerfilFragment extends Fragment {
 
         mailText = getArguments().getString("maill");
         pontosUser = getArguments().getInt("pontos");
-        loginPeloGoogle = getArguments().getBoolean("googlelogin");
-        Log.d("GoogleLogin", loginPeloGoogle + " login");
 
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 

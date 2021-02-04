@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     private GoogleSignInClient signInClient;
     private JobScheduler mScheduler;
     private final static int RC_SIGN_IN = 123;
-    private boolean loginPeloGoogle = false;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
                     if(user.isEmailVerified()) {
                         updateUI(user);
-                        loginPeloGoogle = false;
                     }
                     else {
                         Toast.makeText(MainActivity.this,
@@ -133,8 +131,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         Intent intent = signInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
         Log.d("AquiTbm", "chegou aqui tbm");
-        loginPeloGoogle = true;
-
     }
 
 
@@ -241,7 +237,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                 String mail = user.getEmail();
                 Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
                 intent.putExtra("mailUser", mail);
-                intent.putExtra("googleLogin", loginPeloGoogle);
                 startActivity(intent);
                 finish();
                 CriarPergunta pergunta = new CriarPergunta();
@@ -261,7 +256,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
             Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
             intent.putExtra("mailUser", mail);
-            intent.putExtra("googleLogin", loginPeloGoogle);
             startActivity(intent);
             finish();
             CriarPergunta pergunta = new CriarPergunta();

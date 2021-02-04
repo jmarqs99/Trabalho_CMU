@@ -33,7 +33,7 @@
             app:startIconDrawable="@drawable/iconsenha"
             app:endIconMode="password_toggle"
             android:gravity="center_vertical"
-            android:hint="@string/passowrd"
+            android:hint="Nova Password..."
             android:inputType="textPassword"
             android:singleLine="true"
 
@@ -42,9 +42,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextTextPassword2"
                 android:layout_width="match_parent"
-                android:inputType="textPassword"
                 android:layout_height="match_parent"
-                app:endIconMode="clear_text"/>
+                android:inputType="textPassword"
+                app:endIconMode="clear_text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +81,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
-            android:padding="10dp"
+            android:padding="15dp"
             android:text="Confirmar"
             android:textSize="17sp"
             android:textStyle="bold" />
@@ -95,7 +95,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
             android:text="Cancelar"
-            android:padding="10dp"
+            android:padding="15dp"
             android:textColor="@color/design_default_color_error"
             android:textColorHint="@color/light_gray"
             android:textSize="17sp"
