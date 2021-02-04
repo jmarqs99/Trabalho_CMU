@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,13 +8,35 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+
+import com.example.myapplication.API.Models.Models_Classificacao.Classificacao;
+import com.example.myapplication.API.Models_Equipa.Equipa;
+import com.example.myapplication.API.Models_Jogo.Partida;
+import com.example.myapplication.API.Models_Jogo.jogo;
+import com.example.myapplication.API.RetrofitClient;
+import com.example.myapplication.CriarPergunta;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.R;
+import com.example.myapplication.RecyclerView.EquipaAdapter;
+import com.example.myapplication.RecyclerView.Equipa_item;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewQuestionsService extends Service {
     private boolean execute;
@@ -22,6 +44,7 @@ public class NewQuestionsService extends Service {
     private final int TIME_BETWEEN_QUESTIONS = 90 * 60; // em segundos
     private static boolean running = false;
     private static int notificationId = 10;
+    private List<Integer> rewardedGames;
 
     public NewQuestionsService() {
         super();
@@ -36,6 +59,7 @@ public class NewQuestionsService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate() {
+        rewardedGames = new ArrayList<Integer>();
         createNotificationChannel();
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent =
@@ -89,6 +113,43 @@ public class NewQuestionsService extends Service {
 
                             CriarPergunta.gerarNovaPergunta();
                         }
+                        RetrofitClient.getApi().getJogosLive()
+                                .enqueue(new Callback<Partida>(){
+
+                                    @Override
+                                    public void onResponse(Call<Partida> call, Response<Partida> response) {
+                                        final Partida partida = response.body();
+                                        List<jogo> listJogos = partida.getData();
+                                        for (int i=0;i < listJogos.size();i++){
+                                            if (!rewardedGames.contains(listJogos.get(i).getMatch_id())){
+                                                rewardedGames.add(listJogos.get(i).getMatch_id());
+
+                                                Intent notificationIntent = new Intent(context, MainActivity.class);
+                                                PendingIntent pendingIntent =
+                                                        PendingIntent.getActivity(context, 0, notificationIntent, 0);
+
+
+                                                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "testeNot")
+                                                        .setSmallIcon(R.drawable.question_mark)
+                                                        .setContentTitle("FutQuiz")
+                                                        .setContentText("Recebeste um novo quiz devido ao jogo ao vivo!")
+                                                        .setContentIntent(pendingIntent)
+                                                        .setAutoCancel(true)
+                                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                                                notificationManager.notify(notificationId, builder.build());
+                                                notificationId++;
+
+                                                CriarPergunta.gerarNovaPergunta();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Partida> call, Throwable t) {
+                                        Log.d("Error",t.toString());
+                                    }
+                                });
                         try {
                             Thread.sleep(30000);
                         } catch (InterruptedException e) {

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Services;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,6 +19,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.myapplication.CriarPergunta;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
