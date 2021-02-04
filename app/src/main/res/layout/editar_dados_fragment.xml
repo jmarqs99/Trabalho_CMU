@@ -24,24 +24,27 @@
             android:textAlignment="center"/>
 
 
-        <EditText
-            android:id="@+id/editTextTextPassword2"
-            android:singleLine="true"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:drawableLeft="@drawable/iconsenha"
-            android:background="@drawable/border"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
-            android:drawablePadding="8dp"
+            app:startIconDrawable="@drawable/iconemail"
             android:gravity="center_vertical"
-            android:hint="Password..."
-            android:padding="10dp"
-            android:textColor="@color/darker_gray"
-            android:textColorHint="@color/darker_gray"
-            android:textSize="16sp" />
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:singleLine="true"
+            android:textSize="16sp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTextPassword2"
+                android:layout_width="match_parent"
+                app:endIconMode="clear_text"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <EditText
