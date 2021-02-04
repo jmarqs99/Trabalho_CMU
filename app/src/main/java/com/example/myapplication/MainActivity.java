@@ -26,13 +26,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
 
@@ -168,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("googleSucesso", "Login com google sucesso");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                enviarPontosUserParaFirestore(user);
                                 updateUI(user);
 
                             } else {
@@ -201,6 +208,28 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
+
+                    enviarPontosUserParaFirestore(user);
+
+
+                    /**
+                    db.collection("users")
+                            .add(user1.getEmail())
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d("EnviarPontosFirestore", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("ErroEnviarPontos", "Error adding document", e);
+                                }
+                            });
+*/
+
+
 
                     OnBackToLoginPageSelected();
                     errorMessage.setText("Conta registada com sucesso!");
@@ -290,6 +319,26 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                         }
                     }
                 });
+    }
+
+
+    private void enviarPontosUserParaFirestore(FirebaseUser user) {
+
+        DocumentReference documentReference = db.collection("users").document(user.getEmail());
+
+        Map<String, Object> user1 = new HashMap<>();
+        user1.put("pontos", 0);
+        documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("EnviarDadosSuccess", "Foram enviados os pontos para o user");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("EnviarDadosFailure", "Erro ao  enviar os pontos para o user");
+            }
+        });
     }
 
 }
