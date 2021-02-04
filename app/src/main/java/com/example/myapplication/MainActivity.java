@@ -226,14 +226,24 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
         if(user != null) {
-            String mail = user.getEmail();
-            Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
-            intent.putExtra("mailUser", mail);
-            intent.putExtra("googleLogin", loginPeloGoogle);
-            startActivity(intent);
-            finish();
-            CriarPergunta pergunta = new CriarPergunta();
-            pergunta.gerarNovaPergunta();
+            if(user.isEmailVerified()) {
+                String mail = user.getEmail();
+                Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
+                intent.putExtra("mailUser", mail);
+                intent.putExtra("googleLogin", loginPeloGoogle);
+                startActivity(intent);
+                finish();
+                CriarPergunta pergunta = new CriarPergunta();
+                pergunta.gerarNovaPergunta();
+            }
+            else {
+                LoginFragment loginFragment = new LoginFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.mainActivity, loginFragment, "home");
+                ft.addToBackStack("home");
+                ft.commit();
+            }
         }
         else if(account != null) {
             String mail = account.getEmail();
