@@ -92,15 +92,26 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                     }
 
                 }
+
                 else {
-                    errorMessages.setText("Login falhado! Verifique os dados inseridos!");
-                    errorMessages.setVisibility(View.VISIBLE);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            errorMessages.setVisibility(View.INVISIBLE);
-                        }
-                    }, 2500); //desparece passados 2,5 segundos
+                    if(mail.isEmpty()) {
+                        errorMessages.setText("Login falhado! Email vazio!");
+                        errorMessages.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                errorMessages.setVisibility(View.INVISIBLE);
+                            }
+                        }, 2500); //desparece passados 2,5 segundos
+                    }
+                        errorMessages.setText("Login falhado! Verifique os dados inseridos!");
+                        errorMessages.setVisibility(View.VISIBLE);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                errorMessages.setVisibility(View.INVISIBLE);
+                            }
+                        }, 2500); //desparece passados 2,5 segundos
                 }
             }
         });

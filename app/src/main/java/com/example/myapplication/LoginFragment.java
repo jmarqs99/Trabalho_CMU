@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,14 +61,16 @@ public class LoginFragment extends Fragment {
                 String userMail = email.getText().toString();
                 String userPass = password.getText().toString();
 
-                if(userMail.isEmpty()) {
-                    email.setError("Insira um email");
-                    email.requestFocus();
-                }
 
-                if(userPass.isEmpty()) {
-                    password.setError("Insira uma password");
-                    password.requestFocus();
+                if(userMail.isEmpty()) {
+                    errorMessage.setText("Login falhado! Parâmetro(s) vazio(s)!");
+                    errorMessage.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            errorMessage.setVisibility(View.INVISIBLE);
+                        }
+                    }, 2500); //desparece passados 2,5 segundos
                 }
 
                 else {
