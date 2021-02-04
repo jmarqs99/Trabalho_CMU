@@ -53,7 +53,6 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
     private Sem_jogosAdapter sem_jogosAdapter;
     private final SportsDataAPI service = RetrofitClient.getApi();
     private Button btnDatePicker;
-    private EditText txtDate;
     private int mYear, mMonth, mDay;
 
     @Override
@@ -65,7 +64,6 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         btnDatePicker=v.findViewById(R.id.btn_date);
-        txtDate=v.findViewById(R.id.in_date);
 
         btnDatePicker.setOnClickListener(this);
 
@@ -82,8 +80,28 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
         System.out.println(todayAsString);
         System.out.println(tomorrowAsString);
 
+        getJogos(todayAsString,tomorrowAsString);
 
-        service.getJogos(todayAsString,tomorrowAsString)
+        return v;
+    }
+
+    private List<Jogo_item> constroiLista(Partida partida) {
+        List<Jogo_item> jogos = new ArrayList<>();
+        for (int i =0 ; i< partida.getData().size(); i++){
+            Jogo_item jogo = new Jogo_item(partida.getData().get(i).getHome_team().getName(),
+                    partida.getData().get(i).getAway_team().getName(),
+                    partida.getData().get(i).getHome_team().getLogo(),
+                    partida.getData().get(i).getAway_team().getLogo(),
+                    partida.getData().get(i).getStats().getHome_score(),
+                    partida.getData().get(i).getStats().getAway_score(),
+                    partida.getData().get(i).getStatus());
+            jogos.add(i,jogo);
+        }
+        return jogos;
+    }
+
+    private void getJogos(String data_inicio , String data_fim){
+        service.getJogos(data_inicio,data_fim)
                 .enqueue(new Callback<Partida>() {
                     @Override
                     public void onResponse(Call<Partida> call, Response<Partida> response) {
@@ -121,29 +139,12 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
                         Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });;
-        return v;
     }
-
-    private List<Jogo_item> constroiLista(Partida partida) {
-        List<Jogo_item> jogos = new ArrayList<>();
-        for (int i =0 ; i< partida.getData().size(); i++){
-            Jogo_item jogo = new Jogo_item(partida.getData().get(i).getHome_team().getName(),
-                    partida.getData().get(i).getAway_team().getName(),
-                    partida.getData().get(i).getHome_team().getLogo(),
-                    partida.getData().get(i).getAway_team().getLogo(),
-                    partida.getData().get(i).getStats().getHome_score(),
-                    partida.getData().get(i).getStats().getAway_score(),
-                    partida.getData().get(i).getStatus());
-            jogos.add(i,jogo);
-        }
-        return jogos;
-    }
-
 
     @Override
     public void onClick(View view) {
         if (view == btnDatePicker) {
-            // Get Current Date
+
             final Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
@@ -151,16 +152,35 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                     new DatePickerDialog.OnDateSetListener() {
-
                         @Override
-                        public void onDateSet(DatePicker view, int year,
-                                              int monthOfYear, int dayOfMonth) {
-
-                            txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
-                        }
-                    }, mYear, mMonth, mDay);
+                        public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
+                            List<String> datas = constroiData(year,monthOfYear,dayOfMonth);
+                            Log.d("Data",  "" + datas.get(0) );
+                            getJogos(datas.get(0),datas.get(1));
+                        }}, mYear, mMonth, mDay);
             datePickerDialog.show();
+
         }
     }
+
+    private List<String> constroiData(int ano , int mes , int dia){
+        List<String> datas = new ArrayList<>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(ano,mes,dia);
+
+        Date hoje = cal.getTime();
+        String data_inicio = dateFormat.format(hoje);
+
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+        Date fim = cal.getTime();
+        String data_fim = dateFormat.format(fim);
+
+        datas.add(0,data_inicio);
+        datas.add(1,data_fim);
+
+        return datas;
+    }
+
 }
