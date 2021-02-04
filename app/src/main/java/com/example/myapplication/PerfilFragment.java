@@ -17,8 +17,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -50,6 +52,8 @@ public class PerfilFragment extends Fragment {
                 .build();
 
         signInClient = GoogleSignIn.getClient(PerfilFragment.super.getContext(), signInOptions);
+
+
     }
 
     @Override
@@ -86,9 +90,18 @@ public class PerfilFragment extends Fragment {
         editarPass = v.findViewById(R.id.buttonEditarPassword);
         pontos = v.findViewById(R.id.textViewPontos);
 
-        if(getLoginPeloGoogle() == true) {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(PerfilFragment.super.getContext());
+
+        if(account != null) {
             editarPass.setVisibility(v.GONE);
         }
+
+        if(signInClient.getApiOptions().getServerClientId() == mAuth.getUid()) {
+            editarPass.setVisibility(v.GONE);
+        }
+
+        Log.d("ABC", mAuth.toString());
+        Log.d("CBA", signInClient.toString());
 
         editarPass.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -58,6 +58,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         signInClient = GoogleSignIn.getClient(this, signInOptions);
 
 
+
         new AsyncTask<Void, Void, EquipaAdapter>() {
 
             @Override
@@ -187,10 +188,13 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
     }
 
+
+
     @Override
     public void OnLogoutSelect() {
 
        mAuth.signOut();
+
        signInClient.signOut();
        updateUI(null);
         apagarPerguntasNoLogout();
@@ -216,6 +220,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     private void updateUI(FirebaseUser user) {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
 
         if(user != null) {
 
