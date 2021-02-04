@@ -28,67 +28,74 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="100dp"
             android:layout_marginRight="20dp"
-            app:startIconDrawable="@drawable/iconemail"
+            app:startIconDrawable="@drawable/iconsenha"
+            app:endIconMode="password_toggle"
             android:gravity="center_vertical"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
+            android:hint="@string/passowrd"
+            android:inputType="textPassword"
             android:singleLine="true"
-            android:textSize="16sp"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextTextPassword2"
                 android:layout_width="match_parent"
-                app:endIconMode="clear_text"
-                android:layout_height="match_parent" />
+                android:inputType="textPassword"
+                android:layout_height="match_parent"
+                app:endIconMode="clear_text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <EditText
-            android:id="@+id/editTextTextPassword3"
-            android:singleLine="true"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:drawableLeft="@drawable/iconsenha"
-            android:background="@drawable/border"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:drawablePadding="8dp"
+            app:startIconDrawable="@drawable/iconsenha"
+            app:endIconMode="password_toggle"
             android:gravity="center_vertical"
             android:hint="Confirmar Password..."
-            android:padding="10dp"
-            android:textColor="@color/darker_gray"
-            android:textColorHint="@color/darker_gray"
-            android:textSize="16sp" />
+            android:inputType="textPassword"
+            android:singleLine="true"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTextPassword3"
+                android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:layout_height="match_parent"
+                app:endIconMode="clear_text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/buttonConfirmar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
-            android:background="@drawable/border2"
+            android:padding="10dp"
             android:text="Confirmar"
-            android:textColor="@color/light_gray"
-            android:textColorHint="@color/light_gray"
             android:textSize="17sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/buttonCancelar"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="50dp"
-            android:background="@drawable/border2"
             android:text="Cancelar"
+            android:padding="10dp"
             android:textColor="@color/design_default_color_error"
             android:textColorHint="@color/light_gray"
             android:textSize="17sp"
