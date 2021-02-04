@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
     android:background="@drawable/background"
     android:orientation="vertical">
 
@@ -18,7 +19,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:padding="50dp"
-            android:text="Texto da pergunta"
+            android:text="Quizzes"
             android:textColor="@color/black"
             android:textColorHighlight="@color/black"
             android:textSize="40sp"
@@ -28,50 +29,53 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="100dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewOpcao1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/border4"
+            android:layout_weight="10"
             android:gravity="center"
-            android:padding="20dp"
-            android:text="Opção 1"
-            android:textColor="@color/black"
-            android:textSize="30sp" />/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewOpcao2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/border4"
-            android:gravity="center"
-            android:padding="20dp"
-            android:text="Opção 2"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quizzes disponíveis:"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textViewOpcao3"
-            android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/perguntasCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/awnserQuizz"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/border4"
-            android:gravity="center"
-            android:padding="20dp"
-            android:text="Opção 3"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:layout_weight="1"
+            android:text="Começar quizz" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Praticar" />
+
     </LinearLayout>
 
 </LinearLayout>

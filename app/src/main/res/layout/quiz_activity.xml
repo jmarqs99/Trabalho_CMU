@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textViewPergunta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="50dp"
+            android:text="Texto da pergunta"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/textViewOpcao1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border4"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Opção 1"
+            android:textColor="@color/black"
+            android:textSize="30sp" />/>
+
+        <Button
+            android:id="@+id/textViewOpcao2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border4"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Opção 2"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/textViewOpcao3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border4"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Opção 3"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+</LinearLayout>

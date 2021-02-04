@@ -5,10 +5,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Pergunta {
+public class Pergunta implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
