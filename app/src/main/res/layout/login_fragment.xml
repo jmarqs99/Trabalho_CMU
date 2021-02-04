@@ -96,7 +96,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="150dp"
             android:gravity="center"
-            android:padding="20dp"
+            android:padding="0dp"
             android:text="Login"
             android:textStyle="bold" />
 
@@ -116,7 +116,6 @@
             android:id="@+id/buttonClassi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:background="@color/white"
             android:textColor="@color/black"
             android:text="Não tens conta? Regista-te aqui!" />

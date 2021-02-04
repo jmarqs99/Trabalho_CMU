@@ -80,16 +80,17 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    updateUI(user);
-                    loginPeloGoogle = false;
-                    /**
-                    Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
-                    intent.putExtra("mailUser", mail);
-                    intent.putExtra("passUser", pass);
-                    startActivity(intent);
-                    finish();
-                     */
-                    //errorMessages.setText("Login bem sucedido");
+
+                    if(user.isEmailVerified()) {
+                        updateUI(user);
+                        loginPeloGoogle = false;
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this,
+                                "Confirme a sua conta no email que foi enviado por favor!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 else {
                     errorMessages.setText("Login falhado! Verifique os dados inseridos!");
@@ -194,26 +195,9 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
 
-                    /** //teste
-                    User user1 = new User(email);
-                    DocumentReference documentReference = db.collection("users").document(email);
-
-                    documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("FirestoreSuccess", "user foi adicionado");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("FirestoreFailure", "user n foi adicionado");
-                        }
-                    });
-                    */
-
-                    updateUI(user);
                     OnBackToLoginPageSelected();
                     errorMessage.setText("Conta registada com sucesso!");
+                    sendEmailVerification();
                 }
                 else {
                     updateUI(null);
@@ -272,5 +256,25 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         }
     }
 
+
+    private void sendEmailVerification() {
+        final FirebaseUser user = mAuth.getCurrentUser();
+        user.sendEmailVerification()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(MainActivity.this,
+                                    "Verification email sent to " + user.getEmail(),
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("TAG", "sendEmailVerification", task.getException());
+                            Toast.makeText(MainActivity.this,
+                                    "Failed to send verification email.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 
 }

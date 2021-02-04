@@ -64,6 +64,12 @@ public class LoginFragment extends Fragment {
                     email.setError("Insira um email");
                     email.requestFocus();
                 }
+
+                if(userPass.isEmpty()) {
+                    password.setError("Insira uma password");
+                    password.requestFocus();
+                }
+
                 else {
                     mContext.onSelected(userMail, userPass, errorMessage);
                 }
