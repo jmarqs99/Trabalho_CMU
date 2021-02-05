@@ -35,6 +35,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -215,14 +216,30 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     enviarPontosUserParaFirestore(user);
-
-                    OnBackToLoginPageSelected();
                     errorMessage.setText("Conta registada com sucesso!");
+                    errorMessage.setVisibility(View.VISIBLE);
                     sendEmailVerification();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            errorMessage.setVisibility(View.INVISIBLE);
+                            OnBackToLoginPageSelected();
+                        }
+                    }, 2500);
+
                 }
                 else {
-                    updateUI(null);
                     errorMessage.setText("O registo de conta falhou!");
+                    errorMessage.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            errorMessage.setVisibility(View.INVISIBLE);
+                            updateUI(null);
+                        }
+                    }, 2500); //desparece passados 2,5 segundos
+
+                    Log.d("registoFalhou", "o registo falhou");
                 }
             }
         });
@@ -337,5 +354,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             }
         });
     }
+
 
 }

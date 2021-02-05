@@ -84,4 +84,5 @@ public class RegistarUserFragment extends Fragment {
 
         return v;
     }
+
 }
