@@ -87,7 +87,7 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    private List<Jogo_item> constroiLista(Partida partida) {
+    public List<Jogo_item> constroiLista(Partida partida) {
         List<Jogo_item> jogos = new ArrayList<>();
         for (int i =0 ; i< partida.getData().size(); i++){
             Jogo_item jogo = new Jogo_item(partida.getData().get(i).getHome_team().getName(),
@@ -97,7 +97,8 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
                     partida.getData().get(i).getStats().getHome_score(),
                     partida.getData().get(i).getStats().getAway_score(),
                     partida.getData().get(i).getStatus_code(),
-                    partida.getData().get(i).getMatch_start());
+                    partida.getData().get(i).getMatch_start(),
+                    partida.getData().get(i).getMinute());
             jogos.add(i,jogo);
         }
         return jogos;

@@ -2,7 +2,7 @@ package com.example.myapplication.RecyclerView;
 
 public class Jogo_item {
 
-    public Jogo_item(String equipa_casa, String equipa_fora, String logo_casa, String logo_fora, int golos_casa, int golos_fora , int status_code, String data_inicio) {
+    public Jogo_item(String equipa_casa, String equipa_fora, String logo_casa, String logo_fora, int golos_casa, int golos_fora , int status_code, String data_inicio , String minuto) {
         this.equipa_casa = equipa_casa;
         this.equipa_fora = equipa_fora;
         this.logo_casa = logo_casa;
@@ -11,6 +11,7 @@ public class Jogo_item {
         this.golos_fora = golos_fora;
         this.status_code = status_code;
         this.data_inicio = data_inicio;
+        this.minuto = minuto;
     }
 
     private String equipa_casa;
@@ -30,6 +31,8 @@ public class Jogo_item {
     private String data_inicio;
 
     private int status_code;
+
+    private String minuto;
 
     public String getEquipa_casa() {
         return equipa_casa;
@@ -101,5 +104,13 @@ public class Jogo_item {
 
     public void setStatus_code(int status_code) {
         this.status_code = status_code;
+    }
+
+    public String getMinuto() {
+        return minuto;
+    }
+
+    public void setMinuto(String minuto) {
+        this.minuto = minuto;
     }
 }

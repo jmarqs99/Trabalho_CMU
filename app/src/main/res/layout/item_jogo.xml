@@ -23,56 +23,76 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/minutos"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="45'"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:textStyle="bold"></TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/equipa_logo_casa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp" />
-
-            <TextView
-                android:id="@+id/equipa_casa"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="Equipa1"
-                android:textStyle="bold"></TextView>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+                <ImageView
+                    android:id="@+id/equipa_logo_casa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp" />
 
-            <ImageView
-                android:id="@+id/equipa_logo_fora"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp" />
+                <TextView
+                    android:id="@+id/equipa_casa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:text="Equipa1"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/equipa_fora"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:text="Equipa1"
-                android:textStyle="bold"></TextView>
-        </LinearLayout>
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/equipa_logo_fora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/equipa_fora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:text="Equipa1"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+    </LinearLayout>
+
+
 
 
     </LinearLayout>

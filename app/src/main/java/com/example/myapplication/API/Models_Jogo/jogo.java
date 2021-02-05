@@ -12,7 +12,7 @@ public class jogo {
 
     private String match_start_iso;
 
-    private int minute;
+    private String minute;
 
     private stage stage;
 
@@ -122,11 +122,11 @@ public class jogo {
         this.match_start_iso = match_start_iso;
     }
 
-    public int getMinute() {
+    public String getMinute() {
         return minute;
     }
 
-    public void setMinute(int minute) {
+    public void setMinute(String minute) {
         this.minute = minute;
     }
 
