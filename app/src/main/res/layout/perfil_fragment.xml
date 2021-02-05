@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PerfilFragment"
     android:id="@+id/perfil">
 
@@ -11,64 +12,150 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <TextView
-            android:layout_marginTop="20dp"
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="O meu perfil"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:layout_marginTop="100dp"
-            android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
             android:id="@+id/textViewEmailPerfil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="mail" />
-
-
-        <TextView
-            android:layout_marginTop="50dp"
-            android:id="@+id/textViewPontos"
+            android:layout_marginTop="10dp"
+            android:text="Olá mail!"
             android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="pontos" />
-
-        <Button
-
-            android:id="@+id/buttonEditarPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Editar palavra passe"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="50dp"
-            style="?attr/materialButtonOutlinedStyle"
-            android:padding="15dp"
-            android:textSize="17sp"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/buttonLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="50dp"
-            style="?attr/materialButtonOutlinedStyle"
-            android:padding="15dp"
-            android:text="Logout"
-            android:textSize="17sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewPontos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                android:padding="10dp"
+                android:text="Número de pontos\n 550"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/num_corretas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewPontos"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                android:padding="10dp"
+                android:text="Nº de Perguntas Certas\n 10"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/num_erradas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewPontos"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/num_corretas"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/border"
+                android:padding="10dp"
+                android:text="Nº de Perguntas Erradas\n 10"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/percent_corretas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/num_erradas"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border"
+                android:padding="10dp"
+                android:text="% Perguntas Corretas\n 50%"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/percent_erradas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/num_erradas"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/percent_corretas"
+                android:background="@drawable/border"
+                android:padding="10dp"
+                android:text="% Perguntas Erradas\n 50%"
+                android:textStyle="bold"></TextView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/top_quizz"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TOP Jogadores"
+                android:padding="20dp"
+                android:layout_marginLeft="10dp"
+                android:drawableTop="@drawable/iconemail"
+                android:textSize="17sp"
+                android:textStyle="bold"></Button>
+
+
+            <Button
+                android:id="@+id/partilhar"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/top_quizz"
+                android:drawableTop="@drawable/iconemail"
+                android:layout_marginRight="10dp"
+                android:padding="20dp"
+                android:text="Partilhar"
+                android:textSize="17sp"
+                android:textStyle="bold"></Button>
+
+            <Button
+                android:id="@+id/buttonLogout"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/top_quizz"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:drawableTop="@drawable/iconemail"
+                android:padding="20dp"
+                android:text="Logout"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/buttonEditarPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonLogout"
+                android:text="Editar palavra passe"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                style="?attr/materialButtonOutlinedStyle"
+                android:drawableTop="@drawable/iconemail"
+                android:padding="20dp"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+
+
+
+
+
 
 
     </LinearLayout>
