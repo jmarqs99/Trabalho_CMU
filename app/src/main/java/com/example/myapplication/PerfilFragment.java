@@ -40,11 +40,12 @@ public class PerfilFragment extends Fragment {
     LogoutSelected lg;
     EditarDadosSelected ed;
     private TextView emailUser, pontos;
-    private Button loggout, editarPass;
+    private Button loggout, editarPass, partilhar;
     private String mailText;
     private int pontosUser;
     //private FirebaseFirestore db;
     FirebaseUser currentUser;
+    private final String partilharText = "Vem conhecer a nossa App  'FutQuizz'!!! Segue o link github em anexo: https://github.com/jmarqs99/Trabalho_CMU ";
 
 
     public PerfilFragment() {
@@ -80,7 +81,7 @@ public class PerfilFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
 
@@ -96,6 +97,7 @@ public class PerfilFragment extends Fragment {
         loggout = v.findViewById(R.id.buttonLogout);
         editarPass = v.findViewById(R.id.buttonEditarPassword);
         pontos = v.findViewById(R.id.textViewPontos);
+        partilhar = v.findViewById(R.id.partilhar);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(PerfilFragment.super.getContext());
 
@@ -125,6 +127,19 @@ public class PerfilFragment extends Fragment {
             public void onClick(View v) {
 
                 lg.OnLogoutSelect();
+            }
+        });
+
+
+        partilhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, partilharText);
+                intent.setType("text/plain");
+                intent = Intent.createChooser(intent,  "Share by");
+                startActivity(intent);
             }
         });
 
