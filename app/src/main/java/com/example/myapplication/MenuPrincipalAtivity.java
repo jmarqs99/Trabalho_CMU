@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.example.myapplication.RecyclerView.EquipaAdapter;
+import com.example.myapplication.Services.CheckLocationService;
 import com.example.myapplication.Services.NewQuestionsService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -45,7 +46,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        startService(new Intent(this, NewQuestionsService.class));
+        startService(new Intent(this, NewQuestionsService.class)); // Serviço foreground para dar quizz de x em x tempo
+        startService(new Intent(this, CheckLocationService.class)); // Serviço que dá quizzes baseado na localização
 
         perguntasDB = Room.databaseBuilder(getApplicationContext(), PerguntasDB.class, "sample-db").build();
 
@@ -55,57 +57,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                 .build();
 
         signInClient = GoogleSignIn.getClient(this, signInOptions);
-
-
-
-        new AsyncTask<Void, Void, EquipaAdapter>() {
-
-            @Override
-            protected void onPostExecute(EquipaAdapter adapter) {
-
-            }
-
-            @Override
-            protected EquipaAdapter doInBackground(Void... voids) {
-
-                List<Pergunta> pergunta;
-
-                pontosUser = perguntasDB.perguntasDAO().getConta();
-
-                allPerguntas = perguntasDB.perguntasDAO().getPerguntas();
-
-                for(int i=0; i< allPerguntas.size();  i++) {
-                    Log.d("Perguntas: ", allPerguntas.get(i).pergunta + "");
-                }
-
-                return null;
-            }
-
-
-
-            public EquipaAdapter apagarPerguntasNoLogout(Void... voids) {
-
-                List<Pergunta> pergunta;
-
-                pontosUser = perguntasDB.perguntasDAO().getConta();
-
-                allPerguntas = perguntasDB.perguntasDAO().getPerguntas();
-
-                for(int i=0; i< allPerguntas.size();  i++) {
-                    perguntasDB.perguntasDAO().deletePergunta(allPerguntas.get(i));
-                }
-
-                return null;
-            }
-
-
-        }.execute();
-
-        //perguntasDB.perguntasDAO().addPergunta(pergunta1);
-       // pontosUser = perguntasDB.perguntasDAO().getConta();
-
-        //     PerguntasDB.getInstance(this).perguntasDAO().addPergunta(perguntas);
-        //        pontosUser = PerguntasDB.getInstance(this).perguntasDAO().getConta();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal_fragment);
@@ -179,21 +130,14 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
-
     }
-
-
 
     @Override
     public void OnLogoutSelect() {
-
        mAuth.signOut();
-
        signInClient.signOut();
        updateUI(null);
-        apagarPerguntasNoLogout();
-
-
+       apagarPerguntasNoLogout();
     }
 
     private void apagarPerguntasNoLogout() {

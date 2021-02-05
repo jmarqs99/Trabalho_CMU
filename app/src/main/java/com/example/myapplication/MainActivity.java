@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         db = FirebaseFirestore.getInstance();
 
-        Intent intent = new Intent(this, CheckLocationService.class);
-        startService(intent);
-
         mAuth = FirebaseAuth.getInstance();
 
         createRequest();
@@ -269,8 +266,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                 intent.putExtra("mailUser", mail);
                 startActivity(intent);
                 finish();
-                CriarPergunta pergunta = new CriarPergunta();
-                pergunta.gerarNovaPergunta();
             }
             else {
                 LoginFragment loginFragment = new LoginFragment();
@@ -288,8 +283,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             intent.putExtra("mailUser", mail);
             startActivity(intent);
             finish();
-            CriarPergunta pergunta = new CriarPergunta();
-            pergunta.gerarNovaPergunta();
         }
         else {
             LoginFragment loginFragment = new LoginFragment();

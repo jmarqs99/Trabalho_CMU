@@ -4,17 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.RecyclerView.EquipaAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import DB.Pergunta;
 import DB.PerguntasDB;
@@ -50,7 +61,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
         }.execute();
 
         v.findViewById(R.id.awnserQuizz).setOnClickListener(this);
-
+        v.findViewById(R.id.practiceBtn).setOnClickListener(this);
         return v;
     }
 
@@ -63,6 +74,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     super.onPostExecute(perguntas);
                     Intent intent = new Intent(context, QuizActivity.class);
                     intent.putExtra("Pergunta",perguntas.get(0));
+                    intent.putExtra("real",true);
                     startActivityForResult(intent,1);
                 }
 
@@ -72,6 +84,42 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     return perguntas;
                 }
             }.execute();
+        } else if(view.getId() == R.id.practiceBtn){
+            new Thread() {
+                @Override
+                public void run() {
+                    int size = 0;
+                    String posicao = "";
+                    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    try {
+                        Task<QuerySnapshot> task = db.collection("perguntas_default").get();
+                        size = Tasks.await(task).size();
+                        final int min = 1;
+                        final int random = new Random().nextInt((size - min) + 1) + min;
+                        posicao = String.valueOf(random);
+
+                        DocumentReference docRef = db.collection("perguntas_default").document(posicao);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    final Pergunta pergunta = document.toObject(Pergunta.class);
+                                    Intent intent = new Intent(context, QuizActivity.class);
+                                    intent.putExtra("Pergunta",pergunta);
+                                    intent.putExtra("real",false);
+                                    startActivityForResult(intent,1);
+
+                                }
+                            }
+                            }
+                        });
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
         }
     }
 }

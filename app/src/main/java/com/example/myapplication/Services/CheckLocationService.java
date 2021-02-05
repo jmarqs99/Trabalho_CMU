@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -34,7 +35,6 @@ public class CheckLocationService extends Service {
     private LocationCallback mLocationCallback;
     private FusedLocationProviderClient mFusedLocationClient;
     private Estadio[] estadios;
-    private Long lastQuestion;
     private final int TIME_BETWEEN_QUESTIONS = 600; //seconds
     private static int notificationId = 10;
 
@@ -85,15 +85,16 @@ public class CheckLocationService extends Service {
         mLocationRequest.setFastestInterval(30000);
 
         final Context context = this;
-
+        final SharedPreferences mPrefs = getSharedPreferences("lastLocationQuestion", 0);
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
+                Long lastTimestamp = mPrefs.getLong("timestamp", 0);
                 for (Location location : locationResult.getLocations()) {
                     Log.d("Geo test", location.getLongitude() + " " + location.getLatitude());
                     for(int i=0;i < estadios.length;i++){
-                        if (location.distanceTo(estadios[i]) < 500 && (lastQuestion == null || System.currentTimeMillis()/1000 - lastQuestion >  TIME_BETWEEN_QUESTIONS)){
-                            lastQuestion = System.currentTimeMillis()/1000;
+                        if (location.distanceTo(estadios[i]) < 500 && System.currentTimeMillis()/1000 - lastTimestamp >  TIME_BETWEEN_QUESTIONS){
+                            mPrefs.edit().putLong("timestamp", System.currentTimeMillis() / 1000).commit();
 
                             Intent notificationIntent = new Intent(context, MainActivity.class);
                             PendingIntent pendingIntent =

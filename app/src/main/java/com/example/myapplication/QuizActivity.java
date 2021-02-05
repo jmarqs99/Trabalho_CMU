@@ -24,6 +24,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
     private int correctAwnser;
     private Pergunta pergunta;
     private Activity act;
+    private Boolean real;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         act = this;
         Intent intent = getIntent();
         pergunta = (Pergunta) intent.getSerializableExtra("Pergunta");
+        real = intent.getBooleanExtra("real",false);
         correctAwnser = pergunta.pergunta.indexOf(pergunta.respostaCorreta);
 
         ((TextView)findViewById(R.id.textViewPergunta)).setText(pergunta.pergunta);
