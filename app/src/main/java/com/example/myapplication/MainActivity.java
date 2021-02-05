@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -35,7 +36,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -173,8 +177,11 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("googleSucesso", "Login com google sucesso");
+
                                 FirebaseUser user = mAuth.getCurrentUser();
+
                                 enviarPontosUserParaFirestore(user);
+
                                 updateUI(user);
 
                             } else {
@@ -187,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                         }
                     });
     }
-
 
     @Override
     public void onRegisterButtonSelected() {
@@ -208,28 +214,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-
                     enviarPontosUserParaFirestore(user);
-
-
-                    /**
-                    db.collection("users")
-                            .add(user1.getEmail())
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d("EnviarPontosFirestore", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w("ErroEnviarPontos", "Error adding document", e);
-                                }
-                            });
-*/
-
-
 
                     OnBackToLoginPageSelected();
                     errorMessage.setText("Conta registada com sucesso!");
@@ -255,7 +240,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.commit();
 
     }
-
 
     private void updateUI(FirebaseUser user) {
 
@@ -322,21 +306,34 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
 
-    private void enviarPontosUserParaFirestore(FirebaseUser user) {
+    private void enviarPontosUserParaFirestore(final FirebaseUser user) {
 
-        DocumentReference documentReference = db.collection("users").document(user.getEmail());
+        final DocumentReference documentReference = db.collection("users").document(user.getEmail());
 
-        Map<String, Object> user1 = new HashMap<>();
-        user1.put("pontos", 0);
-        documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("EnviarDadosSuccess", "Foram enviados os pontos para o user");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("EnviarDadosFailure", "Erro ao  enviar os pontos para o user");
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.w("Error", error.getMessage());
+                } else {
+                    if (value.exists()) {
+                        Log.d("ErrorDB", "ja existe um documento com esta referencia");
+                    } else {
+                        Map<String, Object> user1 = new HashMap<>();
+                        user1.put("pontos", 0);
+                        documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("EnviarDadosSuccess", "Foram enviados os pontos para o user");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("EnviarDadosFailure", "Erro ao  enviar os pontos para o user");
+                            }
+                        });
+                    }
+                }
             }
         });
     }

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,6 +24,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PerfilFragment extends Fragment {
 
@@ -34,7 +43,8 @@ public class PerfilFragment extends Fragment {
     private Button loggout, editarPass;
     private String mailText;
     private int pontosUser;
-
+    //private FirebaseFirestore db;
+    FirebaseUser currentUser;
 
 
     public PerfilFragment() {
@@ -52,12 +62,13 @@ public class PerfilFragment extends Fragment {
 
         signInClient = GoogleSignIn.getClient(PerfilFragment.super.getContext(), signInOptions);
 
-
+       // db = FirebaseFirestore.getInstance();
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        currentUser  = mAuth.getCurrentUser();
     }
 
     @Override
@@ -71,6 +82,8 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+
+
 
         mailText = getArguments().getString("maill");
         pontosUser = getArguments().getInt("pontos");
