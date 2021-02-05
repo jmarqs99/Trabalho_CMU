@@ -39,10 +39,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         opcao1BTN = findViewById(R.id.textViewOpcao1);
         opcao1BTN.setText(pergunta.opcoes.get(0));
         opcao1BTN.setOnClickListener(this);
-        opcao2BTN = findViewById(R.id.textViewOpcao1);
+        opcao2BTN = findViewById(R.id.textViewOpcao2);
         opcao2BTN.setText(pergunta.opcoes.get(1));
         opcao2BTN.setOnClickListener(this);
-        opcao3BTN = findViewById(R.id.textViewOpcao1);
+        opcao3BTN = findViewById(R.id.textViewOpcao3);
         opcao3BTN.setText(pergunta.opcoes.get(2));
         opcao3BTN.setOnClickListener(this);
     }
@@ -60,8 +60,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    act.finishActivity(1);
-                    Log.d("Quizact","jere");
+                    act.finish();
                 }
 
                 @Override
@@ -81,7 +80,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    act.finishActivity(1);
+                    act.finish();
                 }
 
                 @Override
@@ -101,7 +100,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
-                    act.finishActivity(1);
+                    act.finish();
                 }
 
                 @Override
