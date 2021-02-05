@@ -94,7 +94,8 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
                     partida.getData().get(i).getAway_team().getLogo(),
                     partida.getData().get(i).getStats().getHome_score(),
                     partida.getData().get(i).getStats().getAway_score(),
-                    partida.getData().get(i).getStatus());
+                    partida.getData().get(i).getStatus_code(),
+                    partida.getData().get(i).getMatch_start());
             jogos.add(i,jogo);
         }
         return jogos;

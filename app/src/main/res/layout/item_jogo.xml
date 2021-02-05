@@ -6,14 +6,31 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/light_gray">
+
+        <TextView
+            android:id="@+id/dados"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical|end"
+            android:text="22:22"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:id="@+id/equipa_logo_casa"
@@ -29,14 +46,15 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
-                android:textStyle="bold"
-                android:text="Equipa1"></TextView>
+                android:text="Equipa1"
+                android:textStyle="bold"></TextView>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:id="@+id/equipa_logo_fora"
@@ -51,53 +69,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
                 android:gravity="center_vertical"
-                android:text="Equipa1"></TextView>
+                android:text="Equipa1"
+                android:textStyle="bold"></TextView>
         </LinearLayout>
 
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/estado_jogo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:gravity="center_vertical|end"
-            android:textStyle="bold"
-            android:text="Estado"></TextView>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:gravity="center|end"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/golos_casa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="0" />
 
-            <TextView
-                android:id="@+id/golos_fora"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:text="0" />
-        </LinearLayout>
-    </LinearLayout>
 
 
 </LinearLayout>

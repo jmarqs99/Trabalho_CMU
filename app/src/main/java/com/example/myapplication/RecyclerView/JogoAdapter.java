@@ -52,14 +52,15 @@ public class JogoAdapter extends RecyclerView.Adapter<JogoAdapter.JogoViewHolder
         ImageView logoFora = holder.logoForaImagem;
         Picasso.get().load(jogoItem.getLogo_fora()).into(logoFora);
 
-        TextView textView2 = holder.estadoTextView;
-        textView2.setText(jogoItem.getEstado());
+        TextView textView3 = holder.dadosTextView;
 
-        TextView textView3 = holder.golosCasaTextView;
-        textView3.setText(jogoItem.getGolos_casa() + "");
+        if(jogoItem.getStatus_code() == 0){
+            textView3.setText(jogoItem.getData_inicio().substring(11,16));
+        }else{
+            textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
+        }
 
-        TextView textView4 = holder.golosForaTextView;
-        textView4.setText(jogoItem.getGolos_fora() + "");
+
     }
 
     @Override
@@ -72,9 +73,7 @@ public class JogoAdapter extends RecyclerView.Adapter<JogoAdapter.JogoViewHolder
         public TextView equipaForaTextView;
         public ImageView logoCasaImagem;
         public ImageView logoForaImagem;
-        public TextView estadoTextView;
-        public TextView golosCasaTextView;
-        public TextView golosForaTextView;
+        public TextView dadosTextView;
 
         public JogoViewHolder(View itemView){
             super(itemView);
@@ -82,9 +81,7 @@ public class JogoAdapter extends RecyclerView.Adapter<JogoAdapter.JogoViewHolder
             equipaForaTextView = itemView.findViewById(R.id.equipa_fora);
             logoCasaImagem = itemView.findViewById(R.id.equipa_logo_casa);
             logoForaImagem = itemView.findViewById(R.id.equipa_logo_fora);
-            estadoTextView = itemView.findViewById(R.id.estado_jogo);
-            golosCasaTextView = itemView.findViewById(R.id.golos_casa);
-            golosForaTextView = itemView.findViewById(R.id.golos_fora);
+            dadosTextView = itemView.findViewById(R.id.dados);
 
         }
     }
