@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.API.Models_Jogo.Partida;
@@ -52,7 +54,8 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
     private JogoAdapter mAdapter;
     private Sem_jogosAdapter sem_jogosAdapter;
     private final SportsDataAPI service = RetrofitClient.getApi();
-    private Button btnDatePicker;
+    private ImageButton btnDatePicker;
+    private TextView dataTextView;
     private int mYear, mMonth, mDay;
 
     @Override
@@ -63,8 +66,8 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
         mRecyclerView = v.findViewById(R.id.mRecyclerViewJogos);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        btnDatePicker=v.findViewById(R.id.btn_date);
-
+        btnDatePicker = v.findViewById(R.id.btn_date);
+        dataTextView = v.findViewById(R.id.data);
         btnDatePicker.setOnClickListener(this);
 
         Calendar calendar = Calendar.getInstance();
@@ -77,9 +80,8 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
 
         String todayAsString = dateFormat.format(hoje);
         String tomorrowAsString = dateFormat.format(amanha);
-        System.out.println(todayAsString);
-        System.out.println(tomorrowAsString);
 
+        dataTextView.setText(todayAsString);
         getJogos(todayAsString,tomorrowAsString);
 
         return v;
@@ -99,6 +101,27 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
             jogos.add(i,jogo);
         }
         return jogos;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == btnDatePicker) {
+
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
+                            List<String> datas = constroiData(year,monthOfYear,dayOfMonth);
+                            getJogos(datas.get(0),datas.get(1));
+                            dataTextView.setText(datas.get(0));
+                        }}, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
     }
 
     private void getJogos(String data_inicio , String data_fim){
@@ -142,27 +165,7 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
                 });;
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == btnDatePicker) {
 
-            final Calendar c = Calendar.getInstance();
-            mYear = c.get(Calendar.YEAR);
-            mMonth = c.get(Calendar.MONTH);
-            mDay = c.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                    new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
-                            List<String> datas = constroiData(year,monthOfYear,dayOfMonth);
-                            Log.d("Data",  "" + datas.get(0) );
-                            getJogos(datas.get(0),datas.get(1));
-                        }}, mYear, mMonth, mDay);
-            datePickerDialog.show();
-
-        }
-    }
 
     private List<String> constroiData(int ano , int mes , int dia){
         List<String> datas = new ArrayList<>();
