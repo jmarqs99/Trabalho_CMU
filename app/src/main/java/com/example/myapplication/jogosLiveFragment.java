@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.API.Models_Jogo.Partida;
@@ -51,7 +50,20 @@ public class jogosLiveFragment extends Fragment {
         mRecyclerView = v.findViewById(R.id.mRecyclerViewJogos);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        getJogos();
+        new Thread(){
+            @Override
+            public void run() {
+                while (true){
+                    getJogos();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+
         return  v;
     }
 
