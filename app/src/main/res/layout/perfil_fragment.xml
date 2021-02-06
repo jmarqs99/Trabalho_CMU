@@ -39,56 +39,86 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border"
                 android:padding="10dp"
-                android:text="Número de pontos\n 550"
+                android:textColor="@color/colorPrimary"
+                android:text=""
+                android:visibility="invisible"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/num_corretas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewPontos"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/border"
-                android:padding="10dp"
-                android:text="Nº de Perguntas Certas\n 10"
-                android:textStyle="bold"></TextView>
-
-            <TextView
-                android:id="@+id/num_erradas"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewPontos"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/num_corretas"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/border"
-                android:padding="10dp"
-                android:text="Nº de Perguntas Erradas\n 10"
-                android:textStyle="bold"></TextView>
+                android:id="@+id/num_respostas">
 
-            <TextView
-                android:id="@+id/percent_corretas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/num_erradas"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/border"
-                android:padding="10dp"
-                android:text="% Perguntas Corretas\n 50%"
-                android:textStyle="bold"></TextView>
+                <TextView
+                    android:id="@+id/num_corretas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:padding="10dp"
+                    android:text=""
+                    android:textColor="@color/colorPrimary"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:textStyle="bold"></TextView>
 
-            <TextView
-                android:id="@+id/percent_erradas"
+                <TextView
+                    android:id="@+id/num_erradas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_toRightOf="@id/num_corretas"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:visibility="invisible"></TextView>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/num_erradas"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/percent_corretas"
-                android:background="@drawable/border"
-                android:padding="10dp"
-                android:text="% Perguntas Erradas\n 50%"
-                android:textStyle="bold"></TextView>
+                android:layout_below="@id/num_respostas">
+
+                <TextView
+                    android:id="@+id/percent_corretas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorPrimary"
+                    android:text=""
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/percent_erradas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/percent_corretas"
+                    android:background="@drawable/border"
+                    android:padding="10dp"
+                    android:text=""
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:textStyle="bold"></TextView>
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 

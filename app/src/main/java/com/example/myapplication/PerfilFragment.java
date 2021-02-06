@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +23,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,6 +34,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,12 +50,17 @@ public class PerfilFragment extends Fragment {
     private GoogleSignInClient signInClient;
     LogoutSelected lg;
     EditarDadosSelected ed;
-    private TextView emailUser, pontos;
+    private TextView emailUser;
+    private TextView pontos;
+    private TextView TextViewnumCorretas;
+    private TextView TextViewnumErradas;
+    private TextView TextViewpercCorretas;
+    private TextView TextViewpercErradas;
     private Button loggout, editarPass, partilhar;
     private String mailText;
     private int pontosUser;
-    //private FirebaseFirestore db;
-    FirebaseUser currentUser;
+    private FirebaseUser currentUser;
+    private ProgressDialog dialog;
     private final String partilharText = "Vem conhecer a nossa App  'FutQuizz'!!! Segue o link github em anexo: https://github.com/jmarqs99/Trabalho_CMU ";
 
 
@@ -70,8 +80,6 @@ public class PerfilFragment extends Fragment {
         signInClient = GoogleSignIn.getClient(PerfilFragment.super.getContext(), signInOptions);
 
         db = FirebaseFirestore.getInstance();
-
-      //  retornarDadosFirestore("8180225@estg.ipp.pt");
     }
 
     @Override
@@ -92,11 +100,10 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-
+        dialog = ProgressDialog.show(getActivity(), "",
+                "A carregar dados...", true);
         mailText = getArguments().getString("maill");
         pontosUser = getArguments().getInt("pontos");
-
-
 
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 
@@ -107,6 +114,12 @@ public class PerfilFragment extends Fragment {
         editarPass = v.findViewById(R.id.buttonEditarPassword);
         pontos = v.findViewById(R.id.textViewPontos);
         partilhar = v.findViewById(R.id.partilhar);
+        TextViewnumCorretas = v.findViewById(R.id.num_corretas);
+        TextViewnumErradas = v.findViewById(R.id.num_erradas);
+        TextViewpercCorretas = v.findViewById(R.id.percent_corretas);
+        TextViewpercErradas = v.findViewById(R.id.percent_erradas);
+
+        retornarDadosFirestore(mailText);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(PerfilFragment.super.getContext());
 
@@ -129,9 +142,6 @@ public class PerfilFragment extends Fragment {
         });
 
         emailUser.setText(this.mailText);
-        //pontos.setText("Os meus pontos: " + this.pontosUser);
-        List<String> dados = retornarDadosFirestore(mailText);
-        pontos.setText(dados.get(0));
 
         loggout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,28 +167,47 @@ public class PerfilFragment extends Fragment {
         return v;
     }
 
-    private List<String> retornarDadosFirestore(String mail) {
-        final List<String> dados = new ArrayList<>();
-        db.collection("users").document(mail).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void retornarDadosFirestore(String mail) {
+        final DocumentReference docRef = db.collection("users").document(mail);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("GetDataSuccess", "data retornada");
-                //Map<String, Object> note = documentSnapshot.getData();
-                //note.
-                //pontos = documentSnapshot.getData()
-                Log.d("data", String.valueOf(documentSnapshot.getData().get("pontos")));
-                pontosDoUser = String.valueOf(documentSnapshot.getData().get("pontos"));
-                Log.d("data2", pontosDoUser);
-                String pontos = String.valueOf(documentSnapshot.getData().get("pontos"));
-                dados.add(pontos);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                        Long pontosUser = (Long) document.get("pontos");
+                        Long numCorretas = (Long) document.get("numRespostasCorretas");
+                        Long numErradas = (Long) document.get("numRespostasErradas");
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("GetDataFailure", "data falhou");
+                        pontos.setText("QI Desportivo:\n" + pontosUser + "");
+                        TextViewnumCorretas.setText("Nº de Respostas Corretas:\n" + numCorretas + "");
+                        TextViewnumErradas.setText("Nº de Respostas Erradas:\n" + numErradas + "");
+                        if(numCorretas + numErradas == 0){
+
+                            TextViewpercCorretas.setText("% Respostas Corretas:\n" +"0%");
+                            TextViewpercErradas.setText("% Respostas Erradas:\n" + "0%");
+                        }else{
+                            float percentagemCorretas = (numCorretas/ (numCorretas + numErradas));
+                            float percentagemErradas = (numErradas/ (numCorretas + numErradas));
+                            TextViewpercCorretas.setText("% Respostas Corretas:\n" + percentagemCorretas + "");
+                            TextViewpercErradas.setText("% Respostas Erradas:\n" + percentagemErradas + "");
+                        }
+                        pontos.setVisibility(View.VISIBLE);
+                        TextViewnumCorretas.setVisibility(View.VISIBLE);
+                        TextViewnumErradas.setVisibility(View.VISIBLE);
+                        TextViewpercCorretas.setVisibility(View.VISIBLE);
+                        TextViewpercErradas.setVisibility(View.VISIBLE);
+                    dialog.dismiss();
+                    } else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
             }
         });
-                return dados;
-    }
+
+}
+
 }
