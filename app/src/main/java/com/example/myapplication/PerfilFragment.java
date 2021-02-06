@@ -22,6 +22,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -30,11 +32,15 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PerfilFragment extends Fragment {
 
+    private String pontosDoUser;
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private GoogleSignInClient signInClient;
     LogoutSelected lg;
@@ -63,7 +69,9 @@ public class PerfilFragment extends Fragment {
 
         signInClient = GoogleSignIn.getClient(PerfilFragment.super.getContext(), signInOptions);
 
-       // db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+      //  retornarDadosFirestore("8180225@estg.ipp.pt");
     }
 
     @Override
@@ -85,9 +93,10 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-
         mailText = getArguments().getString("maill");
         pontosUser = getArguments().getInt("pontos");
+
+
 
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
 
@@ -120,7 +129,9 @@ public class PerfilFragment extends Fragment {
         });
 
         emailUser.setText(this.mailText);
-        pontos.setText("Os meus pontos: " + this.pontosUser);
+        //pontos.setText("Os meus pontos: " + this.pontosUser);
+        List<String> dados = retornarDadosFirestore(mailText);
+        pontos.setText(dados.get(0));
 
         loggout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,5 +155,30 @@ public class PerfilFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private List<String> retornarDadosFirestore(String mail) {
+        final List<String> dados = new ArrayList<>();
+        db.collection("users").document(mail).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("GetDataSuccess", "data retornada");
+                //Map<String, Object> note = documentSnapshot.getData();
+                //note.
+                //pontos = documentSnapshot.getData()
+                Log.d("data", String.valueOf(documentSnapshot.getData().get("pontos")));
+                pontosDoUser = String.valueOf(documentSnapshot.getData().get("pontos"));
+                Log.d("data2", pontosDoUser);
+                String pontos = String.valueOf(documentSnapshot.getData().get("pontos"));
+                dados.add(pontos);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("GetDataFailure", "data falhou");
+            }
+        });
+                return dados;
     }
 }

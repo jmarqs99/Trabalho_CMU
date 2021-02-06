@@ -331,6 +331,8 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                     } else {
                         Map<String, Object> user1 = new HashMap<>();
                         user1.put("pontos", 0);
+                        user1.put("numRespostasCorretas", 0);
+                        user1.put("numRespostasErradas", 0);
                         documentReference.set(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -347,6 +349,4 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             }
         });
     }
-
-
 }
