@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.RecyclerView.EquipaAdapter;
@@ -34,22 +36,23 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
     PerguntasDB dataBase;
     private Context context;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.quizs_fragment, container, false);
-        context = v.getContext();
+        view = inflater.inflate(R.layout.quizs_fragment, container, false);
+        context = view.getContext();
         new AsyncTask<Void, Void, List<Pergunta>>() {
             @Override
             protected void onPostExecute(List<Pergunta> perguntas) {
                 super.onPostExecute(perguntas);
-                TextView nmrPerguntas = v.findViewById(R.id.perguntasCount);
+                TextView nmrPerguntas = view.findViewById(R.id.perguntasCount);
 
                 nmrPerguntas.setText(perguntas.size() + "");
 
                 if (perguntas.size() == 0){
-                    v.findViewById(R.id.awnserQuizz).setEnabled(false);
+                    view.findViewById(R.id.awnserQuizz).setEnabled(false);
                 }
             }
 
@@ -60,9 +63,9 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
             }
         }.execute();
 
-        v.findViewById(R.id.awnserQuizz).setOnClickListener(this);
-        v.findViewById(R.id.practiceBtn).setOnClickListener(this);
-        return v;
+        view.findViewById(R.id.awnserQuizz).setOnClickListener(this);
+        view.findViewById(R.id.practiceBtn).setOnClickListener(this);
+        return view;
     }
 
     @Override
@@ -110,7 +113,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                                     intent.putExtra("Pergunta",pergunta);
                                     intent.putExtra("real",false);
                                     startActivityForResult(intent,1);
-
                                 }
                             }
                             }
@@ -122,4 +124,20 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
             }.start();
         }
     }
+
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1){
+            boolean result = data.getBooleanExtra("correct",false);
+            TextView awnserResult = view.findViewById(R.id.quizzResult);
+            if (result) {
+                awnserResult.setText("Certo!");
+                awnserResult.setTextColor(Color.GREEN);
+            } else {
+                awnserResult.setText("Errado!");
+                awnserResult.setTextColor(Color.RED);
+            }
+            awnserResult.setVisibility(View.VISIBLE);
+        }
+    }*/
 }

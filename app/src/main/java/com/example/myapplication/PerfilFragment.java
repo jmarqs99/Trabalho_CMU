@@ -37,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -177,8 +178,8 @@ public class PerfilFragment extends Fragment {
                     if (document.exists()) {
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                         Long pontosUser = (Long) document.get("pontos");
-                        Long numCorretas = (Long) document.get("numRespostasCorretas");
-                        Long numErradas = (Long) document.get("numRespostasErradas");
+                        Long numCorretas = (Long)document.get("numRespostasCorretas");
+                        Long numErradas = (Long)document.get("numRespostasErradas");
 
                         pontos.setText("QI Desportivo:\n" + pontosUser + "");
                         TextViewnumCorretas.setText("Nº de Respostas Corretas:\n" + numCorretas + "");
@@ -188,10 +189,12 @@ public class PerfilFragment extends Fragment {
                             TextViewpercCorretas.setText("% Respostas Corretas:\n" +"0%");
                             TextViewpercErradas.setText("% Respostas Erradas:\n" + "0%");
                         }else{
-                            float percentagemCorretas = (numCorretas/ (numCorretas + numErradas));
-                            float percentagemErradas = (numErradas/ (numCorretas + numErradas));
-                            TextViewpercCorretas.setText("% Respostas Corretas:\n" + percentagemCorretas + "");
-                            TextViewpercErradas.setText("% Respostas Erradas:\n" + percentagemErradas + "");
+                            DecimalFormat df = new DecimalFormat();
+                            df.setMaximumFractionDigits(1);
+                            float percentagemCorretas = (Float.valueOf(numCorretas)/ Float.valueOf(numCorretas + numErradas))*100f;
+                            float percentagemErradas = (Float.valueOf(numErradas)/ Float.valueOf(numCorretas + numErradas))*100f;
+                            TextViewpercCorretas.setText("% Respostas Corretas:\n" + df.format(percentagemCorretas) + "%");
+                            TextViewpercErradas.setText("% Respostas Erradas:\n" + df.format(percentagemErradas) + "%");
                         }
                         pontos.setVisibility(View.VISIBLE);
                         TextViewnumCorretas.setVisibility(View.VISIBLE);
