@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:background="@drawable/background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -41,22 +40,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="10"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Quizzes disponíveis:"
+                android:text="Nº Quizz's por responder"
                 android:textColor="@color/black"
+                android:gravity="center"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/perguntasCount"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="0"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -64,17 +65,29 @@
 
         <Button
             android:id="@+id/awnserQuizz"
-            android:layout_width="wrap_content"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:text="Começar quizz" />
 
         <Button
             android:id="@+id/practiceBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
-            android:text="Praticar" />
+            android:text="Praticar"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
