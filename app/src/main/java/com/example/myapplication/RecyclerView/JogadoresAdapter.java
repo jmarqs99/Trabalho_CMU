@@ -1,6 +1,7 @@
 package com.example.myapplication.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,12 @@ public class JogadoresAdapter extends RecyclerView.Adapter<JogadoresAdapter.Joga
     public void onBindViewHolder(@NonNull JogadoresViewHolder holder, int position) {
         Jogadores_item jogadorItem = mJogadorItem.get(position);
 
+        if(position % 2 != 0 ){
+            holder.itemView.setBackgroundColor(Color.rgb(223,226,227));
+        }
+
         TextView textView = holder.posicaoTextView;
-        textView.setText(jogadorItem.getPosicao());
+        textView.setText(position + 1  + ".");
 
         TextView textView2 = holder.emailTextView;
         textView2.setText(jogadorItem.getEmail());
@@ -64,7 +69,6 @@ public class JogadoresAdapter extends RecyclerView.Adapter<JogadoresAdapter.Joga
             posicaoTextView = itemView.findViewById(R.id.posicao);
             emailTextView = itemView.findViewById(R.id.email);
             pontosTextView = itemView.findViewById(R.id.pontos);
-
         }
     }
 }

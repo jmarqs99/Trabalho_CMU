@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 
 public interface SportsDataAPI {
 
-    String API_KEY = "dcdb8400-68a7-11eb-983c-b9f71de3352f";
+    String API_KEY = "090618a0-6999-11eb-9c3f-273f3f61e2ca";
 
     @GET("standings?apikey=" + API_KEY + "&season_id=496")
     Call<Classificacao> getClassificacao();

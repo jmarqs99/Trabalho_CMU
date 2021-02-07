@@ -1,6 +1,8 @@
 package com.example.myapplication.RecyclerView;
 
-public class Jogadores_item {
+import java.util.Collections;
+
+public class Jogadores_item implements Comparable< Jogadores_item > {
 
     private String posicao;
 
@@ -36,5 +38,11 @@ public class Jogadores_item {
 
     public void setPontos(Long pontos) {
         this.pontos = pontos;
+    }
+
+
+    @Override
+    public int compareTo(Jogadores_item jogadores_item) {
+        return this.getPontos().compareTo(jogadores_item.getPontos());
     }
 }

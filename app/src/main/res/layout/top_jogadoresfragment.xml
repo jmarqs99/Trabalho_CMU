@@ -13,7 +13,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="100dp"
         android:textSize="30dp">
     </TextView>
 
@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
             android:textStyle="bold"
-            android:textSize="17dp"
+            android:padding="10dp"
+            android:textSize="22dp"
             android:text="Pos"></TextView>
 
         <TextView
@@ -39,7 +40,8 @@
             android:layout_weight="0.6"
             android:gravity="center"
             android:text="E-mail"
-            android:textSize="17dp"
+            android:padding="10dp"
+            android:textSize="22dp"
             android:textStyle="bold"></TextView>
 
         <TextView
@@ -49,8 +51,9 @@
             android:layout_marginRight="10dp"
             android:layout_weight="0.2"
             android:gravity="end"
+            android:padding="10dp"
             android:text="Pontos"
-            android:textSize="17dp"
+            android:textSize="22dp"
             android:textStyle="bold"></TextView>
 
     </LinearLayout>

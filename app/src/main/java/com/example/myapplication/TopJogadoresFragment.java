@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +31,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import DB.Pergunta;
@@ -87,7 +90,13 @@ public class TopJogadoresFragment extends Fragment {
     }
 
     private List<Jogadores_item> trataLista(List<Jogadores_item> jogadores){
+        Log.d("SORT",jogadores.toString());
+        Collections.sort(jogadores, Collections.reverseOrder());
+        Log.d("SORT",jogadores.toString());
         return  jogadores.subList(0,5);
     }
+
+
+
 
 }
