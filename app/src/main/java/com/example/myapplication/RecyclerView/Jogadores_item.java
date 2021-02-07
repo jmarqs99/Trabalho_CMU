@@ -6,9 +6,9 @@ public class Jogadores_item {
 
     private String email;
 
-    private String pontos;
+    private Long pontos;
 
-    public Jogadores_item(String posicao, String email, String pontos) {
+    public Jogadores_item(String posicao, String email, Long pontos) {
         this.posicao = posicao;
         this.email = email;
         this.pontos = pontos;
@@ -30,11 +30,11 @@ public class Jogadores_item {
         this.email = email;
     }
 
-    public String getPontos() {
+    public Long getPontos() {
         return pontos;
     }
 
-    public void setPontos(String pontos) {
+    public void setPontos(Long pontos) {
         this.pontos = pontos;
     }
 }

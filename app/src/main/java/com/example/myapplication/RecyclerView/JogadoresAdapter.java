@@ -46,7 +46,7 @@ public class JogadoresAdapter extends RecyclerView.Adapter<JogadoresAdapter.Joga
         textView2.setText(jogadorItem.getEmail());
 
         TextView textView3 = holder.pontosTextView;
-        textView3.setText(jogadorItem.getPontos());
+        textView3.setText(jogadorItem.getPontos() + "");
     }
 
     @Override
