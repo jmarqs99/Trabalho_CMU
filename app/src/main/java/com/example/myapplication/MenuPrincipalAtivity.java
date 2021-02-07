@@ -95,7 +95,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.commit();
                         break;
                     case R.id.action_profile:
-
                         Bundle b = new Bundle();
                         b.putString("maill", mailUser);
                         b.putInt("pontos", pontosUser);

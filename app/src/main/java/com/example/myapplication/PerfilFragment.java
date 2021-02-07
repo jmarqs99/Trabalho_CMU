@@ -43,27 +43,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PerfilFragment extends Fragment {
+public class PerfilFragment extends Fragment implements View.OnClickListener {
 
     private String pontosDoUser;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private GoogleSignInClient signInClient;
-    LogoutSelected lg;
-    EditarDadosSelected ed;
+    private LogoutSelected lg;
+    private EditarDadosSelected ed;
     private TextView emailUser;
     private TextView pontos;
     private TextView TextViewnumCorretas;
     private TextView TextViewnumErradas;
     private TextView TextViewpercCorretas;
     private TextView TextViewpercErradas;
-    private Button loggout, editarPass, partilhar;
+    private Button loggout;
+    private Button editarPass;
+    private Button partilhar;
+    private Button topJogadores;
     private String mailText;
     private int pontosUser;
     private FirebaseUser currentUser;
     private ProgressDialog dialog;
     private final String partilharText = "Vem conhecer a nossa App  'FutQuizz'!!! Segue o link github em anexo: https://github.com/jmarqs99/Trabalho_CMU ";
-
 
     public PerfilFragment() {
 
@@ -115,6 +117,7 @@ public class PerfilFragment extends Fragment {
         editarPass = v.findViewById(R.id.buttonEditarPassword);
         pontos = v.findViewById(R.id.textViewPontos);
         partilhar = v.findViewById(R.id.partilhar);
+        topJogadores = v.findViewById(R.id.top_quizz);
         TextViewnumCorretas = v.findViewById(R.id.num_corretas);
         TextViewnumErradas = v.findViewById(R.id.num_erradas);
         TextViewpercCorretas = v.findViewById(R.id.percent_corretas);
@@ -132,38 +135,11 @@ public class PerfilFragment extends Fragment {
             editarPass.setVisibility(v.GONE);
         }
 
-        Log.d("ABC", mAuth.toString());
-        Log.d("CBA", signInClient.toString());
-
-        editarPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ed.editarPass();
-            }
-        });
-
+        editarPass.setOnClickListener(this);
         emailUser.setText(this.mailText);
-
-        loggout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                lg.OnLogoutSelect();
-            }
-        });
-
-
-        partilhar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, partilharText);
-                intent.setType("text/plain");
-                intent = Intent.createChooser(intent,  "Share by");
-                startActivity(intent);
-            }
-        });
+        loggout.setOnClickListener(this);
+        partilhar.setOnClickListener(this);
+        topJogadores.setOnClickListener(this);
 
         return v;
     }
@@ -213,4 +189,32 @@ public class PerfilFragment extends Fragment {
 
 }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.buttonLogout:
+                lg.OnLogoutSelect();
+                break;
+            case R.id.buttonEditarPassword:
+                ed.editarPass();
+                break;
+            case R.id.partilhar:
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_TEXT, partilharText);
+                intent.setType("text/plain");
+                intent = Intent.createChooser(intent,  "Share by");
+                startActivity(intent);
+                break;
+            case R.id.top_quizz:
+                FragmentManager fragmentManager2 = getFragmentManager();
+                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                TopJogadoresFragment fragment2 = new TopJogadoresFragment();
+                fragmentTransaction2.addToBackStack("xyz");
+                fragmentTransaction2.hide(PerfilFragment.this);
+                fragmentTransaction2.add(android.R.id.content, fragment2);
+                fragmentTransaction2.commit();
+                break;
+        }
+    }
 }

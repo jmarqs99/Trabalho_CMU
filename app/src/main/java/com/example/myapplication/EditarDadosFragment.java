@@ -29,9 +29,7 @@ public class EditarDadosFragment extends Fragment {
     private Button cancelar, editarPass;
     private EditText password, confirmarPass;
 
-    public EditarDadosFragment() {
-
-    }
+    public EditarDadosFragment() {}
 
 
     @Override
