@@ -37,6 +37,19 @@ import retrofit2.Response;
 public class CriarPergunta {
 
     public static void gerarNovaPergunta() {
+        final int min = 0;
+        final int max = 1;
+        final int random = new Random().nextInt((max - min) + 1) + min;
+
+        if( random == 7 ){
+            gerarPerguntaEstatica();
+        }
+        else {
+            gerarPerguntaDinamica();
+        }
+    }
+
+    private static void gerarPerguntaEstatica(){
         new Thread() {
             @Override
             public void run() {
@@ -83,24 +96,13 @@ public class CriarPergunta {
     }
 
 
-    public static void gerarPerguntaDinamica(){
+    private static void gerarPerguntaDinamica(){
         final SportsDataAPI service = RetrofitClient.getApi();
+        final int min = 1;
+        final int max = 4;
+        final int random = new Random().nextInt((max - min) + 1) + min;
+
         final Pergunta pergunta = new Pergunta();
-        final Pergunta pergunta1 = new Pergunta();
-        final Pergunta pergunta2 = new Pergunta();
-        final Pergunta pergunta3 = new Pergunta();
-
-        pergunta.pergunta = "Quantos golos tem o atual melhor marcador da Bundesliga?";
-        pergunta.pontos = 100;
-
-        pergunta1.pergunta = "Quem é o melhor marcador da Bundesliga?";
-        pergunta1.pontos = 100;
-
-        pergunta2.pergunta = "Em que equipa joga o atual melhor marcador da Bundesliga?";
-        pergunta2.pontos = 100;
-
-        pergunta3.pergunta = "Quantos golos marcou o atual melhor marcador da Bundesliga de penalti?";
-        pergunta3.pontos = 100;
 
         service.getMarcadores()
                 .enqueue(new Callback<Marcador>(){
@@ -112,34 +114,48 @@ public class CriarPergunta {
                                 @Override
                                 protected Void doInBackground(Void... voids) {
                                     List<String> opcoes = new ArrayList<>();
-                                    int resposta = marcador.getData().get(0).getGoals().getOverall();
-                                    opcoes.set(0 ,marcador.getData().get(2).getGoals().getOverall() + "");
-                                    opcoes.set(1, resposta + "");
-                                    opcoes.set(2 ,marcador.getData().get(6).getGoals().getOverall() + "");
-                                    pergunta.opcoes = opcoes;
-                                    pergunta.respostaCorreta = resposta + "";
-
-                                    String resposta1 = marcador.getData().get(0).getPlayer().getPlayer_name();
-                                    opcoes.set(0 ,marcador.getData().get(1).getPlayer().getPlayer_name());
-                                    opcoes.set(2, resposta1);
-                                    opcoes.set(1 ,marcador.getData().get(4).getPlayer().getPlayer_name());
-                                    pergunta1.opcoes = opcoes;
-                                    pergunta1.respostaCorreta = resposta1;
-
-                                    String resposta2 = marcador.getData().get(0).getTeam().getTeam_name();
-                                    opcoes.set(0 ,resposta2);
-                                    opcoes.set(1, marcador.getData().get(5).getTeam().getTeam_name());
-                                    opcoes.set(2 ,marcador.getData().get(1).getTeam().getTeam_name());
-                                    pergunta2.opcoes = opcoes;
-                                    pergunta2.respostaCorreta = resposta2;
-
-                                    String resposta3 = marcador.getData().get(0).getPenalties() + "";
-                                    opcoes.set(0 ,marcador.getData().get(1).getPenalties() + "");
-                                    opcoes.set(1, marcador.getData().get(3).getPenalties() + "");
-                                    opcoes.set(2 ,resposta3);
-                                    pergunta3.opcoes = opcoes;
-                                    pergunta3.respostaCorreta = resposta3;
-
+                                    switch (random){
+                                        case 1:
+                                            pergunta.pergunta = "Quantos golos tem o atual melhor marcador da Bundesliga?";
+                                            pergunta.pontos = 100;
+                                            int resposta = marcador.getData().get(0).getGoals().getOverall();
+                                            opcoes.add(marcador.getData().get(2).getGoals().getOverall() + "");
+                                            opcoes.add(resposta + "");
+                                            opcoes.add(marcador.getData().get(6).getGoals().getOverall() + "");
+                                            pergunta.opcoes = opcoes;
+                                            pergunta.respostaCorreta = resposta + "";
+                                            break;
+                                        case 2:
+                                            pergunta.pergunta = "Quem é o melhor marcador da Bundesliga?";
+                                            pergunta.pontos = 100;
+                                            String resposta1 = marcador.getData().get(0).getPlayer().getPlayer_name();
+                                            opcoes.add(marcador.getData().get(1).getPlayer().getPlayer_name());
+                                            opcoes.add(resposta1);
+                                            opcoes.add(marcador.getData().get(4).getPlayer().getPlayer_name());
+                                            pergunta.opcoes = opcoes;
+                                            pergunta.respostaCorreta = resposta1;
+                                            break;
+                                        case 3:
+                                            pergunta.pergunta = "Em que equipa joga o atual melhor marcador da Bundesliga?";
+                                            pergunta.pontos = 100;
+                                            String resposta2 = marcador.getData().get(0).getTeam().getTeam_name();
+                                            opcoes.add(resposta2);
+                                            opcoes.add(marcador.getData().get(5).getTeam().getTeam_name());
+                                            opcoes.add(marcador.getData().get(1).getTeam().getTeam_name());
+                                            pergunta.opcoes = opcoes;
+                                            pergunta.respostaCorreta = resposta2;
+                                            break;
+                                        case 4:
+                                            pergunta.pergunta = "Quantos golos marcou o atual melhor marcador da Bundesliga de penalti?";
+                                            pergunta.pontos = 100;
+                                            String resposta3 = marcador.getData().get(0).getPenalties() + "";
+                                            opcoes.add(marcador.getData().get(1).getPenalties() + "");
+                                            opcoes.add(marcador.getData().get(3).getPenalties() + "");
+                                            opcoes.add(resposta3);
+                                            pergunta.opcoes = opcoes;
+                                            pergunta.respostaCorreta = resposta3;
+                                            break;
+                                    }
                                     return null;
                                 }
                             }.execute();
@@ -148,9 +164,6 @@ public class CriarPergunta {
                                 @Override
                                 protected Void doInBackground(Void... voids) {
                                     PerguntasDB.getInstance().perguntasDAO().addPergunta(pergunta);
-                                    PerguntasDB.getInstance().perguntasDAO().addPergunta(pergunta1);
-                                    PerguntasDB.getInstance().perguntasDAO().addPergunta(pergunta2);
-                                    PerguntasDB.getInstance().perguntasDAO().addPergunta(pergunta3);
                                     return null;
                                 }
                             }.execute();

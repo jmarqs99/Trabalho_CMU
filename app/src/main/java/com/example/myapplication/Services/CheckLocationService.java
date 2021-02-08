@@ -113,7 +113,6 @@ public class CheckLocationService extends Service {
                             notificationId++;
 
                             CriarPergunta.gerarNovaPergunta();
-                            //CriarPergunta.gerarPerguntaDinamica();
                         }
                     }
                 }
