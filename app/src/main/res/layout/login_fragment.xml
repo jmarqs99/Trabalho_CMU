@@ -8,11 +8,9 @@
 
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
 
         <ImageView
             android:layout_width="wrap_content"
@@ -39,13 +37,15 @@
             android:gravity="center_vertical"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:singleLine="true"
+            android:imeOptions="actionNext"
             android:textSize="16sp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextTextEmailAddress"
                 android:layout_width="match_parent"
+                android:singleLine="true"
+                android:maxLines="1"
                 app:endIconMode="clear_text"
                 android:layout_height="match_parent" />
 
@@ -62,7 +62,7 @@
             android:gravity="center_vertical"
             android:hint="@string/passowrd"
             android:inputType="textPassword"
-            android:singleLine="true"
+            android:maxLines="1"
 
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
