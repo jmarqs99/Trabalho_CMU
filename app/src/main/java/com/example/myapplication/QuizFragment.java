@@ -75,10 +75,12 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 @Override
                 protected void onPostExecute(List<Pergunta> perguntas) {
                     super.onPostExecute(perguntas);
-                    Intent intent = new Intent(context, QuizActivity.class);
-                    intent.putExtra("Pergunta",perguntas.get(0));
-                    intent.putExtra("real",true);
-                    startActivityForResult(intent,1);
+                    if(perguntas.size() > 0) {
+                        Intent intent = new Intent(context, QuizActivity.class);
+                        intent.putExtra("Pergunta", perguntas.get(0));
+                        intent.putExtra("real", true);
+                        startActivityForResult(intent, 1);
+                    }
                 }
 
                 @Override
