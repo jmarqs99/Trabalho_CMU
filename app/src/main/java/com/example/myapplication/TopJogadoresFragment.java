@@ -55,6 +55,9 @@ public class TopJogadoresFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         getJogadoresFirestore();
+
+        CriarPergunta.gerarPerguntaDinamica();
+
         return v;
     }
 

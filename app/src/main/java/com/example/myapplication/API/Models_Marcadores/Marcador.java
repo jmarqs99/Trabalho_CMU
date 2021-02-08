@@ -1,10 +1,12 @@
 package com.example.myapplication.API.Models_Marcadores;
 
+import java.util.List;
+
 public class Marcador {
 
     private query query;
 
-    private data data;
+    private List<data> data;
 
     public query getQuery() {
         return query;
@@ -14,11 +16,11 @@ public class Marcador {
         this.query = query;
     }
 
-    public data getData() {
+    public List<com.example.myapplication.API.Models_Marcadores.data> getData() {
         return data;
     }
 
-    public void setData(data data) {
+    public void setData(List<com.example.myapplication.API.Models_Marcadores.data> data) {
         this.data = data;
     }
 }
