@@ -119,29 +119,34 @@ public class NewQuestionsService extends Service {
                                     @Override
                                     public void onResponse(Call<Partida> call, Response<Partida> response) {
                                         final Partida partida = response.body();
-                                        List<jogo> listJogos = partida.getData();
-                                        for (int i=0;i < listJogos.size();i++){
-                                            if (!rewardedGames.contains(listJogos.get(i).getMatch_id())){
-                                                rewardedGames.add(listJogos.get(i).getMatch_id());
+                                        if (response.code() == 200) {
+                                            List<jogo> listJogos = partida.getData();
+                                            for (int i = 0; i < listJogos.size(); i++) {
+                                                if (!rewardedGames.contains(listJogos.get(i).getMatch_id())) {
+                                                    rewardedGames.add(listJogos.get(i).getMatch_id());
 
-                                                Intent notificationIntent = new Intent(context, MainActivity.class);
-                                                PendingIntent pendingIntent =
-                                                        PendingIntent.getActivity(context, 0, notificationIntent, 0);
+                                                    Intent notificationIntent = new Intent(context, MainActivity.class);
+                                                    PendingIntent pendingIntent =
+                                                            PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
 
-                                                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "testeNot")
-                                                        .setSmallIcon(R.drawable.question_mark)
-                                                        .setContentTitle("FutQuiz")
-                                                        .setContentText("Recebeste um novo quiz devido ao jogo ao vivo!")
-                                                        .setContentIntent(pendingIntent)
-                                                        .setAutoCancel(true)
-                                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-                                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-                                                notificationManager.notify(notificationId, builder.build());
-                                                notificationId++;
+                                                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "testeNot")
+                                                            .setSmallIcon(R.drawable.question_mark)
+                                                            .setContentTitle("FutQuiz")
+                                                            .setContentText("Recebeste um novo quiz devido ao jogo ao vivo!")
+                                                            .setContentIntent(pendingIntent)
+                                                            .setAutoCancel(true)
+                                                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                                                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                                                    notificationManager.notify(notificationId, builder.build());
+                                                    notificationId++;
 
-                                                CriarPergunta.gerarNovaPergunta();
+                                                    CriarPergunta.gerarNovaPergunta();
+                                                }
                                             }
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "API Requests reached limit",
+                                                    Toast.LENGTH_LONG).show();
                                         }
                                     }
 

@@ -55,25 +55,30 @@ public class ClassificacoesFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Classificacao> call, Response<Classificacao> response) {
                         final Classificacao classificacao = response.body();
+                        if (response.code() == 200) {
+                            new AsyncTask<Void, Void, EquipaAdapter>() {
 
-                        new AsyncTask<Void, Void, EquipaAdapter>() {
+                                @Override
+                                protected void onPostExecute(EquipaAdapter adapter) {
+                                    mRecyclerView.setAdapter(mAdapter);
+                                    mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+                                }
 
-                            @Override
-                            protected void onPostExecute(EquipaAdapter adapter) {
-                                mRecyclerView.setAdapter(mAdapter);
-                                mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
-                            }
+                                @Override
+                                protected EquipaAdapter doInBackground(Void... voids) {
+                                    List<Equipa> equipas = getEquipas(classificacao);
+                                    List<Equipa_item> equipas_items = constroiClassificacao(classificacao, equipas);
+                                    mAdapter = new EquipaAdapter(getActivity(), equipas_items);
+                                    dialog.dismiss();
+                                    return mAdapter;
+                                }
 
-                            @Override
-                            protected EquipaAdapter doInBackground(Void... voids) {
-                                List<Equipa> equipas = getEquipas(classificacao);
-                                List<Equipa_item> equipas_items = constroiClassificacao(classificacao,equipas);
-                                mAdapter = new EquipaAdapter(getActivity(),equipas_items);
-                                dialog.dismiss();
-                                return mAdapter;
-                            }
-
-                        }.execute();
+                            }.execute();
+                        } else {
+                            Toast.makeText(getActivity(), "API Requests reached limit",
+                                    Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
+                        }
                     }
 
                     @Override

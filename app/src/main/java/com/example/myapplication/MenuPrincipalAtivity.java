@@ -96,10 +96,11 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                 FragmentTransaction tr = fm.beginTransaction();
 
                 if (dualFrag != null) {
+                    FragmentTransaction tr2 = fm.beginTransaction();
                     Fragment quizFrag = new QuizFragment();
-                    tr.replace(R.id.quizFragment,quizFrag);
-                    tr.addToBackStack(null);
-                    tr.commit();
+                    tr2.replace(R.id.quizFragment,quizFrag);
+                    tr2.addToBackStack(null);
+                    tr2.commit();
                 }
 
                 switch (item.getItemId()) {
