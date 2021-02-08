@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -8,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,9 +69,15 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
 
-        QuizFragment newQFragment = new QuizFragment();
+        View dualFrag = findViewById(R.id.quizFragment);
 
-        tr.replace(R.id.fragment2,newQFragment);
+        Fragment defaultFrag;
+        if (dualFrag != null) {
+            defaultFrag = new ClassificacoesFragment();
+        } else {
+            defaultFrag = new QuizFragment();
+        }
+        tr.replace(R.id.fragment2,defaultFrag);
         tr.addToBackStack(null);
         tr.commit();
 
@@ -159,35 +167,11 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
 
-        if(user != null) {
-
+        if(user != null || account != null) {
             mailUser = user.getEmail();
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction tr = fm.beginTransaction();
-
-            QuizFragment newQFragment = new QuizFragment();
-
-            tr.replace(R.id.fragment2,newQFragment);
-            tr.addToBackStack(null);
-            tr.commit();
-            Log.d("userNotNull", "usernaoNull");
-
         }
         else if (account != null) {
             mailUser = account.getEmail();
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction tr = fm.beginTransaction();
-
-            Log.d("ContauserNotNull", "ContausernaoNull");
-
-
-
-            QuizFragment newQFragment = new QuizFragment();
-
-            tr.replace(R.id.fragment2,newQFragment);
-            tr.addToBackStack(null);
-            tr.commit();
-
         }
         else {
 
