@@ -207,13 +207,12 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.top_quizz:
-                FragmentManager fragmentManager2 = getFragmentManager();
-                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                TopJogadoresFragment fragment2 = new TopJogadoresFragment();
-                fragmentTransaction2.addToBackStack("xyz");
-                fragmentTransaction2.hide(PerfilFragment.this);
-                fragmentTransaction2.add(android.R.id.content, fragment2);
-                fragmentTransaction2.commit();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction tr = fm.beginTransaction();
+                TopJogadoresFragment fragment = new TopJogadoresFragment();
+                tr.replace(R.id.fragment2,fragment);
+                tr.addToBackStack(null);
+                tr.commit();
                 break;
         }
     }
