@@ -3,6 +3,7 @@ package com.example.myapplication.API;
 import com.example.myapplication.API.Models.Models_Classificacao.Classificacao;
 import com.example.myapplication.API.Models_Equipa.Equipa;
 import com.example.myapplication.API.Models_Jogo.Partida;
+import com.example.myapplication.API.Models_Marcadores.Marcador;
 
 import java.util.Date;
 
@@ -26,4 +27,7 @@ public interface SportsDataAPI {
 
     @GET("matches?apikey=" + API_KEY + "&season_id=496" + "&live=true")
     Call<Partida> getJogosLive();
+
+    @GET("topscorers?apikey="+ API_KEY + "&season_id=496")
+    Call<Marcador> getMarcadores();
 }
