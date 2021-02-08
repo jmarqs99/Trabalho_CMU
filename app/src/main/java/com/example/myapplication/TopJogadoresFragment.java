@@ -56,8 +56,6 @@ public class TopJogadoresFragment extends Fragment {
 
         getJogadoresFirestore();
 
-        CriarPergunta.gerarPerguntaDinamica();
-
         return v;
     }
 
