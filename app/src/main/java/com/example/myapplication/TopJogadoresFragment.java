@@ -94,7 +94,13 @@ public class TopJogadoresFragment extends Fragment {
         Log.d("SORT",jogadores.toString());
         Collections.sort(jogadores, Collections.reverseOrder());
         Log.d("SORT",jogadores.toString());
-        return  jogadores.subList(0,5);
+        
+        if( jogadores.size() < 10){
+            return  jogadores.subList(0,jogadores.size());
+        }
+        else{
+            return  jogadores.subList(0,10);
+        }
     }
 
 
