@@ -40,7 +40,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     private int pontosUser;
     PerguntasDB perguntasDB;
     private List<Pergunta> allPerguntas;
-    
+    private View dualFrag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +70,17 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
 
-        View dualFrag = findViewById(R.id.quizFragment);
+        dualFrag = findViewById(R.id.quizFragment);
 
         Fragment defaultFrag;
         if (dualFrag != null) {
             defaultFrag = new ClassificacoesFragment();
+
+            FragmentTransaction tr2 = fm.beginTransaction();
+            Fragment quizFrag = new QuizFragment();
+            tr2.replace(R.id.quizFragment,quizFrag);
+            tr2.addToBackStack(null);
+            tr2.commit();
         } else {
             defaultFrag = new QuizFragment();
         }
@@ -87,6 +94,14 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction tr = fm.beginTransaction();
+
+                if (dualFrag != null) {
+                    Fragment quizFrag = new QuizFragment();
+                    tr.replace(R.id.quizFragment,quizFrag);
+                    tr.addToBackStack(null);
+                    tr.commit();
+                }
+
                 switch (item.getItemId()) {
                     case R.id.action_quizz:
                         QuizFragment newQFragment = new QuizFragment();

@@ -124,20 +124,4 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
             }.start();
         }
     }
-
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 1){
-            boolean result = data.getBooleanExtra("correct",false);
-            TextView awnserResult = view.findViewById(R.id.quizzResult);
-            if (result) {
-                awnserResult.setText("Certo!");
-                awnserResult.setTextColor(Color.GREEN);
-            } else {
-                awnserResult.setText("Errado!");
-                awnserResult.setTextColor(Color.RED);
-            }
-            awnserResult.setVisibility(View.VISIBLE);
-        }
-    }*/
 }

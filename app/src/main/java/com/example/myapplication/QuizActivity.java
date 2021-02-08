@@ -101,7 +101,6 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        // TODO: ADICIONAR PONTOS NO FIRESTORE EM CASO DE ACERTO
         if (view.getId() == opcao1BTN.getId()){
             if (correctAwnser == 0){
                 pergunta.acertou = true;

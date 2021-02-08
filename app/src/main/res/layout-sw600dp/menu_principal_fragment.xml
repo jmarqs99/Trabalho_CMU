@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MenuPrincipalAtivity">
+    tools:context=".MenuPrincipalAtivity"
+    android:screenOrientation="landscape">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -33,9 +34,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-                <fragment
+                <FrameLayout
                     android:id="@+id/quizFragment"
-                    android:name="com.example.myapplication.QuizFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
