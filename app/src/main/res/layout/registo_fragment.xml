@@ -38,6 +38,8 @@
                 android:id="@+id/editTextTextRegisterEmailAddress"
                 android:layout_width="match_parent"
                 app:endIconMode="clear_text"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:layout_height="match_parent" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -63,6 +65,8 @@
                 android:layout_width="match_parent"
                 android:inputType="textPassword"
                 android:layout_height="match_parent"
+                android:singleLine="true"
+                android:maxLines="1"
                 app:endIconMode="clear_text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -87,6 +91,8 @@
                 android:id="@+id/editTextTextRegisterPasswordConfirmar"
                 android:layout_width="match_parent"
                 android:inputType="textPassword"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:layout_height="match_parent"
                 app:endIconMode="clear_text"/>
 
