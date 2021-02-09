@@ -21,7 +21,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="10dp"
             android:text="FutQuizz"
             android:textColor="@color/darker_gray"
             android:textSize="30sp"
