@@ -61,6 +61,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     private Button editarPass;
     private Button partilhar;
     private Button topJogadores;
+    private Button verRespostasUser;
     private String mailText;
     private int pontosUser;
     private FirebaseUser currentUser;
@@ -117,6 +118,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         editarPass = v.findViewById(R.id.buttonEditarPassword);
         pontos = v.findViewById(R.id.textViewPontos);
         partilhar = v.findViewById(R.id.partilhar);
+        verRespostasUser = v.findViewById(R.id.verRespostas);
         topJogadores = v.findViewById(R.id.top_quizz);
         TextViewnumCorretas = v.findViewById(R.id.num_corretas);
         TextViewnumErradas = v.findViewById(R.id.num_erradas);
@@ -140,6 +142,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         loggout.setOnClickListener(this);
         partilhar.setOnClickListener(this);
         topJogadores.setOnClickListener(this);
+        verRespostasUser.setOnClickListener(this);
 
         return v;
     }
@@ -191,6 +194,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction tr = fm.beginTransaction();
         switch (view.getId()){
             case R.id.buttonLogout:
                 lg.OnLogoutSelect();
@@ -207,10 +212,14 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.top_quizz:
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction tr = fm.beginTransaction();
                 TopJogadoresFragment fragment = new TopJogadoresFragment();
                 tr.replace(R.id.fragment2,fragment);
+                tr.addToBackStack(null);
+                tr.commit();
+                break;
+            case R.id.verRespostas:
+                verRespostasFragment fragment2 = new verRespostasFragment();
+                tr.replace(R.id.fragment2,fragment2);
                 tr.addToBackStack(null);
                 tr.commit();
                 break;

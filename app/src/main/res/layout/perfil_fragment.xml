@@ -127,10 +127,20 @@
             android:layout_height="match_parent">
 
             <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/verRespostas"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Ver perguntas Respondidas">
+            </Button>
+
+            <Button
                 android:id="@+id/top_quizz"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/verRespostas"
                 android:text="TOP Jogadores"
                 android:padding="20dp"
                 android:layout_marginLeft="10dp"
@@ -144,6 +154,7 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/verRespostas"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/top_quizz"
                 android:drawableTop="@drawable/baseline_share_black_18dp"

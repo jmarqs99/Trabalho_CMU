@@ -37,11 +37,9 @@ import retrofit2.Response;
 public class CriarPergunta {
 
     public static void gerarNovaPergunta() {
-        final int min = 0;
-        final int max = 1;
-        final int random = new Random().nextInt((max - min) + 1) + min;
+        int random = new Random().nextInt(1);
 
-        if( random == 7 ){
+        if( random == 0 ){
             gerarPerguntaEstatica();
         }
         else {
@@ -100,7 +98,7 @@ public class CriarPergunta {
         final SportsDataAPI service = RetrofitClient.getApi();
         final int min = 1;
         final int max = 4;
-        final int random = new Random().nextInt((max - min) + 1) + min;
+        final int random2 = new Random().nextInt((max - min) + 1) + min;
 
         final Pergunta pergunta = new Pergunta();
 
@@ -114,7 +112,7 @@ public class CriarPergunta {
                                 @Override
                                 protected Void doInBackground(Void... voids) {
                                     List<String> opcoes = new ArrayList<>();
-                                    switch (random){
+                                    switch (random2){
                                         case 1:
                                             pergunta.pergunta = "Quantos golos tem o atual melhor marcador da Bundesliga?";
                                             pergunta.pontos = 100;

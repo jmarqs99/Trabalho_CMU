@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface SportsDataAPI {
 
-    String API_KEY = "351c5df0-6a4a-11eb-8a96-5d41a6105663";
+    String API_KEY = "5a2710a0-6a70-11eb-b5bd-a141eb23f5f8";
 
     @GET("standings?apikey=" + API_KEY + "&season_id=496")
     Call<Classificacao> getClassificacao();
@@ -25,7 +25,7 @@ public interface SportsDataAPI {
     @GET("matches?apikey=" + API_KEY + "&season_id=496")
     Call<Partida> getJogos(@Query("date_from") String data_inicio , @Query("date_to") String data_fim);
 
-    @GET("matches?apikey=" + API_KEY + "&season_id=496" + "&live=true")
+    @GET("matches?apikey=" + API_KEY +  "&live=true")
     Call<Partida> getJogosLive();
 
     @GET("topscorers?apikey="+ API_KEY + "&season_id=496")

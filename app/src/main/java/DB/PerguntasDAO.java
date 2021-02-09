@@ -30,6 +30,9 @@ public interface PerguntasDAO {
     @Query("SELECT * FROM Pergunta where respostaUser is NULL")
     public List<Pergunta> getPerguntasPorResponder();
 
+    @Query("SELECT * FROM Pergunta where respostaUser is NOT NULL")
+    public List<Pergunta> getPerguntasRespondidas();
+
     @Query("DELETE FROM Pergunta")
     public void removerPerguntas();
 

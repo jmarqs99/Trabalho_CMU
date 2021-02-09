@@ -40,8 +40,6 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
         return new EquipaViewHolder(equipaView);
     }
 
-    @SuppressLint("ResourceType")
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onBindViewHolder(@NonNull EquipaViewHolder holder, int position) {
         Equipa_item equipaItem = mEquipaItem.get(position);
