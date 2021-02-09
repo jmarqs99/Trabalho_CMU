@@ -107,6 +107,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 pergunta.acertou = false;
             }
+            pergunta.respostaUser = pergunta.opcoes.get(0);
             HandleQuizzResponse(pergunta);
         } else if (view.getId() == opcao2BTN.getId()){
             if (correctAwnser == 1){
@@ -114,6 +115,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 pergunta.acertou = false;
             }
+            pergunta.respostaUser = pergunta.opcoes.get(1);
             HandleQuizzResponse(pergunta);
         } else if (view.getId() == opcao3BTN.getId()){
             if (correctAwnser == 2){
@@ -121,6 +123,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             } else {
                 pergunta.acertou = false;
             }
+            pergunta.respostaUser = pergunta.opcoes.get(2);
             HandleQuizzResponse(pergunta);
         }
     }
@@ -172,16 +175,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             protected Void doInBackground(Void... voids) {
                 if (real) {
-                    pergunta.respostaUser = pergunta.opcoes.get(2);
                     PerguntasDB.getInstance().perguntasDAO().updatePergunta(pergunta);
                 }
                 return null;
             }
         }.execute();
-    }
-
-    @Override
-    public void onBackPressed() {
-        
     }
 }
