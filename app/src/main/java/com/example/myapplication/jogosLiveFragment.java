@@ -80,7 +80,6 @@ public class jogosLiveFragment extends Fragment {
                                     @Override
                                     protected void onPostExecute(JogoAdapter adapter) {
                                         mRecyclerView.setAdapter(mAdapter);
-                                        mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
                                     }
 
                                     @Override
