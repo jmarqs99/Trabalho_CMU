@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +39,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
     PerguntasDB dataBase;
     private Context context;
     private View view;
+    private final int TIME_BETWEEN_QR = 30 * 60; //segundos
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -65,6 +68,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
         view.findViewById(R.id.awnserQuizz).setOnClickListener(this);
         view.findViewById(R.id.practiceBtn).setOnClickListener(this);
+        view.findViewById(R.id.scanQR).setOnClickListener(this);
         return view;
     }
 
@@ -124,6 +128,17 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     }
                 }
             }.start();
+        } else if(view.getId() == R.id.scanQR) {
+            final SharedPreferences mPrefs = context.getSharedPreferences("lastQRRead", 0);
+            Long lastTimestamp = mPrefs.getLong("timestamp", 0);
+            if (System.currentTimeMillis()/1000 - lastTimestamp >  TIME_BETWEEN_QR){
+                mPrefs.edit().putLong("timestamp", System.currentTimeMillis() / 1000).commit();
+                Intent intent = new Intent(context, ScanQRCode.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getActivity(), "Deste scan a um QR code á pouco tempo", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 }

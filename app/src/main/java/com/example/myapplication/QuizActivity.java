@@ -181,4 +181,8 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         }.execute();
     }
+    // Impede que seja possivel retroceder da activity manualmente
+    @Override
+    public void onBackPressed() {
+    }
 }
