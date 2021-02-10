@@ -99,6 +99,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                 }
 
                 switch (item.getItemId()) {
+
+                    //Fragment dos Quizz
                     case R.id.action_quizz:
                         QuizFragment newQFragment = new QuizFragment();
 
@@ -106,6 +108,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment da classificação
                     case R.id.action_standings:
                         ClassificacoesFragment newFragment = new ClassificacoesFragment();
 
@@ -113,6 +117,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment do perfil
                     case R.id.action_profile:
                         PerfilFragment newPFragment = new PerfilFragment();
 
@@ -120,12 +126,16 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment dos jogos de um determinado dia
                     case R.id.jogos:
                         JogosFragment jogos = new JogosFragment();
                         tr.replace(R.id.fragment2,jogos);
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment dos jogos ao vivo
                     case R.id.jogos_live:
                         jogosLiveFragment jogoslive = new jogosLiveFragment();
                         tr.replace(R.id.fragment2,jogoslive);
