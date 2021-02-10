@@ -38,9 +38,7 @@ public class jogosLiveFragment extends Fragment {
     private final SportsDataAPI service = RetrofitClient.getApi();
 
     public jogosLiveFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +48,7 @@ public class jogosLiveFragment extends Fragment {
         mRecyclerView = v.findViewById(R.id.mRecyclerViewJogos);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        // Thread para fazer pedido dos jogos de 1 em 1 minuto para atualizar os minutos
         new Thread() {
             @Override
             public void run() {
@@ -67,6 +66,9 @@ public class jogosLiveFragment extends Fragment {
         return v;
     }
 
+    /**
+     *
+     */
     private void getJogos() {
         service.getJogosLive()
                 .enqueue(new Callback<Partida>() {
@@ -86,12 +88,13 @@ public class jogosLiveFragment extends Fragment {
                                     protected JogoAdapter doInBackground(Void... voids) {
                                         List<Jogo_item> partidas = constroiLista(partida);
                                         mAdapter = new JogoAdapter(getActivity(), partidas);
-                                        //dialog.dismiss();
+
                                         return mAdapter;
                                     }
 
                                 }.execute();
                             } else {
+                                // Caso não existam jogos para mostrar
                                 List<Sem_jogos_item> sem_jogos_items = new ArrayList<>();
                                 Sem_jogos_item item = new Sem_jogos_item("Sem Jogos para mostrar");
                                 sem_jogos_items.add(item);
@@ -113,6 +116,10 @@ public class jogosLiveFragment extends Fragment {
         ;
     }
 
+    /**
+     * @param partida
+     * @return
+     */
     public List<Jogo_item> constroiLista(Partida partida) {
         List<Jogo_item> jogos = new ArrayList<>();
         for (int i = 0; i < partida.getData().size(); i++) {

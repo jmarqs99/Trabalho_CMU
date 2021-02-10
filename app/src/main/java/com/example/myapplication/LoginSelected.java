@@ -6,8 +6,9 @@ public interface LoginSelected {
 
     /**
      * Função que irá permitir ao utilizador fazer login na applicação
-     * @param mail o email do utilizador
-     * @param pass a password do utilizador
+     *
+     * @param mail         o email do utilizador
+     * @param pass         a password do utilizador
      * @param errorMessage mensagem de erro
      */
     public void onSelected(String mail, String pass, TextView errorMessage);

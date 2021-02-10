@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class RegistarUserFragment extends Fragment implements View.OnClickListener{
+public class RegistarUserFragment extends Fragment implements View.OnClickListener {
 
     RegisterSelected mContext;
     private EditText email, password, confirmarPassword;
@@ -22,7 +22,6 @@ public class RegistarUserFragment extends Fragment implements View.OnClickListen
     private TextView errorMessage;
 
     public RegistarUserFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -60,22 +59,18 @@ public class RegistarUserFragment extends Fragment implements View.OnClickListen
         String userPass = password.getText().toString();
         String confirmarPass = confirmarPassword.getText().toString();
 
-        if(userMail.isEmpty()) {
+        if (userMail.isEmpty()) {
             email.setError("Insira um email");
             email.requestFocus();
-        }
-        else if(userPass.isEmpty()) {
+        } else if (userPass.isEmpty()) {
             password.setError("Insira uma password");
             password.requestFocus();
-        }
-        else if(password.length() < 6) {
+        } else if (password.length() < 6) {
             password.setError("A password precisa de ter pelo menos 6 caracteres");
-        }
-        else {
-            if(confirmarPass.equals(userPass)) {
+        } else {
+            if (confirmarPass.equals(userPass)) {
                 mContext.OnRegisterSelected(userMail, userPass, errorMessage);
-            }
-            else {
+            } else {
 
                 password.setError("Palavras passe incorretas!");
                 Log.d("UserPass", userPass);

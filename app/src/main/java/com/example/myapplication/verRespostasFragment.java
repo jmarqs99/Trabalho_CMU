@@ -25,7 +25,8 @@ public class verRespostasFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private PerguntasAdapter mAdapter;
 
-    public verRespostasFragment() {}
+    public verRespostasFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

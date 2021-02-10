@@ -38,7 +38,7 @@ import java.util.Map;
 import DB.Pergunta;
 import DB.PerguntasDB;
 
-public class QuizActivity extends AppCompatActivity implements View.OnClickListener{
+public class QuizActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button opcao1BTN;
     private Button opcao2BTN;
@@ -63,9 +63,9 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         intent = getIntent();
         pergunta = (Pergunta) intent.getSerializableExtra("Pergunta");
-        real = intent.getBooleanExtra("real",false);
+        real = intent.getBooleanExtra("real", false);
         correctAwnser = pergunta.opcoes.indexOf(pergunta.respostaCorreta);
-        ((TextView)findViewById(R.id.textViewPergunta)).setText(pergunta.pergunta);
+        ((TextView) findViewById(R.id.textViewPergunta)).setText(pergunta.pergunta);
 
         opcao1BTN = findViewById(R.id.textViewOpcao1);
         opcao1BTN.setText(pergunta.opcoes.get(0));
@@ -79,14 +79,14 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
         final ProgressBar mProgressBar;
 
-        mProgressBar= findViewById(R.id.progressbar);
+        mProgressBar = findViewById(R.id.progressbar);
         mProgressBar.setProgress(0);
-        mCountDownTimer=new CountDownTimer(30000,1) {
+        mCountDownTimer = new CountDownTimer(30000, 1) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int milisPassed = (int)Math.abs(millisUntilFinished - 30000);
-                currentTimer = (float) (milisPassed/30000.0);
-                mProgressBar.setProgress(Math.round(currentTimer*100));
+                int milisPassed = (int) Math.abs(millisUntilFinished - 30000);
+                currentTimer = (float) (milisPassed / 30000.0);
+                mProgressBar.setProgress(Math.round(currentTimer * 100));
             }
 
             @Override
@@ -101,24 +101,24 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == opcao1BTN.getId()){
-            if (correctAwnser == 0){
+        if (view.getId() == opcao1BTN.getId()) {
+            if (correctAwnser == 0) {
                 pergunta.acertou = true;
             } else {
                 pergunta.acertou = false;
             }
             pergunta.respostaUser = pergunta.opcoes.get(0);
             HandleQuizzResponse(pergunta);
-        } else if (view.getId() == opcao2BTN.getId()){
-            if (correctAwnser == 1){
+        } else if (view.getId() == opcao2BTN.getId()) {
+            if (correctAwnser == 1) {
                 pergunta.acertou = true;
             } else {
                 pergunta.acertou = false;
             }
             pergunta.respostaUser = pergunta.opcoes.get(1);
             HandleQuizzResponse(pergunta);
-        } else if (view.getId() == opcao3BTN.getId()){
-            if (correctAwnser == 2){
+        } else if (view.getId() == opcao3BTN.getId()) {
+            if (correctAwnser == 2) {
                 pergunta.acertou = true;
             } else {
                 pergunta.acertou = false;
@@ -128,7 +128,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void HandleQuizzResponse(final Pergunta pergunta){
+    private void HandleQuizzResponse(final Pergunta pergunta) {
         mCountDownTimer.cancel();
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -138,12 +138,12 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 final DocumentReference documentReference = db.collection("users").document(user.getEmail());
 
-                if(pergunta.acertou){
+                if (pergunta.acertou) {
                     message = "Acertou";
                     int pontos = pergunta.pontos;
-                    if(currentTimer > 0.5 && currentTimer < 0.75){
+                    if (currentTimer > 0.5 && currentTimer < 0.75) {
                         pontos = Math.round(pontos * 0.7f);
-                    } else if(currentTimer >= 0.75) {
+                    } else if (currentTimer >= 0.75) {
                         pontos = Math.round(pontos * 0.5f);
                     }
                     if (real) {
@@ -181,6 +181,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             }
         }.execute();
     }
+
     // Impede que seja possivel retroceder da activity manualmente
     @Override
     public void onBackPressed() {

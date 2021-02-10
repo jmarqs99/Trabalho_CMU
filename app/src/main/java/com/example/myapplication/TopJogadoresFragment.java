@@ -43,7 +43,8 @@ public class TopJogadoresFragment extends Fragment {
     private JogadoresAdapter mAdapter;
     private FirebaseFirestore db;
 
-    public TopJogadoresFragment() {}
+    public TopJogadoresFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,7 +74,7 @@ public class TopJogadoresFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     int i = 1;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Jogadores_item jogador = new Jogadores_item(i + ".",document.getId(), (Long) document.get("pontos") );
+                                        Jogadores_item jogador = new Jogadores_item(i + ".", document.getId(), (Long) document.get("pontos"));
                                         jogadores.add(jogador);
                                         i++;
                                     }
@@ -90,20 +91,17 @@ public class TopJogadoresFragment extends Fragment {
         }.execute();
     }
 
-    private List<Jogadores_item> trataLista(List<Jogadores_item> jogadores){
-        Log.d("SORT",jogadores.toString());
+    private List<Jogadores_item> trataLista(List<Jogadores_item> jogadores) {
+        Log.d("SORT", jogadores.toString());
         Collections.sort(jogadores, Collections.reverseOrder());
-        Log.d("SORT",jogadores.toString());
+        Log.d("SORT", jogadores.toString());
 
-        if( jogadores.size() < 10){
-            return  jogadores.subList(0,jogadores.size());
-        }
-        else{
-            return  jogadores.subList(0,10);
+        if (jogadores.size() < 10) {
+            return jogadores.subList(0, jogadores.size());
+        } else {
+            return jogadores.subList(0, 10);
         }
     }
-
-
 
 
 }

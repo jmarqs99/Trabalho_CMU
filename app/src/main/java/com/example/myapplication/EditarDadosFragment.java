@@ -22,15 +22,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class EditarDadosFragment extends Fragment implements View.OnClickListener{
+public class EditarDadosFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient signInClient;
     private Button cancelar, editarPass;
     private EditText password, confirmarPass;
 
-    public EditarDadosFragment() {}
-
+    public EditarDadosFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class EditarDadosFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 
             //botão que irá cancelar a operação do user e leva-lo para a página de login
             case R.id.buttonCancelar:
@@ -72,27 +72,24 @@ public class EditarDadosFragment extends Fragment implements View.OnClickListene
                 startActivity(intent);
                 break;
 
-             //botão que irá editar a palavra-passe do user
+            //botão que irá editar a palavra-passe do user
             case R.id.buttonConfirmar:
 
                 String mudarPass = password.getText().toString();
                 String confirmarPassword = confirmarPass.getText().toString();
 
-                if(mudarPass.isEmpty()) {
+                if (mudarPass.isEmpty()) {
                     password.setError("Palavra passe é nula");
-                }
-                else if(mudarPass.length() < 6) {
+                } else if (mudarPass.length() < 6) {
                     password.setError("A palavra passe necessita no mínimo de 6 caracteres");
-                }
-                else {
+                } else {
                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                    if(mudarPass.equals(confirmarPassword)) {
+                    if (mudarPass.equals(confirmarPassword)) {
                         firebaseUser.updatePassword(mudarPass);
                         Intent intent2 = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
                         startActivity(intent2);
-                    }
-                    else {
+                    } else {
                         password.setError("Palavra passe não compatível");
                     }
                 }

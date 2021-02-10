@@ -34,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 import DB.Pergunta;
 import DB.PerguntasDB;
 
-public class QuizFragment extends Fragment implements View.OnClickListener{
+public class QuizFragment extends Fragment implements View.OnClickListener {
 
     PerguntasDB dataBase;
     private Context context;
@@ -64,7 +64,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
                 nmrPerguntas.setText(perguntas.size() + "");
 
-                if (perguntas.size() == 0){
+                if (perguntas.size() == 0) {
                     view.findViewById(R.id.awnserQuizz).setEnabled(false);
                 }
             }
@@ -79,12 +79,12 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.awnserQuizz){
+        if (view.getId() == R.id.awnserQuizz) {
             new AsyncTask<Void, Void, List<Pergunta>>() {
                 @Override
                 protected void onPostExecute(List<Pergunta> perguntas) {
                     super.onPostExecute(perguntas);
-                    if(perguntas.size() > 0) {
+                    if (perguntas.size() > 0) {
                         Intent intent = new Intent(context, QuizActivity.class);
                         intent.putExtra("Pergunta", perguntas.get(0));
                         intent.putExtra("real", true);
@@ -98,7 +98,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     return perguntas;
                 }
             }.execute();
-        } else if(view.getId() == R.id.practiceBtn){
+        } else if (view.getId() == R.id.practiceBtn) {
             new Thread() {
                 @Override
                 public void run() {
@@ -116,16 +116,16 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    final Pergunta pergunta = document.toObject(Pergunta.class);
-                                    Intent intent = new Intent(context, QuizActivity.class);
-                                    intent.putExtra("Pergunta",pergunta);
-                                    intent.putExtra("real",false);
-                                    startActivityForResult(intent,1);
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        final Pergunta pergunta = document.toObject(Pergunta.class);
+                                        Intent intent = new Intent(context, QuizActivity.class);
+                                        intent.putExtra("Pergunta", pergunta);
+                                        intent.putExtra("real", false);
+                                        startActivityForResult(intent, 1);
+                                    }
                                 }
-                            }
                             }
                         });
                     } catch (InterruptedException | ExecutionException e) {
@@ -133,10 +133,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                     }
                 }
             }.start();
-        } else if(view.getId() == R.id.scanQR) {
+        } else if (view.getId() == R.id.scanQR) {
             final SharedPreferences mPrefs = context.getSharedPreferences("lastQRRead", 0);
             Long lastTimestamp = mPrefs.getLong("timestamp", 0);
-            if (System.currentTimeMillis()/1000 - lastTimestamp >  TIME_BETWEEN_QR){
+            if (System.currentTimeMillis() / 1000 - lastTimestamp > TIME_BETWEEN_QR) {
                 mPrefs.edit().putLong("timestamp", System.currentTimeMillis() / 1000).commit();
                 Intent intent = new Intent(context, ScanQRCode.class);
                 startActivity(intent);

@@ -6,8 +6,9 @@ public interface RegisterSelected {
 
     /**
      * Função que irá registar um utilizador na app
-     * @param email o email do utilizador
-     * @param password a password do utilizador
+     *
+     * @param email        o email do utilizador
+     * @param password     a password do utilizador
      * @param errorMessage uma mensagem de erro
      */
     public void OnRegisterSelected(String email, String password, TextView errorMessage);
