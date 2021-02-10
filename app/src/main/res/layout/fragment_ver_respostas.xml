@@ -6,7 +6,7 @@
     android:id="@+id/verRespostas"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context=".verRespostasFragment">
+    tools:context=".Fragments.verRespostasFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

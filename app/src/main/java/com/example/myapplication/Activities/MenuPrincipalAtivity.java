@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,7 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import com.example.myapplication.RecyclerView.EquipaAdapter;
+import com.example.myapplication.Fragments.EditarDadosFragment;
+import com.example.myapplication.EditarDadosSelected;
+import com.example.myapplication.Fragments.ClassificacoesFragment;
+import com.example.myapplication.Fragments.JogosFragment;
+import com.example.myapplication.Fragments.PerfilFragment;
+import com.example.myapplication.Fragments.QuizFragment;
+import com.example.myapplication.Fragments.jogosLiveFragment;
+import com.example.myapplication.LogoutSelected;
+import com.example.myapplication.R;
 import com.example.myapplication.Services.CheckLocationService;
 import com.example.myapplication.Services.NewQuestionsService;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,9 +35,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.List;
-
-import DB.Pergunta;
 import DB.PerguntasDB;
 
 public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSelected, EditarDadosSelected {

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -23,6 +23,7 @@ import com.example.myapplication.API.Models.Models_Classificacao.Classificacao;
 import com.example.myapplication.API.Models_Equipa.Equipa;
 import com.example.myapplication.API.RetrofitClient;
 import com.example.myapplication.API.SportsDataAPI;
+import com.example.myapplication.R;
 import com.example.myapplication.RecyclerView.EquipaAdapter;
 import com.example.myapplication.RecyclerView.Equipa_item;
 

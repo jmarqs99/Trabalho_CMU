@@ -8,7 +8,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -18,18 +17,13 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 
-import com.example.myapplication.API.Models.Models_Classificacao.Classificacao;
-import com.example.myapplication.API.Models_Equipa.Equipa;
 import com.example.myapplication.API.Models_Jogo.Partida;
 import com.example.myapplication.API.Models_Jogo.jogo;
 import com.example.myapplication.API.RetrofitClient;
 import com.example.myapplication.CriarPergunta;
-import com.example.myapplication.MainActivity;
+import com.example.myapplication.Activities.MainActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.RecyclerView.EquipaAdapter;
-import com.example.myapplication.RecyclerView.Equipa_item;
 
 import java.util.ArrayList;
 import java.util.List;

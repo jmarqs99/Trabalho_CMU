@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,6 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -127,7 +128,7 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
             HandleQuizzResponse(pergunta);
         }
     }
-    
+
     /**
      * Trata a pergunta após ter sido respondida
      * @param pergunta Pergunta respondida

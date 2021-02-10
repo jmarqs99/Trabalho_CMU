@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.example.myapplication.API.Models_Jogo.Partida;
 import com.example.myapplication.API.RetrofitClient;
 import com.example.myapplication.API.SportsDataAPI;
+import com.example.myapplication.R;
 import com.example.myapplication.RecyclerView.JogoAdapter;
 import com.example.myapplication.RecyclerView.Jogo_item;
 import com.example.myapplication.RecyclerView.Sem_jogosAdapter;

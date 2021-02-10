@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.Fragments;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.myapplication.LoginSelected;
+import com.example.myapplication.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
