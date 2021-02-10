@@ -154,6 +154,9 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
        apagarPerguntasNoLogout();
     }
 
+    /**
+     * Função que apaga todas as perguntas do telemóvel após o logout do user
+     */
     private void apagarPerguntasNoLogout() {
         new AsyncTask<Void,Void,Void>(){
 
@@ -169,6 +172,10 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     }
 
 
+    /**
+     * Função que atualiza a UI do user
+     * @param user
+     */
     private void updateUI(FirebaseUser user) {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());

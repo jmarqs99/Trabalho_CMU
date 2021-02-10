@@ -144,6 +144,10 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    /**
+     * Função que retorna a informação do documento Cloud Firestore do utilizador
+     * @param mail o email do utilizador
+     */
     private void retornarDadosFirestore(String mail) {
         final DocumentReference docRef = db.collection("users").document(mail);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

@@ -124,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
     }
 
+    /**
+     * Função para criar um request do google
+     */
     private void createRequest() {
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -161,6 +164,10 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
 
+    /**
+     * Função para fazer login na aplicação com o conta do Google
+     * @param idToken
+     */
     private void firebaseAuthWithGoogle(String idToken) {
             AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
             mAuth.signInWithCredential(credential)
@@ -244,6 +251,10 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.commit();
     }
 
+    /**
+     * Função para atualizar a UI do utilizador
+     * @param user o utilizador
+     */
     private void updateUI(FirebaseUser user) {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
@@ -279,6 +290,9 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
 
+    /**
+     * Função para enviar um email de verificação para o email do user que se registou na app
+     */
     private void sendEmailVerification() {
         final FirebaseUser user = mAuth.getCurrentUser();
         user.sendEmailVerification()
@@ -300,6 +314,10 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
     }
 
 
+    /**
+     * Função para enviar para o documento do user na cloud firestore a informação das perguntas
+     * @param user o utilizador
+     */
     private void enviarPontosUserParaFirestore(final FirebaseUser user) {
 
         final DocumentReference documentReference = db.collection("users").document(user.getEmail());
