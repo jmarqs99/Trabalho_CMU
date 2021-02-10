@@ -55,36 +55,51 @@ public class JogoAdapter extends RecyclerView.Adapter<JogoAdapter.JogoViewHolder
         TextView textView3 = holder.dadosTextView;
         TextView textView4 = holder.minutosTextView;
 
+        // Verifica o código de estado do jogo e faz mudanças no layout consoante a resposta
         switch (jogoItem.getStatus_code()){
+            // Jogo ainda não comecou
             case 0:
+                // Mostra a hora do jogo
                 textView3.setText(jogoItem.getData_inicio().substring(11,16));
                 break;
+            // Jogo em progresso
             case 1:
+                // Mostra o resultado e os minutos
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
                 textView4.setText(jogoItem.getMinuto() + "'");
                 textView4.setVisibility(View.VISIBLE);
                 break;
+            // Jogo terminou
             case 3:
+                // Mostra resultado final
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
                 break;
+            // Jogo em intervalo
             case 11:
+                // Mostra o resultado e coloca os minutos como INT
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
-                textView4.setText(jogoItem.getMinuto() + "'");
+                textView4.setText("INT");
                 textView4.setVisibility(View.VISIBLE);
                 break;
+            // Jogo em prolongamento
             case 12:
+                // Mostra resultado e os minutos
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
                 textView4.setText(jogoItem.getMinuto() + "'");
                 textView4.setVisibility(View.VISIBLE);
                 break;
+            // Penaltis
             case 13:
+                // Mostra resultado e que o jogo esta em PEN
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
-                textView4.setText(jogoItem.getMinuto() + "'");
+                textView4.setText("PEN");
                 textView4.setVisibility(View.VISIBLE);
                 break;
+            // Intervalo prolongamento
             case 14:
+                // Mostra o resultado e coloca os minutos como INT
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
-                textView4.setText(jogoItem.getMinuto() + "'");
+                textView4.setText("INT");
                 textView4.setVisibility(View.VISIBLE);
                 break;
             case 31:
