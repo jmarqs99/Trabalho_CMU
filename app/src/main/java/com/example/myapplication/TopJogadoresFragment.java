@@ -60,6 +60,9 @@ public class TopJogadoresFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Função que retorna a informação das perguntas no documento do user da cloud firestore
+     */
     private void getJogadoresFirestore() {
         new AsyncTask<Void, Void, List<Jogadores_item>>() {
 
@@ -91,17 +94,17 @@ public class TopJogadoresFragment extends Fragment {
         }.execute();
     }
 
-    private List<Jogadores_item> trataLista(List<Jogadores_item> jogadores) {
-        Log.d("SORT", jogadores.toString());
+    /**
+     * Função que ordena o ranking dos QI´s desportivos dos utilizadores, por ordem decrescente
+     * @param jogadores os utilizadores
+     * @return a lista com o ranking dos QI´s desportivos dos utilizadores, por ordem decrescente
+     */
+    private List<Jogadores_item> trataLista(List<Jogadores_item> jogadores){
         Collections.sort(jogadores, Collections.reverseOrder());
-        Log.d("SORT", jogadores.toString());
 
-        if (jogadores.size() < 10) {
-            return jogadores.subList(0, jogadores.size());
-        } else {
-            return jogadores.subList(0, 10);
+        //se o número da lista for menor que 10
+        if( jogadores.size() < 10){
+            return  jogadores.subList(0,jogadores.size());
         }
     }
-
-
 }
