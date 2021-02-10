@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class EditarDadosFragment extends Fragment {
+public class EditarDadosFragment extends Fragment implements View.OnClickListener{
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient signInClient;
@@ -56,18 +56,24 @@ public class EditarDadosFragment extends Fragment {
         confirmarPass = v.findViewById(R.id.editTextTextPassword3);
 
 
-        cancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cancelar.setOnClickListener(this);
+        editarPass.setOnClickListener(this);
 
+        return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            //botão que irá cancelar a operação do user e leva-lo para a página de login
+            case R.id.buttonCancelar:
                 Intent intent = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
                 startActivity(intent);
-            }
-        });
+                break;
 
-        editarPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+             //botão que irá editar a palavra-passe do user
+            case R.id.buttonConfirmar:
 
                 String mudarPass = password.getText().toString();
                 String confirmarPassword = confirmarPass.getText().toString();
@@ -83,17 +89,14 @@ public class EditarDadosFragment extends Fragment {
 
                     if(mudarPass.equals(confirmarPassword)) {
                         firebaseUser.updatePassword(mudarPass);
-                        Intent intent = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
-                        startActivity(intent);
+                        Intent intent2 = new Intent(EditarDadosFragment.super.getContext(), MenuPrincipalAtivity.class);
+                        startActivity(intent2);
                     }
                     else {
                         password.setError("Palavra passe não compatível");
                     }
                 }
-
-            }
-        });
-
-        return v;
+                break;
+        }
     }
 }

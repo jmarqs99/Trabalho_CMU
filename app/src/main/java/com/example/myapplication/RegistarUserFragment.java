@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class RegistarUserFragment extends Fragment {
+public class RegistarUserFragment extends Fragment implements View.OnClickListener{
 
     RegisterSelected mContext;
     private EditText email, password, confirmarPassword;
@@ -49,40 +49,38 @@ public class RegistarUserFragment extends Fragment {
         errorMessage = v.findViewById(R.id.textViewErrorRegister);
         registarUserButton = v.findViewById(R.id.registarUserButton);
 
-        registarUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userMail = email.getText().toString();
-                String userPass = password.getText().toString();
-                String confirmarPass = confirmarPassword.getText().toString();
-
-                if(userMail.isEmpty()) {
-                    email.setError("Insira um email");
-                    email.requestFocus();
-                }
-                else if(userPass.isEmpty()) {
-                    password.setError("Insira uma password");
-                    password.requestFocus();
-                }
-                else if(password.length() < 6) {
-                    password.setError("A password precisa de ter pelo menos 6 caracteres");
-                }
-                else {
-                    if(confirmarPass.equals(userPass)) {
-                        mContext.OnRegisterSelected(userMail, userPass, errorMessage);
-                    }
-                    else {
-
-                        password.setError("Palavras passe incorretas!");
-                        Log.d("UserPass", userPass);
-                        Log.d("UserPassConfirmar", confirmarPass);
-                    }
-                }
-            }
-        });
-
+        registarUserButton.setOnClickListener(this);
 
         return v;
     }
 
+    @Override
+    public void onClick(View v) {
+        String userMail = email.getText().toString();
+        String userPass = password.getText().toString();
+        String confirmarPass = confirmarPassword.getText().toString();
+
+        if(userMail.isEmpty()) {
+            email.setError("Insira um email");
+            email.requestFocus();
+        }
+        else if(userPass.isEmpty()) {
+            password.setError("Insira uma password");
+            password.requestFocus();
+        }
+        else if(password.length() < 6) {
+            password.setError("A password precisa de ter pelo menos 6 caracteres");
+        }
+        else {
+            if(confirmarPass.equals(userPass)) {
+                mContext.OnRegisterSelected(userMail, userPass, errorMessage);
+            }
+            else {
+
+                password.setError("Palavras passe incorretas!");
+                Log.d("UserPass", userPass);
+                Log.d("UserPassConfirmar", confirmarPass);
+            }
+        }
+    }
 }
