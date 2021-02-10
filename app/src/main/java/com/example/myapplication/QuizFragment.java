@@ -46,6 +46,16 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.quizs_fragment, container, false);
         context = view.getContext();
+
+        view.findViewById(R.id.awnserQuizz).setOnClickListener(this);
+        view.findViewById(R.id.practiceBtn).setOnClickListener(this);
+        view.findViewById(R.id.scanQR).setOnClickListener(this);
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         new AsyncTask<Void, Void, List<Pergunta>>() {
             @Override
             protected void onPostExecute(List<Pergunta> perguntas) {
@@ -65,11 +75,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener{
                 return perguntas;
             }
         }.execute();
-
-        view.findViewById(R.id.awnserQuizz).setOnClickListener(this);
-        view.findViewById(R.id.practiceBtn).setOnClickListener(this);
-        view.findViewById(R.id.scanQR).setOnClickListener(this);
-        return view;
     }
 
     @Override
