@@ -19,19 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
-
-        <activity
-            android:name=".ScanQRCode"
-            android:label="@string/title_activity_scan_q_r_code">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ScanQRCode"/>
         <activity android:name=".QuizActivity" />
         <activity android:name=".MenuPrincipalAtivity" />
         <activity android:name=".MainActivity">
