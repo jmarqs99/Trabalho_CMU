@@ -102,10 +102,14 @@ public class JogoAdapter extends RecyclerView.Adapter<JogoAdapter.JogoViewHolder
                 textView4.setText("INT");
                 textView4.setVisibility(View.VISIBLE);
                 break;
+            // Jogo terminado após penaltis
             case 31:
+                // Mostra o resultado
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
                 break;
+            // Jogo terminado após prolongamento
             case 32:
+                // Mostra o resultado
                 textView3.setText(jogoItem.getGolos_casa() + " - " + jogoItem.getGolos_fora());
                 break;
             default:

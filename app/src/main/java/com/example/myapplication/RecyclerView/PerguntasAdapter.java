@@ -41,6 +41,7 @@ public class PerguntasAdapter extends RecyclerView.Adapter<PerguntasAdapter.Perg
     public void onBindViewHolder(@NonNull PerguntasAdapter.PerguntaViewHolder holder, int position) {
         Pergunta perguntas_itemItem = mPerguntaItem.get(position);
 
+        // Se verificar a condição pinta as linhas de cinzento
         if(position % 2 == 0 ){
             holder.itemView.setBackgroundColor(Color.rgb(223,226,227));
         }
@@ -57,8 +58,10 @@ public class PerguntasAdapter extends RecyclerView.Adapter<PerguntasAdapter.Perg
         TextView textView3 = holder.pontos_totalTextView;
         textView3.setText(perguntas_itemItem.pontos + "");
 
+        // Se a resposta correta for a resposta dado a cor do texto será verde
         if(textView1.getText().equals(textView2.getText())){
             textView2.setTextColor(Color.rgb(55,199,113));
+        // Senão será vermelho
         }else{
             textView2.setTextColor(Color.rgb(255,0,0));
         }
