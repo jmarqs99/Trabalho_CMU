@@ -138,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         Intent intent = signInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
-        Log.d("AquiTbm", "chegou aqui tbm");
     }
 
 
@@ -154,14 +153,10 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-
-                Log.d("Aqui", "chegou aqui");
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -177,9 +172,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                                 Log.d("googleSucesso", "Login com google sucesso");
 
                                 FirebaseUser user = mAuth.getCurrentUser();
-
                                 enviarPontosUserParaFirestore(user);
-
                                 updateUI(user);
 
                             } else {
@@ -187,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                                 Log.d("googleFalhou", "Login com google falhou");
                                 updateUI(null);
                             }
-
                             // ...
                         }
                     });
@@ -223,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                             OnBackToLoginPageSelected();
                         }
                     }, 2500);
-
                 }
                 else {
                     errorMessage.setText("O registo de conta falhou!");
@@ -235,7 +226,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                             updateUI(null);
                         }
                     }, 2500); //desparece passados 2,5 segundos
-
                     Log.d("registoFalhou", "o registo falhou");
                 }
             }
@@ -252,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.replace(R.id.mainActivity, voltarLogin, "voltarLoginPage");
         ft.addToBackStack("voltarLoginPage");
         ft.commit();
-
     }
 
     private void updateUI(FirebaseUser user) {
@@ -261,9 +250,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
         if(user != null) {
             if(user.isEmailVerified()) {
-                String mail = user.getEmail();
                 Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
-                intent.putExtra("mailUser", mail);
                 startActivity(intent);
                 finish();
             }
@@ -277,10 +264,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
             }
         }
         else if(account != null) {
-            String mail = account.getEmail();
-
             Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
-            intent.putExtra("mailUser", mail);
             startActivity(intent);
             finish();
         }

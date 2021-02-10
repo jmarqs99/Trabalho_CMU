@@ -37,9 +37,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     private GoogleSignInClient signInClient;
     private FirebaseFirestore db;
     private String mailUser;
-    private int pontosUser;
     PerguntasDB perguntasDB;
-    private List<Pergunta> allPerguntas;
     private View dualFrag;
 
 
@@ -63,9 +61,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_principal_fragment);
-
-        Intent intent = getIntent();
-        mailUser = intent.getStringExtra("mailUser");
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
@@ -119,12 +114,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                         tr.commit();
                         break;
                     case R.id.action_profile:
-                        Bundle b = new Bundle();
-                        b.putString("maill", mailUser);
-                        b.putInt("pontos", pontosUser);
                         PerfilFragment newPFragment = new PerfilFragment();
 
-                        newPFragment.setArguments(b);
                         tr.replace(R.id.fragment2,newPFragment);
                         tr.addToBackStack(null);
                         tr.commit();
@@ -190,10 +181,8 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
             mailUser = account.getEmail();
         }
         else {
-
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-
         }
     }
 

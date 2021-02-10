@@ -45,7 +45,6 @@ import java.util.Map;
 
 public class PerfilFragment extends Fragment implements View.OnClickListener {
 
-    private String pontosDoUser;
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private GoogleSignInClient signInClient;
@@ -63,7 +62,6 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     private Button topJogadores;
     private Button verRespostasUser;
     private String mailText;
-    private int pontosUser;
     private FirebaseUser currentUser;
     private ProgressDialog dialog;
     private final String partilharText = "Vem conhecer a nossa App  'FutQuizz'!!! Segue o link github em anexo: https://github.com/jmarqs99/Trabalho_CMU ";
@@ -106,12 +104,9 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
         dialog = ProgressDialog.show(getActivity(), "",
                 "A carregar dados...", true);
-        mailText = getArguments().getString("maill");
-        pontosUser = getArguments().getInt("pontos");
+
 
         View v = inflater.inflate(R.layout.perfil_fragment, container, false);
-
-        Bundle b = getActivity().getIntent().getExtras();
 
         emailUser = v.findViewById(R.id.textViewEmailPerfil);
         loggout = v.findViewById(R.id.buttonLogout);
@@ -125,6 +120,8 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         TextViewpercCorretas = v.findViewById(R.id.percent_corretas);
         TextViewpercErradas = v.findViewById(R.id.percent_erradas);
 
+        mailText = mAuth.getCurrentUser().getEmail();
+        emailUser.setText(mailText);
         retornarDadosFirestore(mailText);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(PerfilFragment.super.getContext());
