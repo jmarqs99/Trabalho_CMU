@@ -198,12 +198,18 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
         switch (view.getId()){
+
+            //botão que irá permitir ao user fazer logout na app
             case R.id.buttonLogout:
                 lg.OnLogoutSelect();
                 break;
+
+            //botão que irá levar o user para a página de edição de palavra-passe
             case R.id.buttonEditarPassword:
                 ed.editarPass();
                 break;
+
+            //botão que irá permitir ao user partilhar uma mensagem
             case R.id.partilhar:
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
@@ -212,12 +218,16 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 intent = Intent.createChooser(intent,  "Share by");
                 startActivity(intent);
                 break;
+
+            //botão que irá levar o user para a lista dos top10 QI´s desportivos
             case R.id.top_quizz:
                 TopJogadoresFragment fragment = new TopJogadoresFragment();
                 tr.replace(R.id.fragment2,fragment);
                 tr.addToBackStack(null);
                 tr.commit();
                 break;
+
+            //botão que irá levar o user para a lista com as suas perguntas respondidas
             case R.id.verRespostas:
                 verRespostasFragment fragment2 = new verRespostasFragment();
                 tr.replace(R.id.fragment2,fragment2);
