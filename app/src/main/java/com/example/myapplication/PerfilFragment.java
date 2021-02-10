@@ -67,7 +67,6 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     private final String partilharText = "Vem conhecer a nossa App  'FutQuizz'!!! Segue o link github em anexo: https://github.com/jmarqs99/Trabalho_CMU ";
 
     public PerfilFragment() {
-
     }
 
     @Override
@@ -87,13 +86,13 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        currentUser  = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        this.lg = (LogoutSelected)  context;
+        this.lg = (LogoutSelected) context;
         this.ed = (EditarDadosSelected) context;
     }
 
@@ -101,7 +100,6 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-
         dialog = ProgressDialog.show(getActivity(), "",
                 "A carregar dados...", true);
 
@@ -126,11 +124,11 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(PerfilFragment.super.getContext());
 
-        if(account != null) {
+        if (account != null) {
             editarPass.setVisibility(v.GONE);
         }
 
-        if(signInClient.getApiOptions().getServerClientId() == mAuth.getUid()) {
+        if (signInClient.getApiOptions().getServerClientId() == mAuth.getUid()) {
             editarPass.setVisibility(v.GONE);
         }
 
@@ -144,6 +142,11 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    /**
+     * Função que retorna a informação do documento Cloud Firestore do utilizador
+     *
+     * @param mail o email do utilizador
+     */
     private void retornarDadosFirestore(String mail) {
         final DocumentReference docRef = db.collection("users").document(mail);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -154,21 +157,21 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                     if (document.exists()) {
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                         Long pontosUser = (Long) document.get("pontos");
-                        Long numCorretas = (Long)document.get("numRespostasCorretas");
-                        Long numErradas = (Long)document.get("numRespostasErradas");
+                        Long numCorretas = (Long) document.get("numRespostasCorretas");
+                        Long numErradas = (Long) document.get("numRespostasErradas");
 
                         pontos.setText("QI Desportivo:\n" + pontosUser + "");
                         TextViewnumCorretas.setText("Nº de Respostas Corretas:\n" + numCorretas + "");
                         TextViewnumErradas.setText("Nº de Respostas Erradas:\n" + numErradas + "");
-                        if(numCorretas + numErradas == 0){
+                        if (numCorretas + numErradas == 0) {
 
-                            TextViewpercCorretas.setText("% Respostas Corretas:\n" +"0%");
+                            TextViewpercCorretas.setText("% Respostas Corretas:\n" + "0%");
                             TextViewpercErradas.setText("% Respostas Erradas:\n" + "0%");
-                        }else{
+                        } else {
                             DecimalFormat df = new DecimalFormat();
                             df.setMaximumFractionDigits(1);
-                            float percentagemCorretas = (Float.valueOf(numCorretas)/ Float.valueOf(numCorretas + numErradas))*100f;
-                            float percentagemErradas = (Float.valueOf(numErradas)/ Float.valueOf(numCorretas + numErradas))*100f;
+                            float percentagemCorretas = (Float.valueOf(numCorretas) / Float.valueOf(numCorretas + numErradas)) * 100f;
+                            float percentagemErradas = (Float.valueOf(numErradas) / Float.valueOf(numCorretas + numErradas)) * 100f;
                             TextViewpercCorretas.setText("% Respostas Corretas:\n" + df.format(percentagemCorretas) + "%");
                             TextViewpercErradas.setText("% Respostas Erradas:\n" + df.format(percentagemErradas) + "%");
                         }
@@ -177,7 +180,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                         TextViewnumErradas.setVisibility(View.VISIBLE);
                         TextViewpercCorretas.setVisibility(View.VISIBLE);
                         TextViewpercErradas.setVisibility(View.VISIBLE);
-                    dialog.dismiss();
+                        dialog.dismiss();
                     } else {
                         Log.d("TAG", "No such document");
                     }
@@ -186,37 +189,46 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
-
-}
+    }
 
     @Override
     public void onClick(View view) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction tr = fm.beginTransaction();
-        switch (view.getId()){
+        switch (view.getId()) {
+
+            //botão que irá permitir ao user fazer logout na app
             case R.id.buttonLogout:
                 lg.OnLogoutSelect();
                 break;
+
+            //botão que irá levar o user para a página de edição de palavra-passe
             case R.id.buttonEditarPassword:
                 ed.editarPass();
                 break;
+
+            //botão que irá permitir ao user partilhar uma mensagem
             case R.id.partilhar:
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.putExtra(Intent.EXTRA_TEXT, partilharText);
                 intent.setType("text/plain");
-                intent = Intent.createChooser(intent,  "Share by");
+                intent = Intent.createChooser(intent, "Share by");
                 startActivity(intent);
                 break;
+
+            //botão que irá levar o user para a lista dos top10 QI´s desportivos
             case R.id.top_quizz:
                 TopJogadoresFragment fragment = new TopJogadoresFragment();
-                tr.replace(R.id.fragment2,fragment);
+                tr.replace(R.id.fragment2, fragment);
                 tr.addToBackStack(null);
                 tr.commit();
                 break;
+
+            //botão que irá levar o user para a lista com as suas perguntas respondidas
             case R.id.verRespostas:
                 verRespostasFragment fragment2 = new verRespostasFragment();
-                tr.replace(R.id.fragment2,fragment2);
+                tr.replace(R.id.fragment2, fragment2);
                 tr.addToBackStack(null);
                 tr.commit();
                 break;

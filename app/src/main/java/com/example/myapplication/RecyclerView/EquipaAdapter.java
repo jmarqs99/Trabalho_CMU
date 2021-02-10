@@ -21,9 +21,21 @@ import java.util.List;
 
 public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaViewHolder> {
 
+    /**
+     * Contexto
+     */
     private Context mContext;
+
+    /**
+     * Lista de Equipa_item
+     */
     private List<Equipa_item> mEquipaItem;
 
+    /**
+     * Construtor de EquipaAdapter
+     * @param mContext Contexto
+     * @param mEquipaItem Lista de Equipa_item
+     */
     public EquipaAdapter(Context mContext, List<Equipa_item> mEquipaItem) {
         this.mContext = mContext;
         this.mEquipaItem = mEquipaItem;
@@ -44,6 +56,7 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
     public void onBindViewHolder(@NonNull EquipaViewHolder holder, int position) {
         Equipa_item equipaItem = mEquipaItem.get(position);
 
+        // Chama função para colorir de cores diferentes as linhas da classificação
         pintaClassificao(holder,position);
 
         TextView textView = holder.nameTextView;
@@ -69,6 +82,11 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
         textView7.setText(equipaItem.getGolos_sofridos() + "");
     }
 
+    /**
+     * Função para colorir linha da classificação de acordo com a posição
+     * @param holder a ser colorido
+     * @param position em que se encontra
+     */
     private void pintaClassificao(@NonNull EquipaViewHolder holder, int position){
         switch (position){
             case 0:
@@ -120,7 +138,6 @@ public class EquipaAdapter extends RecyclerView.Adapter<EquipaAdapter.EquipaView
 
         public EquipaViewHolder(View itemView){
             super(itemView);
-
             nameTextView = itemView.findViewById(R.id.equipa_nome);
             pontosTextView = itemView.findViewById(R.id.equipa_pontos);
             posicaoTextView = itemView.findViewById(R.id.equipa_posicao);

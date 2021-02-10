@@ -44,17 +44,20 @@ public class ClassificacoesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.classificacoes_fragment, container, false);
+
+        // Dialog de loading enquanto os dados são carregados da api
         final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
                 "A carregar dados...", true);
         mRecyclerView = v.findViewById(R.id.mRecyclerView);
-        //mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        service.getClassificacao()
-                .enqueue(new Callback<Classificacao>(){
 
+        // Fazer pedido a api pela classificação
+        service.getClassificacao()
+                .enqueue(new Callback<Classificacao>() {
                     @Override
                     public void onResponse(Call<Classificacao> call, Response<Classificacao> response) {
                         final Classificacao classificacao = response.body();
+                        // Verificar se o status code da resposta foi 200
                         if (response.code() == 200) {
                             new AsyncTask<Void, Void, EquipaAdapter>() {
 
@@ -66,10 +69,16 @@ public class ClassificacoesFragment extends Fragment {
 
                                 @Override
                                 protected EquipaAdapter doInBackground(Void... voids) {
+                                    // Retorna a lista de equipas presentes na classificação
                                     List<Equipa> equipas = getEquipas(classificacao);
+                                    // Constroi a classificação com os dados das equipas e da classificação
                                     List<Equipa_item> equipas_items = constroiClassificacao(classificacao, equipas);
+
                                     mAdapter = new EquipaAdapter(getActivity(), equipas_items);
+
+                                    // Fecha o dialog
                                     dialog.dismiss();
+
                                     return mAdapter;
                                 }
 
@@ -83,7 +92,7 @@ public class ClassificacoesFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Classificacao> call, Throwable t) {
-                        Log.d("Error",t.toString());
+                        Log.d("Error", t.toString());
                         Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -91,15 +100,21 @@ public class ClassificacoesFragment extends Fragment {
         return v;
     }
 
-    private List<Equipa> getEquipas(Classificacao classificacao){
+    /**
+     * Função que retorna as equipas dada a classificação
+     *
+     * @param classificacao classificação onde se encontram as equipas
+     * @return Lista de equipas
+     */
+    private List<Equipa> getEquipas(Classificacao classificacao) {
         final List<Equipa> equipas = new ArrayList<>();
-        for (int i=0;i<classificacao.getData().getStandings().length;i++){
+        for (int i = 0; i < classificacao.getData().getStandings().length; i++) {
             Response<Equipa> response = null;
             try {
                 response = service.getEquipa(classificacao.getData().getStandings()[i].getTeam_id())
                         .execute();
-                        Equipa equipa = response.body();
-                        equipas.add(equipa);
+                Equipa equipa = response.body();
+                equipas.add(equipa);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -107,10 +122,16 @@ public class ClassificacoesFragment extends Fragment {
         return equipas;
     }
 
-
-    private List<Equipa_item> constroiClassificacao(Classificacao classificacao,List<Equipa> equi){
+    /**
+     * Função que constroi a classificação final
+     *
+     * @param classificacao classificação onde se encontram as equipas
+     * @param equi          lista de equipas
+     * @return lista de Equipa_item
+     */
+    private List<Equipa_item> constroiClassificacao(Classificacao classificacao, List<Equipa> equi) {
         List<Equipa_item> equipas = new ArrayList<>();
-        for (int i = 0; i < equi.size(); i++){
+        for (int i = 0; i < equi.size(); i++) {
 
             Equipa_item equipa = new Equipa_item(equi.get(i).getData().getName(),
                     classificacao.getData().getStandings()[i].getPoints(),
@@ -119,7 +140,7 @@ public class ClassificacoesFragment extends Fragment {
                     classificacao.getData().getStandings()[i].getOverall().getGames_played(),
                     classificacao.getData().getStandings()[i].getOverall().getGoals_scored(),
                     classificacao.getData().getStandings()[i].getOverall().getGoals_against());
-            equipas.add(i,equipa);
+            equipas.add(i, equipa);
         }
         return equipas;
     }

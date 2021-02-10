@@ -36,18 +36,23 @@ import retrofit2.Response;
 
 public class CriarPergunta {
 
+    /**
+     * Função para atribuir aleatoriamente uma pergunta ao user
+     */
     public static void gerarNovaPergunta() {
         int random = new Random().nextInt(1);
 
-        if( random == 0 ){
+        if (random == 0) {
             gerarPerguntaEstatica();
-        }
-        else {
+        } else {
             gerarPerguntaDinamica();
         }
     }
 
-    private static void gerarPerguntaEstatica(){
+    /**
+     * Atribiu uma pergunta presente no firestore
+     */
+    private static void gerarPerguntaEstatica() {
         new Thread() {
             @Override
             public void run() {
@@ -72,7 +77,7 @@ public class CriarPergunta {
                             if (document.exists()) {
                                 final Pergunta pergunta = document.toObject(Pergunta.class);
 
-                                new AsyncTask<Void,Void,Void>(){
+                                new AsyncTask<Void, Void, Void>() {
 
                                     @Override
                                     protected Void doInBackground(Void... voids) {
@@ -93,26 +98,31 @@ public class CriarPergunta {
         }.start();
     }
 
-
-    private static void gerarPerguntaDinamica(){
+    /**
+     * Atribiu uma pergunta gerada com dados obtidos pela api
+     */
+    private static void gerarPerguntaDinamica() {
         final SportsDataAPI service = RetrofitClient.getApi();
         final int min = 1;
         final int max = 4;
+        // Valor aleatorio para escolher pergunta dinamica
         final int random2 = new Random().nextInt((max - min) + 1) + min;
 
         final Pergunta pergunta = new Pergunta();
 
         service.getMarcadores()
-                .enqueue(new Callback<Marcador>(){
+                .enqueue(new Callback<Marcador>() {
                     @Override
                     public void onResponse(Call<Marcador> call, Response<Marcador> response) {
                         final Marcador marcador = response.body();
-                        if(response.code() == 200){
+                        if (response.code() == 200) {
                             new AsyncTask<Void, Void, Void>() {
                                 @Override
                                 protected Void doInBackground(Void... voids) {
                                     List<String> opcoes = new ArrayList<>();
-                                    switch (random2){
+                                    // Criar perguntas e atrbuir resposta e opções com dados
+                                    // retornados pela api
+                                    switch (random2) {
                                         case 1:
                                             pergunta.pergunta = "Quantos golos tem o atual melhor marcador da Bundesliga?";
                                             pergunta.pontos = 100;
@@ -157,23 +167,33 @@ public class CriarPergunta {
                                     return null;
                                 }
                             }.execute();
-                            new AsyncTask<Void,Void,Void>(){
+                            new AsyncTask<Void, Void, Void>() {
 
                                 @Override
                                 protected Void doInBackground(Void... voids) {
+                                    // Adicionar pergunta selecionada ao ROOM
                                     PerguntasDB.getInstance().perguntasDAO().addPergunta(pergunta);
                                     return null;
                                 }
                             }.execute();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<Marcador> call, Throwable t) {
-                        Log.d("Error",t.toString());
+                        Log.d("Error", t.toString());
                     }
                 });
     }
 
+    /**
+     * Função para retornar número de items na coleção de perguntas_default
+     *
+     * @param db db do firestore a procurar
+     * @return tamanho
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     private static int size(FirebaseFirestore db) throws ExecutionException, InterruptedException {
         Task<QuerySnapshot> task = db.collection("perguntas_default").get();
         QuerySnapshot doc = Tasks.await(task);

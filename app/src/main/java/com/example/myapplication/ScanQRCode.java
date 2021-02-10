@@ -43,8 +43,8 @@ public class ScanQRCode extends AppCompatActivity {
         setContentView(R.layout.scan_qr_code_activity);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
+                == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor();
@@ -71,7 +71,7 @@ public class ScanQRCode extends AppCompatActivity {
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
 
-        preview.setSurfaceProvider(((PreviewView)findViewById(R.id.previewView)).getSurfaceProvider());
+        preview.setSurfaceProvider(((PreviewView) findViewById(R.id.previewView)).getSurfaceProvider());
 
         ImageAnalysis imageAnalysis =
                 new ImageAnalysis.Builder()
@@ -84,13 +84,13 @@ public class ScanQRCode extends AppCompatActivity {
             @Override
             public void analyze(@NonNull ImageProxy image) {
                 int rotationDegrees = image.getImageInfo().getRotationDegrees();
-                Task<List<FirebaseVisionBarcode>> result =  QRA.analyze(image,rotationDegrees);
+                Task<List<FirebaseVisionBarcode>> result = QRA.analyze(image, rotationDegrees);
                 result.addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionBarcode>>() {
                     @Override
                     public void onSuccess(List<FirebaseVisionBarcode> barcodes) {
-                        for (FirebaseVisionBarcode barcode: barcodes) {
+                        for (FirebaseVisionBarcode barcode : barcodes) {
                             String rawValue = barcode.getRawValue();
-                            if (rawValue.equals("futQuizz_cmu") && !gotCode){
+                            if (rawValue.equals("futQuizz_cmu") && !gotCode) {
                                 gotCode = true;
                                 CriarPergunta.gerarNovaPergunta();
                                 finish();
@@ -102,7 +102,7 @@ public class ScanQRCode extends AppCompatActivity {
             }
         });
 
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector,imageAnalysis, preview);
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, imageAnalysis, preview);
 
     }
 

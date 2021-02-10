@@ -15,11 +15,10 @@ import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
     LoginSelected mContext;
     private Context context;
-    //private FirebaseAuth mAuth;
     private TextInputEditText email, password;
     private Button loginButton, loginWithGoogleButton;
 
@@ -27,7 +26,6 @@ public class LoginFragment extends Fragment {
     private TextView errorMessage;
 
     public LoginFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -45,8 +43,8 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.login_fragment, container, false);
+
         email = v.findViewById(R.id.editTextTextEmailAddress);
         password = v.findViewById(R.id.editTextTextPassword);
         loginButton = v.findViewById(R.id.button3);
@@ -55,14 +53,24 @@ public class LoginFragment extends Fragment {
 
         registarUserButton = v.findViewById(R.id.buttonClassi);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        loginButton.setOnClickListener(this);
+        loginWithGoogleButton.setOnClickListener(this);
+        registarUserButton.setOnClickListener(this);
+
+        return v;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            //botão que irá permitir ao user fazer login na app
+            case R.id.button3:
                 String userMail = email.getText().toString();
                 String userPass = password.getText().toString();
 
-
-                if(userMail.isEmpty()) {
+                if (userMail.isEmpty()) {
                     errorMessage.setText("Login falhado! Parâmetro(s) vazio(s)!");
                     errorMessage.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(new Runnable() {
@@ -71,32 +79,20 @@ public class LoginFragment extends Fragment {
                             errorMessage.setVisibility(View.INVISIBLE);
                         }
                     }, 2500); //desparece passados 2,5 segundos
-                }
-
-                else {
+                } else {
                     mContext.onSelected(userMail, userPass, errorMessage);
                 }
-            }
-        });
+                break;
 
-        loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            //botão que irá permitir ao user fazer login pela conta do Google
+            case R.id.loginGoogleButton:
                 mContext.onLoginWithGoogleSelected();
-            }
-        });
+                break;
 
-        registarUserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            //botão que irá registar um user na aplicação
+            case R.id.buttonClassi:
                 mContext.onRegisterButtonSelected();
-            }
-        });
-
-
-        return v;
+                break;
+        }
     }
-
-
-
 }

@@ -45,7 +45,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected{
+public class MainActivity extends AppCompatActivity implements LoginSelected, RegisterSelected {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         setContentView(R.layout.inicio_fragment);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},100);
-        } else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},101);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+        } else if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 101);
         }
 
         db = FirebaseFirestore.getInstance();
@@ -81,26 +81,21 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
     @Override
     public void onSelected(final String mail, final String pass, final TextView errorMessages) {
-
         mAuth.signInWithEmailAndPassword(mail, pass).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
 
-                    if(user.isEmailVerified()) {
+                    if (user.isEmailVerified()) {
                         updateUI(user);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(MainActivity.this,
                                 "Confirme a sua conta no email que foi enviado por favor!",
                                 Toast.LENGTH_SHORT).show();
                     }
-
-                }
-
-                else {
-                    if(mail.isEmpty()) {
+                } else {
+                    if (mail.isEmpty()) {
                         errorMessages.setText("Login falhado! Email vazio!");
                         errorMessages.setVisibility(View.VISIBLE);
                         new Handler().postDelayed(new Runnable() {
@@ -110,20 +105,22 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                             }
                         }, 2500); //desparece passados 2,5 segundos
                     }
-                        errorMessages.setText("Login falhado! Verifique os dados inseridos!");
-                        errorMessages.setVisibility(View.VISIBLE);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                errorMessages.setVisibility(View.INVISIBLE);
-                            }
-                        }, 2500); //desparece passados 2,5 segundos
+                    errorMessages.setText("Login falhado! Verifique os dados inseridos!");
+                    errorMessages.setVisibility(View.VISIBLE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            errorMessages.setVisibility(View.INVISIBLE);
+                        }
+                    }, 2500); //desparece passados 2,5 segundos
                 }
             }
         });
-
     }
 
+    /**
+     * Função para criar um request do google
+     */
     private void createRequest() {
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -135,12 +132,9 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
 
     @Override
     public void onLoginWithGoogleSelected() {
-
         Intent intent = signInClient.getSignInIntent();
         startActivityForResult(intent, RC_SIGN_IN);
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -149,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
@@ -160,29 +153,31 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         }
     }
 
-
+    /**
+     * Função para fazer login na aplicação com o conta do Google
+     *
+     * @param idToken
+     */
     private void firebaseAuthWithGoogle(String idToken) {
-            AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-            mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("googleSucesso", "Login com google sucesso");
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("googleSucesso", "Login com google sucesso");
 
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                enviarPontosUserParaFirestore(user);
-                                updateUI(user);
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.d("googleFalhou", "Login com google falhou");
-                                updateUI(null);
-                            }
-                            // ...
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            enviarPontosUserParaFirestore(user);
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.d("googleFalhou", "Login com google falhou");
+                            updateUI(null);
                         }
-                    });
+                    }
+                });
     }
 
     @Override
@@ -202,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
                     enviarPontosUserParaFirestore(user);
                     errorMessage.setText("Conta registada com sucesso!");
@@ -215,8 +210,7 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                             OnBackToLoginPageSelected();
                         }
                     }, 2500);
-                }
-                else {
+                } else {
                     errorMessage.setText("O registo de conta falhou!");
                     errorMessage.setVisibility(View.VISIBLE);
                     new Handler().postDelayed(new Runnable() {
@@ -244,17 +238,21 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         ft.commit();
     }
 
+    /**
+     * Função para atualizar a UI do utilizador
+     *
+     * @param user o utilizador
+     */
     private void updateUI(FirebaseUser user) {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-        if(user != null) {
-            if(user.isEmailVerified()) {
+        if (user != null) {
+            if (user.isEmailVerified()) {
                 Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
                 startActivity(intent);
                 finish();
-            }
-            else {
+            } else {
                 LoginFragment loginFragment = new LoginFragment();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
@@ -262,13 +260,11 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                 ft.addToBackStack("home");
                 ft.commit();
             }
-        }
-        else if(account != null) {
+        } else if (account != null) {
             Intent intent = new Intent(MainActivity.this, MenuPrincipalAtivity.class);
             startActivity(intent);
             finish();
-        }
-        else {
+        } else {
             LoginFragment loginFragment = new LoginFragment();
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -278,7 +274,9 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
         }
     }
 
-
+    /**
+     * Função para enviar um email de verificação para o email do user que se registou na app
+     */
     private void sendEmailVerification() {
         final FirebaseUser user = mAuth.getCurrentUser();
         user.sendEmailVerification()
@@ -299,7 +297,11 @@ public class MainActivity extends AppCompatActivity implements LoginSelected, Re
                 });
     }
 
-
+    /**
+     * Função para enviar para o documento do user na cloud firestore a informação das perguntas
+     *
+     * @param user o utilizador
+     */
     private void enviarPontosUserParaFirestore(final FirebaseUser user) {
 
         final DocumentReference documentReference = db.collection("users").document(user.getEmail());

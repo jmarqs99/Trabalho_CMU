@@ -40,7 +40,6 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
     PerguntasDB perguntasDB;
     private View dualFrag;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         PerguntasDB.getInstance(this); // Usado para instanciar o DAO pela primeira vez
@@ -73,13 +72,13 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
             FragmentTransaction tr2 = fm.beginTransaction();
             Fragment quizFrag = new QuizFragment();
-            tr2.replace(R.id.quizFragment,quizFrag);
+            tr2.replace(R.id.quizFragment, quizFrag);
             tr2.addToBackStack(null);
             tr2.commit();
         } else {
             defaultFrag = new QuizFragment();
         }
-        tr.replace(R.id.fragment2,defaultFrag);
+        tr.replace(R.id.fragment2, defaultFrag);
         tr.addToBackStack(null);
         tr.commit();
 
@@ -93,42 +92,52 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
                 if (dualFrag != null) {
                     FragmentTransaction tr2 = fm.beginTransaction();
                     Fragment quizFrag = new QuizFragment();
-                    tr2.replace(R.id.quizFragment,quizFrag);
+                    tr2.replace(R.id.quizFragment, quizFrag);
                     tr2.addToBackStack(null);
                     tr2.commit();
                 }
 
                 switch (item.getItemId()) {
+
+                    //Fragment dos Quizz
                     case R.id.action_quizz:
                         QuizFragment newQFragment = new QuizFragment();
 
-                        tr.replace(R.id.fragment2,newQFragment);
+                        tr.replace(R.id.fragment2, newQFragment);
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment da classificação
                     case R.id.action_standings:
                         ClassificacoesFragment newFragment = new ClassificacoesFragment();
 
-                        tr.replace(R.id.fragment2,newFragment);
+                        tr.replace(R.id.fragment2, newFragment);
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment do perfil
                     case R.id.action_profile:
                         PerfilFragment newPFragment = new PerfilFragment();
 
-                        tr.replace(R.id.fragment2,newPFragment);
+                        tr.replace(R.id.fragment2, newPFragment);
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment dos jogos de um determinado dia
                     case R.id.jogos:
                         JogosFragment jogos = new JogosFragment();
-                        tr.replace(R.id.fragment2,jogos);
+                        tr.replace(R.id.fragment2, jogos);
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
+
+                    //Fragment dos jogos ao vivo
                     case R.id.jogos_live:
                         jogosLiveFragment jogoslive = new jogosLiveFragment();
-                        tr.replace(R.id.fragment2,jogoslive);
+                        tr.replace(R.id.fragment2, jogoslive);
                         tr.addToBackStack(null);
                         tr.commit();
                         break;
@@ -148,14 +157,17 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
     @Override
     public void OnLogoutSelect() {
-       mAuth.signOut();
-       signInClient.signOut();
-       updateUI(null);
-       apagarPerguntasNoLogout();
+        mAuth.signOut();
+        signInClient.signOut();
+        updateUI(null);
+        apagarPerguntasNoLogout();
     }
 
+    /**
+     * Função que apaga todas as perguntas do telemóvel após o logout do user
+     */
     private void apagarPerguntasNoLogout() {
-        new AsyncTask<Void,Void,Void>(){
+        new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
@@ -168,19 +180,19 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
     }
 
-
+    /**
+     * Função que atualiza a UI do user
+     *
+     * @param user
+     */
     private void updateUI(FirebaseUser user) {
-
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-
-        if(user != null || account != null) {
+        if (user != null || account != null) {
             mailUser = user.getEmail();
-        }
-        else if (account != null) {
+        } else if (account != null) {
             mailUser = account.getEmail();
-        }
-        else {
+        } else {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
@@ -193,7 +205,7 @@ public class MenuPrincipalAtivity extends AppCompatActivity implements LogoutSel
 
         EditarDadosFragment editarDadosFragment = new EditarDadosFragment();
 
-        tr.replace(R.id.fragment2,editarDadosFragment);
+        tr.replace(R.id.fragment2, editarDadosFragment);
         tr.addToBackStack(null);
         tr.commit();
     }

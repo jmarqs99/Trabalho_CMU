@@ -61,8 +61,7 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.jogos_fragment, container, false);
-        //final ProgressDialog dialog = ProgressDialog.show(getActivity(), "",
-          //      "A carregar dados...", true);
+
         mRecyclerView = v.findViewById(R.id.mRecyclerViewJogos);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -71,25 +70,36 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
         btnDatePicker.setOnClickListener(this);
 
         Calendar calendar = Calendar.getInstance();
+        // Dia atual
         Date hoje = calendar.getTime();
 
         calendar.add(Calendar.DAY_OF_YEAR, 1);
+        // Dia seguinte ao atual
         Date amanha = calendar.getTime();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+        // Transforma as datas em String e aplica o formato pretendido
         String todayAsString = dateFormat.format(hoje);
         String tomorrowAsString = dateFormat.format(amanha);
 
         dataTextView.setText(todayAsString);
-        getJogos(todayAsString,tomorrowAsString);
+
+        // Função para retornar os jogos do dia todayAsString , o dia atual
+        getJogos(todayAsString, tomorrowAsString);
 
         return v;
     }
 
+    /**
+     * Retorna uma Lista de Jogo_Item dada uma Partida
+     *
+     * @param partida partida dada
+     * @return Lista de Jogo_item
+     */
     public List<Jogo_item> constroiLista(Partida partida) {
         List<Jogo_item> jogos = new ArrayList<>();
-        for (int i =0 ; i< partida.getData().size(); i++){
+        for (int i = 0; i < partida.getData().size(); i++) {
             Jogo_item jogo = new Jogo_item(partida.getData().get(i).getHome_team().getName(),
                     partida.getData().get(i).getAway_team().getName(),
                     partida.getData().get(i).getHome_team().getLogo(),
@@ -99,7 +109,7 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
                     partida.getData().get(i).getStatus_code(),
                     partida.getData().get(i).getMatch_start(),
                     partida.getData().get(i).getMinute());
-            jogos.add(i,jogo);
+            jogos.add(i, jogo);
         }
         return jogos;
     }
@@ -116,22 +126,32 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
-                        public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
-                            List<String> datas = constroiData(year,monthOfYear,dayOfMonth);
-                            getJogos(datas.get(0),datas.get(1));
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            // Retorna a data do dia atual e dia seguinte em formato string
+                            List<String> datas = constroiData(year, monthOfYear, dayOfMonth);
+
+
+                            getJogos(datas.get(0), datas.get(1));
                             dataTextView.setText(datas.get(0));
-                        }}, mYear, mMonth, mDay);
+                        }
+                    }, mYear, mMonth, mDay);
             datePickerDialog.show();
         }
     }
 
-    private void getJogos(String data_inicio , String data_fim){
-        service.getJogos(data_inicio,data_fim)
+    /**
+     * Função para fazer pedido a api para jogos do dia data_inicio
+     *
+     * @param data_inicio Data dos jogos a visualizar
+     * @param data_fim    Dia seguinte
+     */
+    private void getJogos(String data_inicio, String data_fim) {
+        service.getJogos(data_inicio, data_fim)
                 .enqueue(new Callback<Partida>() {
                     @Override
                     public void onResponse(Call<Partida> call, Response<Partida> response) {
                         final Partida partida = response.body();
-                        if(response.code() == 200) {
+                        if (response.code() == 200) {
                             new AsyncTask<Void, Void, JogoAdapter>() {
 
                                 @Override
@@ -142,38 +162,48 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
 
                                 @Override
                                 protected JogoAdapter doInBackground(Void... voids) {
+                                    // Constroi uma lista com Jogos_item dada as partidas
                                     List<Jogo_item> partidas = constroiLista(partida);
                                     mAdapter = new JogoAdapter(getActivity(), partidas);
-                                    //dialog.dismiss();
+
                                     return mAdapter;
                                 }
 
                             }.execute();
-                        }else{
+                        } else {
+                            // Caso não existam jogos para mostrar
                             List<Sem_jogos_item> sem_jogos_items = new ArrayList<>();
                             Sem_jogos_item item = new Sem_jogos_item("Sem Jogos para mostrar");
                             sem_jogos_items.add(item);
-                            sem_jogosAdapter = new Sem_jogosAdapter(getActivity(),sem_jogos_items);
+                            sem_jogosAdapter = new Sem_jogosAdapter(getActivity(), sem_jogos_items);
                             mRecyclerView.setAdapter(sem_jogosAdapter);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Partida> call, Throwable t) {
-                        Log.d("Error",t.toString());
+                        Log.d("Error", t.toString());
                         Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
-                });;
+                });
+        ;
     }
 
-
-
-    private List<String> constroiData(int ano , int mes , int dia){
+    /**
+     * Transforma os dados Recebidos em uma lista de datas em String contendo a data do dia atual e
+     * do dia seguinte
+     *
+     * @param ano ano da data atual
+     * @param mes mes da data atual
+     * @param dia dia da data atual
+     * @return lista de string com as datas
+     */
+    private List<String> constroiData(int ano, int mes, int dia) {
         List<String> datas = new ArrayList<>();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         Calendar cal = Calendar.getInstance();
-        cal.set(ano,mes,dia);
+        cal.set(ano, mes, dia);
 
         Date hoje = cal.getTime();
         String data_inicio = dateFormat.format(hoje);
@@ -182,8 +212,8 @@ public class JogosFragment extends Fragment implements View.OnClickListener {
         Date fim = cal.getTime();
         String data_fim = dateFormat.format(fim);
 
-        datas.add(0,data_inicio);
-        datas.add(1,data_fim);
+        datas.add(0, data_inicio);
+        datas.add(1, data_fim);
 
         return datas;
     }

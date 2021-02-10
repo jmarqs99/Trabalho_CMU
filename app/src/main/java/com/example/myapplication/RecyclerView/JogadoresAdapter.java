@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +39,7 @@ public class JogadoresAdapter extends RecyclerView.Adapter<JogadoresAdapter.Joga
     public void onBindViewHolder(@NonNull JogadoresViewHolder holder, int position) {
         Jogadores_item jogadorItem = mJogadorItem.get(position);
 
+        // Caso verfique a condição irá colocar a cor de fundo cinzento
         if(position % 2 != 0 ){
             holder.itemView.setBackgroundColor(Color.rgb(223,226,227));
         }

@@ -25,13 +25,14 @@ import java.util.List;
 public class QRAnalyzer implements ImageAnalysis.Analyzer {
     private FirebaseVisionBarcodeDetectorOptions options;
     private FirebaseVisionBarcodeDetector detector;
+
     public QRAnalyzer() {
-         options =
+        options =
                 new FirebaseVisionBarcodeDetectorOptions.Builder()
                         .setBarcodeFormats(
                                 FirebaseVisionBarcode.FORMAT_QR_CODE)
                         .build();
-         detector = FirebaseVision.getInstance()
+        detector = FirebaseVision.getInstance()
                 .getVisionBarcodeDetector(options);
     }
 

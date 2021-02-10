@@ -43,7 +43,8 @@ public class TopJogadoresFragment extends Fragment {
     private JogadoresAdapter mAdapter;
     private FirebaseFirestore db;
 
-    public TopJogadoresFragment() {}
+    public TopJogadoresFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +60,9 @@ public class TopJogadoresFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Função que retorna a informação das perguntas no documento do user da cloud firestore
+     */
     private void getJogadoresFirestore() {
         new AsyncTask<Void, Void, List<Jogadores_item>>() {
 
@@ -73,7 +77,7 @@ public class TopJogadoresFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     int i = 1;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Jogadores_item jogador = new Jogadores_item(i + ".",document.getId(), (Long) document.get("pontos") );
+                                        Jogadores_item jogador = new Jogadores_item(i + ".", document.getId(), (Long) document.get("pontos"));
                                         jogadores.add(jogador);
                                         i++;
                                     }
@@ -90,20 +94,21 @@ public class TopJogadoresFragment extends Fragment {
         }.execute();
     }
 
-    private List<Jogadores_item> trataLista(List<Jogadores_item> jogadores){
-        Log.d("SORT",jogadores.toString());
+    /**
+     * Função que ordena o ranking dos QI´s desportivos dos utilizadores, por ordem decrescente
+     *
+     * @param jogadores os utilizadores
+     * @return a lista com o ranking dos QI´s desportivos dos utilizadores, por ordem decrescente
+     */
+    private List<Jogadores_item> trataLista(List<Jogadores_item> jogadores) {
         Collections.sort(jogadores, Collections.reverseOrder());
-        Log.d("SORT",jogadores.toString());
 
-        if( jogadores.size() < 10){
-            return  jogadores.subList(0,jogadores.size());
+        //se o número da lista for menor que 10, a lista tem o tamanho dos utilizadores registados
+        if (jogadores.size() < 10) {
+            return jogadores.subList(0, jogadores.size());
         }
-        else{
-            return  jogadores.subList(0,10);
+        else {
+            return jogadores.subList(0, 10);
         }
     }
-
-
-
-
 }

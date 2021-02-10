@@ -25,7 +25,8 @@ public class verRespostasFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private PerguntasAdapter mAdapter;
 
-    public verRespostasFragment() {}
+    public verRespostasFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +48,7 @@ public class verRespostasFragment extends Fragment {
 
             @Override
             protected PerguntasAdapter doInBackground(Void... voids) {
+                // Vai buscar ao ROOM as perguntas que já foram respondidas
                 List<Pergunta> perguntas = PerguntasDB.getInstance().perguntasDAO().getPerguntasRespondidas();
                 mAdapter = new PerguntasAdapter(getActivity(), perguntas);
                 return mAdapter;

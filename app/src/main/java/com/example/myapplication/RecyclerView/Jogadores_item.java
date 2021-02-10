@@ -4,12 +4,27 @@ import java.util.Collections;
 
 public class Jogadores_item implements Comparable< Jogadores_item > {
 
+    /**
+     * Posição na Classificação do Jogador
+     */
     private String posicao;
 
+    /**
+     * Email do jogador
+     */
     private String email;
 
+    /**
+     * Número de pontos do jogador
+     */
     private Long pontos;
 
+    /**
+     * Construtor de Jogadores_item
+     * @param posicao posição do jogador na classificação
+     * @param email email do jogador
+     * @param pontos pontos do jogador
+     */
     public Jogadores_item(String posicao, String email, Long pontos) {
         this.posicao = posicao;
         this.email = email;
