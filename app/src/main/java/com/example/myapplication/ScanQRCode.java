@@ -59,6 +59,10 @@ public class ScanQRCode extends AppCompatActivity {
         }, ContextCompat.getMainExecutor(this));
     }
 
+    /**
+     * Atribui a preview da camera ao elemento da UI
+     * @param cameraProvider Provedor da câmera
+     */
     void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
         Preview preview = new Preview.Builder()
                 .build();

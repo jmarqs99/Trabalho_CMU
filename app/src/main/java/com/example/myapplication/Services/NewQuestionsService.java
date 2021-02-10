@@ -178,7 +178,9 @@ public class NewQuestionsService extends Service {
         execute = false;
         super.onDestroy();
     }
-
+    /**
+     * Criar um canal de notificações para este serviço
+     */
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Teste";

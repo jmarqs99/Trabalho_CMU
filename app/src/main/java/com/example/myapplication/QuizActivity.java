@@ -128,6 +128,10 @@ public class QuizActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Trata a pergunta após ter sido respondida
+     * @param pergunta Pergunta respondida
+     */
     private void HandleQuizzResponse(final Pergunta pergunta){
         mCountDownTimer.cancel();
         new AsyncTask<Void, Void, Void>() {

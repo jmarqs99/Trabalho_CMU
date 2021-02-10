@@ -125,6 +125,9 @@ public class CheckLocationService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    /**
+     * Criar um canal de notificações para este serviço
+     */
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Teste";

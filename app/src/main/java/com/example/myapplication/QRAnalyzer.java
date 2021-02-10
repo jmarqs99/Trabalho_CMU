@@ -35,6 +35,11 @@ public class QRAnalyzer implements ImageAnalysis.Analyzer {
                 .getVisionBarcodeDetector(options);
     }
 
+    /**
+     * Transforma graus em rotação conhecida do firebase
+     * @param degrees Graus
+     * @return Inteiro que representa a rotação no firebase
+     */
     private int degreesToFirebaseRotation(int degrees) {
         switch (degrees) {
             case 0:
@@ -51,6 +56,12 @@ public class QRAnalyzer implements ImageAnalysis.Analyzer {
         }
     }
 
+    /**
+     * Analisa uma imagem tendo em conta a imagem e a rotação dela
+     * @param imageProxy Imagem
+     * @param degrees Rotação
+     * @return Retorna a uma tarefa que contem uma lista de analises de QR Codes
+     */
     @SuppressLint("UnsafeExperimentalUsageError")
     public Task<List<FirebaseVisionBarcode>> analyze(ImageProxy imageProxy, int degrees) {
         if (imageProxy == null || imageProxy.getImage() == null) {
