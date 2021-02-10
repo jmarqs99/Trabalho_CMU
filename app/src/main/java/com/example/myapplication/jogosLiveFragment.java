@@ -67,7 +67,7 @@ public class jogosLiveFragment extends Fragment {
     }
 
     /**
-     *
+     * Função para fazer pedido a api para retornar jogos que estejam a acontecer no momento
      */
     private void getJogos() {
         service.getJogosLive()
@@ -75,6 +75,7 @@ public class jogosLiveFragment extends Fragment {
                     @Override
                     public void onResponse(Call<Partida> call, Response<Partida> response) {
                         final Partida partida = response.body();
+                        // Verificar se a resposta tem codigo 200
                         if (response.code() == 200) {
                             if (!partida.getData().isEmpty()) {
                                 new AsyncTask<Void, Void, JogoAdapter>() {
@@ -86,6 +87,7 @@ public class jogosLiveFragment extends Fragment {
 
                                     @Override
                                     protected JogoAdapter doInBackground(Void... voids) {
+                                        // Constroi a lista de Jogo_item com as partidas retornadas pela api
                                         List<Jogo_item> partidas = constroiLista(partida);
                                         mAdapter = new JogoAdapter(getActivity(), partidas);
 
@@ -117,8 +119,9 @@ public class jogosLiveFragment extends Fragment {
     }
 
     /**
-     * @param partida
-     * @return
+     * Constroi uma lista de Jogo_item atraves das partidas retornadas na api
+     * @param partida partida da api
+     * @return lista de jogo_item
      */
     public List<Jogo_item> constroiLista(Partida partida) {
         List<Jogo_item> jogos = new ArrayList<>();
